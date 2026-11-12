@@ -2,32 +2,12 @@
 # -*- coding: utf-8 -*-
 """flow/make_submission_package.py -- 生成「对外提交包」到包内的 `submission/`，并自证。
 
-与 flow/make_review_bundle.py 的关系（两条产品、两套规则，各自自证）
-----------------------------------------------------------------
-`make_review_bundle.py` 产的是**给人下载的评审精简包**：它按体积降档，把
-`results/trace/`、`results/backup/`、`tools/`、`demo/` 这些族留在实验机上（正文点名的
-那几条路径在精简包里指不到东西，是它的取舍而不是缺陷，因为它落在包外、随附一份
-「怎么再生」的清单）。
+与 flow/make_review_bundle.py 是两个产品：评审精简包按体积降档、落在包外随附再生清单；
+本脚本产提交目标目录，默认档是「收」，只排除 EXCLUDES 里逐条带理由的几类，凡正文/索引
+点名的包内路径必须指得到、不可再生证据必须随包。两份规则不共用实现（要答两个相反的问题）。
 
-本脚本产的是**提交动作的目标目录**：判据反过来了——凡是正文或索引点名的包内路径，
-必须在提交包里指得到；凡不可再生的证据，必须随包。所以它的默认档是「收」，
-只排除下面 EXCLUDES 里逐条带理由的那几类。两份规则表不共用一份实现是故意的：
-它们要答的是两个相反的问题，合成一张表就会有一边的判据在另一边上永远红。
-两者唯一的共同点是都不留中间件（`flow/check_package_hygiene.py` 那道门管整棵树，
-它对 `submission/` 整层豁免，见那个文件里 NESTED_PACKAGE 的两条实测理由）。
-
-五条会咬的判据（--selftest 逐条注入）
-------------------------------------
- 1 族分母：FAMILIES 里任何一族收到 0 份 = 清单塌了，不许读成干净。
- 2 正文点名可解析：把链条 doc_gate 那一条尺子（`flow/run_all.py: unresolved_paths`）
-   用到提交包上——正文/README/各目录索引里反引号点名的包内路径必须逐个指得到。
- 3 唯一交付结论随包：`results/matrix.json` 必须在，且 `all_green` 与步数一起印。
-   「还没绿」在 `--apply`/plan 里判红，在 `--selftest` 里只印成 SETUP-NOTICE ——
-   因为跑自测的 pair_gates 这一格本来就排在矩阵落盘之前，硬管会死锁。
- 4 逐文件回读：拷完之后每份文件与源逐字节相同（独立重算 sha256，不信任拷贝）。
- 5 排除面自证：EXCLUDES 的每一条必须真的排到东西（排到 0 条 = 那条规则在空转），
-   而 `三方评审/` 这一条的代价必须写在 MANIFEST 里（否则包内跑整表会在 table_shape
-   那一格莫名其妙地红，没人知道为什么）。
+五条判据（--selftest 逐条注入）：1 族分母、2 正文点名可解析、3 唯一交付结论随包、
+4 逐文件回读、5 排除面自证。
 
 用法
     python flow/make_submission_package.py              # 只算清单与体积（dry，不落盘）
@@ -185,10 +165,8 @@ def audit(keep, drop, dest=None, root=None):
         except Exception as exc:
             P.append("VERDICT-UNREADABLE %r" % (exc,))
 
-    # 4) 逐文件回读。这里**不设**提前中断的上限：上限一旦按「已攒了多少条问题」算，
-    #    判据 2 的点名清单会先把配额撑满，于是哈希回读只跑了前 26 个文件就停了，
-    #    而屏幕上仍是一片红字看着像「全查过了」。整包 3221 份哈希两遍是秒级成本，
-    #    少跑一份就是拿交付件的字节当未核。打印侧的截断交给 build() 的 P[:25]。
+    # 4) 逐文件回读。不设"攒够问题就停"的上限 —— 判据 2 的点名清单会先占满配额,
+    #    让哈希回读只跑前 26 个文件就停, 屏幕上却像"全查过了"。打印侧截断交给 P[:25]。
     if dest:
         seen = 0
         for rel, full, _w in keep:
@@ -295,9 +273,8 @@ def write_manifest(keep, drop, stats):
 
 def build(apply):
     keep, drop = plan()
-    # One census BEFORE anything is deleted. audit() re-stats every path in `drop`,
-    # and after rmtree(DEST) the previous package's files named there no longer exist
-    # -- that is what crashed the first --apply inside os.path.getsize.
+    # 先做一次 census 再删任何东西: audit() 会重新 stat `drop` 里的每个路径,
+    # rmtree(DEST) 之后上一轮包里那些文件已不存在 —— 第一次 --apply 就在 getsize 崩在这。
     P0, pre = audit(keep, drop, None)
     if not apply:
         for x in P0[:25]:
@@ -319,8 +296,7 @@ def build(apply):
                                 # 「生成物不比源旧」比的就是时间先后，用 copyfile 全打成
                                 # 「现在」会按字母序把 .md 排在 .docx 之后，那一格当场判红
     n = write_manifest(keep, drop, pre)
-    # Re-plan after the copy: this run wrote MANIFEST into submission/, and the stale
-    # `drop` list would point at files that no longer exist.
+    # 拷贝后重算 plan: 本趟把 MANIFEST 写进了 submission/, 旧的 drop 清单指向已不存在的文件。
     keep2, drop2 = plan()
     P, st = audit(keep2, drop2, DEST)
     if [x[0] for x in keep2] != [x[0] for x in keep]:

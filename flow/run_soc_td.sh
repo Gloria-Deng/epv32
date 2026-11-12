@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 # 跑交付顶层 epv32_soc 的两条 TD 臂（综合档 + 布线档）。
-# 与 flow/run_td_refresh.sh 分开，是因为那个驱动按 pnr_archive.ARMS 展开作业清单，
-# 而 SoC 档故意不进那份清单：它只补"SoC 顶层的布线后读数"这一个缺口，
-# 不许移动 summary2.json 里任何现有键（那些键被正文锚点钉着）。
+# 与 flow/run_td_refresh.sh 分开：那个驱动按 pnr_archive.ARMS 展开作业清单，SoC 档故意不进，
+# 只补"SoC 顶层的布线后读数"缺口，不动 summary2.json 现有键（被正文锚点钉着）。
 #
-# 判读纪律与主驱动一致：run.exe 在写完报告后会 SIGSEGV（rc=139），
-# 所以退出码**不是**证据；证据是 log 里的 MARK-*-OK 行与 ARTIFACT-*-SIZE 行，
-# 由 tools/soc_pnr_archive.py 去核。
+# 退出码不是证据：run.exe 写完报告会 SIGSEGV（rc=139）；证据是 log 里 MARK-*-OK / ARTIFACT-*-SIZE 行，由 tools/soc_pnr_archive.py 核。
 set -u
 export PYTHONDONTWRITEBYTECODE=1
 

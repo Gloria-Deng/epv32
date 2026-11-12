@@ -1,15 +1,9 @@
 // ============================================================================
-//  sim_main.cpp  --  Verilator C++ 测试台主程序
+//  sim_main.cpp -- Verilator C++ 测试台主程序: 把 RV32IM(+EPV) 镜像后门装载进
+//  SoC 主存, 跑到 tohost / SYSC commit / 周期上限, 把退休轨迹、UART 字节流与
+//  统计结果落盘, 供 Python 侧与黄金 ISS 逐条比对。
 //
-//  作用: 把编译好的 RV32IM(+EPV) 镜像后门装载进 SoC 主存, 复位释放后跑到
-//        tohost 非零 / SYSC commit / 周期上限为止, 并把
-//          * 逐条退休轨迹 (pc, rd, wdata) 与总线写轨迹
-//          * UART 发送字节流
-//          * 总周期数 / 退休指令数 / 最终通用寄存器组
-//        落到文件, 供 Python 侧与黄金 ISS 逐条比对。
-//
-//  参数走环境变量而不是 plusarg: Verilator 的 plusarg 只识别 +verilator+ 前缀,
-//  自己解析容易出静默的「参数没进去」。环境变量在本机最好验证。
+//  参数走环境变量而非 plusarg: plusarg 只识别 +verilator+ 前缀, 自己解析易静默失败。
 // ============================================================================
 #include <cstdio>
 #include <cstdlib>
@@ -75,7 +69,7 @@ int main(int argc, char** argv) {
 
   Vepv32_soc* top = new Vepv32_soc;
 
-  // ---- 可选 VCD: 分派为什么没起来, 读代码推不动时直接看波形 ----
+  // ---- 可选 VCD 波形: 调试卡住时直接看波形 ----
   VerilatedVcdC* tfp = nullptr;
   if (envu("EPV_WAVE", 0)) {
     Verilated::traceEverOn(true);
@@ -200,10 +194,8 @@ int main(int argc, char** argv) {
     std::fprintf(stderr, "[tb] uart=%s\n", uart.c_str());
   }
 #if VM_COVERAGE
-  // 覆盖率计数只有在模型自己调用 write() 时才会落盘 —— 带 --coverage 重编而
-  // 不写这一句, 结果是「构建成功、跑完了、盘上一个 .dat 都没有」, 而所有
-  // 退出码仍然是 0。只有 --coverage 那一臂会走到这里 (认证臂 VM_COVERAGE=0,
-  // 整块被预处理器摘掉, 所以认证二进制的内容不因本块而变)。
+  // 覆盖率计数只有在模型自己调用 write() 时才落盘: 带 --coverage 重编却不写这句,
+  // 会「构建成功、跑完但盘上一个 .dat 都没有」且退出码仍为 0。
   {
     const std::string cov = envs("EPV_COV", "");
     if (!cov.empty()) {

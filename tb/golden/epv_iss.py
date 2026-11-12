@@ -4,17 +4,10 @@
 #  epv_iss.py -- GOLDEN REFERENCE INSTRUCTION-SET SIMULATOR for the EPV32 core
 #
 #  WHAT THIS IS
-#    A dependency-free (Python 3.11 stdlib only) commit-level instruction
-#    simulator for rtl/epv32_soc.v + rtl/epv32_core.v (RV32IM + Zicsr +
-#    machine mode) plus the custom EPV ("Embedded Packed-Vector") extension
-#    carried on the CUSTOM0 / CUSTOM1 opcodes.
-#
-#    IT IS THE GOLDEN MODEL used to cross-check the Verilog RTL.  The
-#    comparison harness builds a commit trace out of step() and expects it to
-#    line up 1:1 with the hardware retire trace (the o_tr_* ports of
-#    epv32_core.v).  Therefore ONE step() == ONE RETIRED INSTRUCTION: there are
-#    no internal micro-steps.  Pipeline stalls, the 32-beat divider and the
-#    4-beat EPV LVB/SVB sequencer all collapse into a single commit.
+#    纯标准库 (Python 3.11) 的提交级指令模拟器, 覆盖 rtl/epv32_soc.v +
+#    rtl/epv32_core.v (RV32IM + Zicsr + machine mode) 与自定义 EPV 扩展
+#    (CUSTOM0/CUSTOM1)。它是核对 RTL 的黄金模型: 一次 step() == 一条退休指令,
+#    与 o_tr_* 退休轨迹 1:1 对齐; 流水线停顿、32 拍除法器、4 拍 LVB/SVB 都折进单次提交。
 #
 #  SOURCE OF TRUTH (read these before changing anything in here)
 #    rtl/epv32_defs.vh   opcodes / EPV encoding / memory map / exception codes
@@ -1334,9 +1327,7 @@ class ISS(object):
                 val = (g | (g << 32) | (g << 64) | (g << 96)) & MASK128
                 wv = True
             elif d.f3 == EPV_F3_XMV:
-                # quirk 11: the vector number is the rs2 field (epv32_hw.h
-                # epv_xmv puts vs2 in [24:20] and x0 in rs1); an earlier RTL
-                # line read s1 and this model used to mirror that.
+                # quirk 11: 向量号在 rs2 字段 (epv32_hw.h 把 vs2 放 [24:20]、rs1 放 x0).
                 xwr, xres = True, u32(s2)      # s2 = vrf[rs2f[2:0]]
             elif d.f3 == EPV_F3_CFGR:
                 xwr, xres = True, self.vcfg
@@ -1442,12 +1433,8 @@ class ISS(object):
                 vectored = (self.mtvec & 3) == 1
             target = u32(base + 4 * (cause & 0x1F)) if vectored else base
         else:
-            # quirk 4 (updated): epv32_core.v takes csr_mtvec_base for every
-            # exception (`trap_target = irq_now ? csr_irq_target :
-            # csr_mtvec_base`), i.e. the RAW mtvec with its low two mode bits
-            # MASKED OFF.  An older core line selected o_mtvec verbatim and
-            # this model mirrored that; a vectored-mode mtvec | 1 would have
-            # sent exceptions to an instruction-misaligned address.
+            # quirk 4: 异常入口用 csr_mtvec_base, 低两位 MODE 被清零
+            # (trap_target = irq_now ? csr_irq_target : csr_mtvec_base).
             target = u32(self.mtvec & 0xFFFF_FFFC)
         self.pc = target
         sr.trap = Trap(cause, is_irq, tval, sr.pc, target)

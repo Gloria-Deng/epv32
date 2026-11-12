@@ -97,9 +97,8 @@ def check(report_path, official_path):
             continue
         body = by_name[name]
         c, ns = cjk_count(body), nonspace_count(body)
-        # 注意: 这里不能写 `lo, hi, ok = None, limit, c <= hi` —— 元组赋值右边
-        # 先整体求值, `c <= hi` 读到的是**上一节**留下的 hi(实测: 515<=1000 却判
-        # 出档, 因为上一节的 hi 是 260)。三步分开写。
+        # 这里不能写 `lo, hi, ok = None, limit, c <= hi`: 元组赋值右边先整体求值,
+        # `c <= hi` 会读到上一节的 hi (实测 515<=1000 却因上节 hi=260 误判出档)。故三步分开写。
         if kind == u"以内":
             lo = None
             hi = limit
@@ -186,9 +185,8 @@ def selftest():
         last = base_rows[-1]["section"]
 
         # 0) 两端点: 合成一份"只有两节"的文档, 恰好等于上限必须 OK, 多一个字必须红。
-        #    (真实文档上做不到定点 —— 节里有表格和代码; 而元组赋值这类 bug 只有在
-        #     端点上才会露出来: 上一版 `lo, hi, ok = None, limit, c <= hi` 让
-        #     515/1000 判出档, 在真实文档上看着却像"第五节确实超了"。)
+        #    (元组赋值这类 bug 只有在端点上才会露出来: 上一版让 515/1000 判出档,
+        #     在真实文档上却像"第五节确实超了"。)
         for delta, want_ok in ((0, True), (1, False), (-1, True)):
             r, o = fresh("endpoint%+d" % delta)
             LIM = 20
@@ -224,9 +222,8 @@ def selftest():
         expect("over-limit", r, o, last)
 
         # 1b) 同样一批字灌进**余量最大**的那节: 门不许误伤别的小节。
-        # 灌多少不能写死成 600 —— 那等于假设「总有一节还留着 600 字余量」, 而正文
-        # 按官方上限把预算填满之后这个前提就不成立了(夹具过期, 不是内容违规)。
-        # 取 min(600, 最大余量), 并把实际灌入量一起报出来; 一节余量都没有时判红而不是跳过。
+        # 灌多少不能写死成 600, 因为正文按官方上限填满后可能没剩 600 字余量 (夹具过期, 非内容违规)。
+        # 取 min(600, 最大余量) 并报出实际灌入量; 一节余量都没有时判红而非跳过。
         room = max(base_rows, key=lambda x: x["limit"] - x["han_chars"])["section"]
         head = max(x["limit"] - x["han_chars"] for x in base_rows)
         if head < 1:
@@ -275,8 +272,8 @@ def selftest():
         expect("unknown-section", r, o, u"不在提纲里")
 
         # 4) 原文把上限收到"该节当前字数 - 1" -> 本门必须跟着收紧并判出档。
-        #    (原来写的是 limit-1: 该节当时正好 2000 字所以恰好也红, 那是巧合 ——
-        #     正文一修剪到 1998, 同一注入就变成"收紧到 1999 而 1998 字仍判 OK"。)
+        #    (原来写 limit-1 恰好也红只是巧合: 该节当时 2000 字; 正文修剪到 1998
+        #     后, 收紧到 1999 而 1998 字仍判 OK。)
         r, o = fresh("tighter")
         han = base_rows[-1]["han_chars"]
         lim = base_rows[-1]["limit"]

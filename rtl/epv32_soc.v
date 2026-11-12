@@ -288,10 +288,9 @@ module epv32_soc #(
   wire [31:0] uart_rdata, timer_rdata, sysc_rdata;
   wire        irq_timer;
 
-  // o_tx_busy 有意不引出: 交付顶层的 UART 忙状态在本设计里没有消费者
-  // (SoC 只在裸机用例里靠轮询 UART 数据寄存器工作), 而把它做成顶层端口会给
-  // 一个已经 537 I/O > 188 用户 IO 的顶层再加一根针。因此这里显式留空并就地
-  // 关掉这一条 lint 判据 —— 而不是让 README 那句"lint 通过"含糊带过。
+  // o_tx_busy 有意不引出: 交付顶层没有消费者 (裸机用例靠轮询 UART 数据寄存器),
+  // 且会给已经 537 I/O > 188 用户 IO 的顶层再加一根针。故显式留空并就地关掉
+  // 这条 lint 判据。
   /* verilator lint_off PINCONNECTEMPTY */
   epv32_uart u_uart (.clk(clk), .rst_n(rst_n),
     .en(d_en && dec_uart), .we(d_we), .off(dec_off),

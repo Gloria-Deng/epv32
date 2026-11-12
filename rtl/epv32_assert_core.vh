@@ -1,18 +1,13 @@
 // ============================================================================
-//  epv32_assert_core.vh -- 核的结构性不变量, 「可机器开火」的那一版
+//  epv32_assert_core.vh -- 核的结构性不变量
 //
-//  为什么要有这份文件: 这些规则此前只写在 epv32_core.v 的注释里 (M2「ex_stall
-//  冻结 PC 与前端」、M4「重定向一律排除在 ex_stall 期内」)。注释不是门禁 ——
-//  下一版改动把这条性质弄丢时, 没有任何东西会响, 只能靠官方套件恰好踩到才现形。
-//  本文件把已经写进注释的结构不变量变成前仿期间就会开火的检查。
+//  为什么: 这些规则此前只写在 epv32_core.v 的注释里 (M2「ex_stall 冻结 PC 与
+//  前端」、M4「重定向一律排除在 ex_stall 期内」), 注释不是门禁, 性质丢了不会响。
+//  本文件把注释里的结构不变量变成前仿期间就会开火的检查。
 //
-//  装载方式 (三条都必须成立, 少一条就是「写了但没人跑」):
-//    1) 只在 `DEFV_ASSERTIONS` 下被 epv32_core.v 包含 —— 综合与日常两档 lint
-//       根本看不到本文件, 所以面积/周期读数与本文件无关 (这是可核的: 不定义该
-//       宏重跑 lint, 判据逐位不变);
-//    2) flow/build_sim.sh ASSERT=1 那一臂带 -DEFV_ASSERTIONS;
-//    3) flow/assert_selfcheck.py 把「每条检查真的会红」做成注入证明 —— 一条从不
-//       开火的断言与一条不存在的断言在报告里长得一样。
+//  装载方式 (三条缺一即「写了但没人跑」): 只在 `DEFV_ASSERTIONS` 下被 epv32_core.v
+//  包含 (综合与日常 lint 看不到本文件); flow/build_sim.sh ASSERT=1 一臂带
+//  -DEFV_ASSERTIONS; flow/assert_selfcheck.py 用注入证明「每条检查真的会红」。
 //
 //  判决形状: 每条失败打一行 `EPVASSERT FAIL <tag> t=<time>`, 末了由
 //  `EPVASSERT CORE_ARMED n=<检查条数>` 证明这段代码真进了方程 (没有 heartbeat
@@ -42,9 +37,9 @@
   always @(posedge clk) begin
     if (rst_n) begin
       // A1 陷入源唯一: 同一拍至多一个重定向来源。
-      //   四条 assign (537/538/543/544) 都互斥地排除了彼此, 但那是四条独立的
-      //   文字; 少写一个 !trap_fire 就会有两个来源同拍有效, 而 trap_target 的
-      //   优先级 mux 会静默挑一个 —— 官方用例不一定踩得到。
+      //   四条 assign 只是互斥的独立文字, 少写一个 !trap_fire 就会有两个来源
+      //   同拍有效, 而 trap_target 的优先级 mux 会静默挑一个 —— 官方用例不一定
+      //   踩得到。
       if ({trap_fire, mret_go, branch_take, jump_take}
           === 4'b0000 || ({trap_fire, mret_go, branch_take, jump_take}
           === 4'b0001 || {trap_fire, mret_go, branch_take, jump_take}

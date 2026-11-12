@@ -304,10 +304,8 @@ def _finish(fig, path, title, strict=False):
                              "(%.1f..%.1f, %.1f..%.1f) —— 标题或图注会被裁掉"
                              % (path, tb.x0, tb.x1, tb.y0, tb.y1,
                                 bb.x0, bb.x1, bb.y0, bb.y1))
-    # 那条像素比英寸的判据是**结构性失明**的 (见 _inside_inches 的说明): 它只挡得住
-    # 越出 ~1 英寸以上的 gross 裁剪, 所以旧的六张图从来没有被真正量过。这里把严格量
-    # 无条件接上 —— 「只给新增的两张开」等于把六张已交付的图继续留在无人测量状态,
-    # 而 fig_f 一开就报出左右各 0.22/0.87 英寸的真实裁剪。
+    # 上面的像素判据结构性失明 (见 _inside_inches): 只挡得住 ~1 英寸以上的 gross
+    # 裁剪, 故严格量须无条件接到全部八张 (fig_f 一开就报出左右各 0.22/0.87 英寸)。
     _inside_inches(tb, fig, path)
     fig.savefig(path, dpi=150, metadata=PNG_META)
     plt.close(fig)
@@ -339,8 +337,7 @@ def fig_ops():
     axes[0].set_xticklabels(names)
     axes[0].set_title("3x3x16->4 INT8 conv, %s MACs" %
                       num(b["macs"], "results/bench/nn_bench.json"), pad=8)
-    # Keep the legend in a dedicated band above the axes; placing it inside
-    # the plot covered the tall baseline bars and their value labels.
+    # 图例放轴上方独立带: 放图内会盖住高的基线柱及其读数标签。
     axes[0].legend(fontsize=8, loc="lower right", bbox_to_anchor=(1.0, 1.12),
                    borderaxespad=0.0, framealpha=0.92)
     names2 = ["cycles / MAC", "CPI"]
@@ -412,8 +409,7 @@ def fig_device():
         ax.text(1, e * 1.02, num(e, "results/pnr/summary2.json"), ha="center", fontsize=8)
     axes[2].set_ylim(0, PNR["device_capacity_from_report_area"]["dsp"] * 1.3)
     axes[2].axhline(PNR["device_capacity_from_report_area"]["dsp"], ls="--", lw=1)
-    # 注释放在线上方偏左: 第一版写在右端, 与 EPV 那根柱子的读数「28」叠在一起,
-    # 图照样出得来 —— 所以这是一条要靠看画面才发现得了的毛病。
+    # 注释放线上方偏左: 放右端会与 EPV 柱读数重叠, 而 savefig 一路绿。
     axes[2].text(0.0, PNR["device_capacity_from_report_area"]["dsp"] * 1.04,
                  "die limit", fontsize=7, ha="left")
     fig.suptitle("(c) Anlogic EG4S20 resources: net increase %s LUT / %s FF / "
@@ -453,8 +449,7 @@ def fig_waterfall():
     ax.set_xticklabels(["%.2fx cycle speedup\n(ideal 1-cycle memory)" % cyc,
                         "%.2fx net wall-clock\n(at routed Fmax)" % net], fontsize=8)
     ax.set_ylabel("speedup (x)")
-    # 标题里**不许手写** 15.73 这种数: 手抄的那份会跟归档漂, 而这条正是评审
-    # 给 ④ 档记的第二号问题。数值从归档现取再印回标题。
+    # 标题里的数**不许手写**: 手抄会跟归档漂 (评审给 ④ 档记的第二号问题)。
     ax.set_title("(d) where the %sx cycle gain goes: routed-Fmax cost, "
                  "leaving %sx net wall clock" %
                  (num("%.2f" % cyc, "results/bench/nn_bench.json"),
@@ -486,21 +481,17 @@ def fig_compliance():
         ax.text(p + 0.4, i + 0.18, num("%d / %d" % (p, n),
                     "results/compliance/%s.json" % ui), va="center", fontsize=8)
         if ui in isco:
-            # Keep the long trace-agreement sentence outside the bars.  The
-            # former centered placement ran through the colored bars and
-            # made the numbers unreadable.
+            # 轨迹一致那句放柱外: 原先居中会压过色柱, 数字看不清。
             ax.text(n + 0.8, i, "golden-ISS trace identical: %s of %s" %
                     (num(isco[ui], "results/isco/%s.json" % ui),
                      num(n, "results/isco/%s.json" % ui)),
                     fontsize=7, color="0.35", va="center", ha="left")
     ax.set_yticks(list(y))
     ax.set_yticklabels([r[0] for r in rows])
-    # Reserve a right-hand text column for the trace-agreement annotations.
+    # 右侧留一列给轨迹一致的注记。
     ax.set_xlim(0, max(r[2] for r in rows) + 24)
     ax.set_xlabel("official riscv-tests cases")
-    # Put the key in a dedicated band above the axes.  The trace-agreement
-    # labels occupy the bars themselves, so every in-axes corner can overlap
-    # data on one of the three rows.
+    # 图例放轴上方独立带: 轨迹一致标签占在柱体上, 轴内任一角落都会压到数据。
     ax.set_title("(e) compliance and golden-ISS trace agreement", pad=28)
     ax.legend(fontsize=8, loc="lower right", bbox_to_anchor=(1.0, 1.02),
               borderaxespad=0.0, framealpha=0.92, ncol=2)
@@ -695,9 +686,7 @@ def fig_memcurve():
     ax.annotate("both arms at W=%s: %sx" % (put(ws_d[0], ARC_MEM),
                 put(pes_d[0], ARC_MEM)), xy=(wp[0], y_d[0]),
                 textcoords="offset points", xytext=(12, 4), ha="left", fontsize=7.5)
-    # The curves and their point labels fill the plotting area, so keep the
-    # legend above the axes instead of over the data.  Extra title padding
-    # leaves a separate band for the legend after tight_layout().
+    # 曲线与点标签已铺满绘图区, 图例放轴上方而非压数据; 标题加 padding 给它留带。
     ax.legend(fontsize=7.5, loc="lower center", bbox_to_anchor=(0.5, 1.03),
               ncol=2, borderaxespad=0.0, framealpha=0.92)
     ax.set_title("(h) memory penalty: %sx at W=%s drops to %sx at W=%s on data-only "
@@ -826,10 +815,7 @@ def check():
     tmp2 = tempfile.mkdtemp(prefix="figchk2_")
     try:
         build(out_dir=tmp, write_registry=False, quiet=True)
-        # 第二发不是多余的：「盘上图 != 重画的那份」有两种成因，红因指错地方会让人
-        # 去改生成器（其实图过期了）或者去重画图（其实生成器不确定）。本轮实测就是
-        # 前者 —— TD 换代之后 fig_c/fig_d 属于旧归档，而旧文案把这一格一律报成
-        # 「图里藏了时间戳」。所以先把「重画两次是否逐字节相同」量出来再判。
+        # 重画两次用来区分「图过期了」与「生成器不确定」两种成因, 免得红因指错方向。
         build(out_dir=tmp2, write_registry=False, quiet=True)
         for row in reg["figures"]:
             a = os.path.join(FIG_DIR, row["file"])
@@ -1036,9 +1022,8 @@ def selftest():
                    with_note(lambda *p: u"数据来源 " + u" + ".join(p)))
         must_raise("label_clipped_off_canvas", "fig_h_mem_penalty_curve.png",
                    with_note(lambda *p: "Source: " + "x" * 400))
-        # 越界不到 1 英寸的那一档: 旧的松判据按像素比英寸 (920 vs 9.2), 看不见;
-        # 严格判据必须看见。这里用合成包围盒做 A/B —— 真实标注的宽度依赖字形,
-        # 拿它当阈值夹具会有一天悄悄不越界。
+        # 松判据按像素比英寸 (920 vs 9.2) 看不见 <1 英寸的越界; 用合成包围盒做 A/B,
+        # 不用真实标注 (其宽度依赖字形, 当阈值夹具会悄悄不越界)。
         def strict_case(x0, y0, x1, y1):
             f, _a = plt.subplots(figsize=(9.2, 3.9))
             try:

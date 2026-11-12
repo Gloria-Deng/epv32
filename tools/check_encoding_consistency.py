@@ -175,8 +175,7 @@ def main():
     iss = parse_iss_table(iss_p)
     words = assembled_words(write_probe(rtl))
 
-    # ---- 注入必须发生在所有比较**之前**。原先这一段放在 bad/missing 算完之后,
-    # 于是 --selftest 永远「期望报红却没有」—— 它抓到的是本门自己的时序 bug。
+    # ---- 注入必须在所有比较之前 (放到 bad/missing 之后会让 --selftest 期望报红却没有)。
     if mutate:
         victim = min(rtl, key=lambda k: (rtl[k][1] or 99, k))
         old = rtl[victim][1]

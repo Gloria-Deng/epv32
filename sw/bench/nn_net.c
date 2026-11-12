@@ -39,14 +39,10 @@
 #define ACT2  (H2 * W2 * COUT)
 
 static int8_t  act0[ACT0] __attribute__((aligned(4)));
-/* 每层两份实现各留自己的缓冲; 比对在层与层之间做。
- * SVB 一次写满 16 字节，而 conv 的主循环按 4 个一组（g*4）步进、FC 只有
- * NCLS=4 个 logits：最后一组会越出逻辑长度最多 12 字节。这是台账第 22 条
- * 在 nn_cifar 上踩过的同一个坑，当时只修了那一个用例；这里按同一条纪律把
- * 每一层的输出缓冲都改成带编译期断言的声明（比对仍只取前 N 个字节，宽精度
- * 侧走 int32 的 lg_wid，不经 SVB）。
- * 原来这里还有一对 lg_ref/lg_epv: 全文再无引用, 是 logits 改回用 lr/le 之后
- * 留下的死缓冲 —— -Wall 报 'defined but not used' 把它指了出来, 本轮删掉。 */
+/* 每层两份实现各留缓冲, 比对在层与层之间做。
+ * SVB 一次写满 16 字节, 而 conv 主循环按 4 个一组(g*4)步进、FC 只有 NCLS=4
+ * 个 logits: 尾组最多越出 12 字节, 故输出缓冲声明为带编译期断言的
+ * EPV_SVB_BUF(比对仍只取前 N 字节, 宽精度走 int32 的 lg_wid 不经 SVB)。 */
 EPV_SVB_BUF(l1_ref, ACT1) EPV_SVB_BUF(l1_epv, ACT1)
 EPV_SVB_BUF(l2_ref, ACT2) EPV_SVB_BUF(l2_epv, ACT2)
 EPV_SVB_BUF(pl_ref, CIN)  EPV_SVB_BUF(pl_epv, CIN)
@@ -233,10 +229,8 @@ static void conv_epv_layer(const int8_t *in, int iw, const int8_t (*wg)[9 * CIN]
         epv_lvb(5, 0, (uint32_t)(uintptr_t)acc_stage);
         epv_lvb(6, 0, (uint32_t)(uintptr_t)mult_stage);
         epv_vreq4(7, 5, 6);
-        /* ReLU 必须显式做: 基线那一侧是 relu8(requant(...)), 这里要在同一侧
-         * (重量化之后、写回之前) 走 VRELU8。第一版漏了这一步, 于是 EPV 侧留着
-         * 负数, 基线侧全被夹成 0 —— 报出来的差异形状是「ref=0, epv<0」,
-         * 一眼能看出是激活函数少了一环而不是点积算错。 */
+        /* ReLU 必须显式做: 基线侧是 relu8(requant(...)), 这里在重量化后、写回前
+         * 走 VRELU8; 漏了会报出「ref=0, epv<0」的差异形状。 */
         epv_vrelu8(7, 7);
         epv_svb(7, 0,
                 (uint32_t)(uintptr_t)(out + ((y * ow + x) * COUT + g * 4)));
@@ -285,8 +279,7 @@ static void cmp_layer(const char *tag, const int8_t *a, const int8_t *b, int n)
   int bad = 0, shown = 0;
   for (int i = 0; i < n; i++) if (a[i] != b[i]) {
     bad++;
-    /* 头几条差异打出来: 差异的**形状** (每 4 条一次? 只在尾巴? 每隔 16?)
-     * 比差异的个数更能指出是哪一层算式不对。 */
+    /* 只打头几条差异: 差异的形状比个数更能指出哪一层算式不对。 */
     if (shown < 6) {
       epv_puts("   @"); epv_putu((uint32_t)i);
       epv_puts(" ref="); epv_puti(a[i]);
@@ -352,11 +345,8 @@ static void fill_weights(void)
 
 int main(void)
 {
-  /* net_epv 末尾那条 SVB 一次写满 16 字节, 而 NCLS=4 —— 原来这两个栈上缓冲
-   * 只有 4 字节, 尾组会越出 12 字节踩到同一帧里的别的槽位。把 EPV 侧换成带
-   * 编译期断言的声明后, 这一处从「靠人看出来」变成「编不过」(台账第 22 条
-   * 的最后一处未收口落点)。基线侧 net_baseline 只做逐字节普通存, 所以 lr
-   * 不需要留白, 断言也就只挂 EPV 那一侧。 */
+  /* net_epv 末尾 SVB 一次写满 16 字节而 NCLS=4, 尾组会越出 12 字节, 故 EPV 侧
+   * logits 缓冲用带编译期断言的 EPV_SVB_BUF。基线侧只逐字节普通存, lr 不需留白。 */
   int8_t lr[NCLS];
   EPV_SVB_BUF(le, NCLS)
 
@@ -370,10 +360,8 @@ int main(void)
     lfsr = 0x12340000u + (uint32_t)s * 7919u;
     for (int i = 0; i < ACT0; i++) act0[i] = rndq();
 
-    /* 整网耗时 = 三层之和, 不再单独套一层计时: 计时宏共用 c0/c1, 内外两层
-     * 一定互相踩 —— 上一版就是这么把 2.17M 拍读成 6171 拍的。改成「总数由
-     * 分层求和导出」, 两件事一次做对: 不会有互相踩读数, 也不可能出现
-     * 「总数与分层之和不相等」这种自相矛盾的归档。 */
+    /* 整网耗时由三层之和导出, 不另套计时: 计时宏共用 c0/c1, 内外两层会互相踩
+     * (上一版就把 2.17M 拍读成 6171 拍)。 */
     net_baseline(act0, lr);
     net_epv(act0, le);
     T_START(); net_wide(act0, lg_wid); T_END(cyc_wid, ins_wid);
@@ -399,8 +387,6 @@ int main(void)
     }
   }
 
-  /* 总数由分层求和导出: 既不会与分层读数自相矛盾, 也就不会出现
-   * 「总数 6171 拍而三层加起来 2.17M 拍」这种同一份归档里自己打自己的数。 */
   cyc_ref = rc_l1 + rc_l2 + rc_tl;
   cyc_epv = ec_l1 + ec_l2 + ec_tl;
 

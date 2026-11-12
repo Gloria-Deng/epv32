@@ -1,16 +1,13 @@
 #!/usr/bin/env python3
-"""为**交付顶层 epv32_soc 本身**建立安路 TD 臂（综合档 + 布局布线档）。
+"""为**交付顶层 epv32_soc** 建立安路 TD 臂（综合档 + 布局布线档）。
 
-为什么要单独一档：此前 results/pnr/ 里所有布线后读数都来自 `rtl/synth_wrappers.v`
-那对**裸核面积档封装**和 `results/pnr/pnr_tops.v` 那个**引脚压缩替身**，
-交付正文 5.5 因此把"交付顶层的布线后资源 / SoC 器件数据"记成未拿到。
-`epv32_soc` 是真正要交给别人的那个顶层（含 UART / 计时器 / SYSC / RAM），
-它的顶层端口位数远小于 188，所以 place 与 route 不需要引脚压缩替身就能跑。
+此前 results/pnr/ 里布线后读数都来自裸核面积档封装与引脚压缩替身, 交付正文 5.5
+因此把「交付顶层布线后资源 / SoC 器件数据」记成未拿到。epv32_soc 是真正要交付的
+顶层 (含 UART / 计时器 / SYSC / RAM), 端口位数远小于 188, place/route 不需引脚压缩替身。
 
-bitgen 不在本档的步骤里：现有归档里没有任何一份 log 给出过 `MARK-100-bitgen-OK`
-（两臂都是 `BIT-8123 unconstrained io` → `MARK-100-bitgen-FAILED`），
-本安装没有可靠的 ADC 约束写法可依据，所以这一档**不宣称出比特流**，
-只取综合与布线后的资源/频率读数。
+bitgen 不在本档: 现有 log 从未给出 MARK-100-bitgen-OK (两臂都 BIT-8123 unconstrained
+io → FAILED), 本安装无可靠 ADC 约束写法, 故不宣称出比特流, 只取综合/布线后的资源、
+频率读数。
 """
 import io
 import os

@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-"""单独跑文档门与后置同源核对, 不碰 results/matrix.json。
-
-矩阵整趟要十几分钟; 这一格只读正文与归档, 秒级就能判「步数文案改没改对」。
-写盘的是 results/tmp_docgate.utf8.log —— 判定不落 stdout(GBK 会吞中文)。
+"""单独跑文档门与后置同源核对，不碰 results/matrix.json（矩阵整趟十几分钟，这里只读正文/归档，秒级判文案）。
+判定写 results/tmp_docgate.utf8.log 而非 stdout（GBK 会吞中文）。
 """
 import io, os, sys, traceback, json
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

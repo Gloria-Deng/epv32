@@ -137,11 +137,9 @@ def problems(a):
                  % (a.get("argmax_ref_vs_py"), a.get("nsamp")))
     if a.get("verdict") != "PASS":
         p.append("运行判定不是 PASS: %r" % a.get("verdict"))
-    # 这条不变式是抓出真 bug 的那只手: 上一版 nn_cifar.c 里 epv_svb 最后一组越界,
-    # 踩坏了紧随其后的计时静态量, EPV_INST 读出 509,188,055 > 本次运行退休总数
-    # 40,645,880 —— 物理上不可能, 在这里被拦住(台账第 22 条; 我一度把它误诊成
-    # "minstret 不可采信", 那个假说被自己的复跑否证: 修越界后 EPV_INST=1,434,528,
-    # 而两侧周期逐位不变)。修好之后它继续挡同类越界。
+    # 此不变式抓过真 bug: 上一版 epv_svb 最后一组越界踩坏计时静态量,
+    # EPV_INST=509,188,055 > 退休总数 40,645,880(物理不可能, 台账第 22 条);
+    # 修越界后 EPV_INST=1,434,528, 此检查继续挡同类越界。
     if a.get("epv_instret") is not None and a.get("total_retired") is not None \
             and a["epv_instret"] > a["total_retired"]:
         p.append("EPV_INST %r 大于本次运行的退休总数 %r: 读数不可能, 先怀疑用例"
@@ -200,9 +198,8 @@ def build():
         "ref_instret": kv["REF_INST"], "epv_instret": kv["EPV_INST"],
         "speedup_x1000": kv["SPEEDUP_X1000"],
         "speedup": round(kv["SPEEDUP_X1000"] / 1000.0, 3),
-        # CPI 与指令数比在上一版曾被我用一个错误的诊断撤下(真因是用例越界踩坏静态量,
-        # 不是 minstret 不可信, 见台账第 22 条)。这里把它们放回来, 但要求读数自洽:
-        # epv_instret > total_retired 或 >= ref_instret 都会让门禁红。
+        # CPI 与指令数比曾被误诊撤下(真因是越界踩坏静态量, 非 minstret 不可信,
+        # 台账第 22 条); 现放回但要求自洽: epv_instret > total_retired 或 >= ref_instret 即红。
         "inst_ratio_x1000": round(kv["REF_INST"] * 1000.0 / kv["EPV_INST"]),
         "epv_cpi": round(kv["EPV_CYC"] / float(kv["EPV_INST"]), 3),
         "ref_cpi": round(kv["REF_CYC"] / float(kv["REF_INST"]), 3),

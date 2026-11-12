@@ -65,10 +65,9 @@ def main():
            "synth/summary.json": os.path.join("results", "synth", "summary.json"),
            "iss_selftest.json": os.path.join("results", "iss", "selftest.json")}
 
-    # 「这一份归档跟改前一样」只有在**它确实是新 RTL 跑出来的**时候才是证据。
-    # 否则一个从没复跑的归档会给出一个漂亮的 SAME —— 那正是本包被抓住过多次的
-    # 「门把没跑当成跑过」。所以先算 rtl/ 里最新的 mtime, 比它老的归档判 STALE
-    # 并非零退出, 不许它进 SAME 计数。
+    # 「归档跟改前一样」只有在它确实是新 RTL 跑出来的才算证据；从没复跑的归档
+    # 会给出漂亮 SAME（本包曾被「门把没跑当成跑过」抓住多次）。故比 rtl/ 最新
+    # mtime 更老的归档判 STALE，非零退出、不进 SAME 计数。
     rtl_newest = 0.0
     for fn in os.listdir("rtl"):
         if fn.endswith((".v", ".vh")):

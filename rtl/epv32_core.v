@@ -65,12 +65,9 @@ module epv32_core #(
   function addr_ok;
     input [31:0] a;
     begin
-      /* 这里只回答「这个地址在不在地址图上」。
-       * 之前还额外要求 a[1:0]==0, 那是「总线按字索引」的实现约束, 不是架构
-       * 规则: 子字访存 (lb/lbu/lh/lhu/sb/sh) 的地址天然可以落在字内任意字节,
-       * 由字节通道掩码(m_be64)与 ld_ext() 处理。混进来的后果是 rv32ui 的 8 个
-       * 子字访存用例全部以 cause=5 (load access fault) 陷入, 而 lw/sw 反而能过。
-       * 真正的对齐检查在 misaligned 那条独立判据里。 */
+      /* addr_ok 只回答「地址在不在地址图上」, 不做对齐检查 —— 对齐不是架构规则:
+       * 子字访存天然可落在字内任意字节, 由字节通道掩码 m_be64 与 ld_ext() 处理。
+       * 曾额外要求 a[1:0]==0, 使 rv32ui 的 8 个子字访存用例全部 cause=5 陷入。 */
       addr_ok = ( (a >= `ADDR_RAM_BASE   && a <= `ADDR_RAM_LAST)   ||
           (a >= `ADDR_UART_BASE  && a <= `ADDR_UART_LAST)  ||
           (a >= `ADDR_TIMER_BASE && a <= `ADDR_TIMER_LAST) ||
@@ -79,10 +76,8 @@ module epv32_core #(
   endfunction
 
   /* be_of() 已删除: M6 之后字节通道由 64bit 窗口掩码 m_be64 一处算出, 对齐与
-   * 非对齐共用同一条式子。旧函数里那条教训搬到了 m_widen 的注释上 ——
-   * SH 的地址低两位只能是 00 或 10, 决定选高半字的是 **bit1** 而不是 bit0;
-   * 曾写成 off[0] (对合法 SH 恒为 0), 于是半字写永远落到低半, 实测
-   * rv32ui/sh test_3 读回 0xbeef 而不是 0xaa00。 */
+   * 非对齐共用同一条式子。旧教训搬到 m_widen 注释上 —— SH 决定选高半字的是
+   * **bit1** 而不是 bit0 (bit0 对合法 SH 恒为 0)。 */
 
   function [31:0] ld_ext;
     input [2:0]  f3;
@@ -234,21 +229,15 @@ module epv32_core #(
                 |(opcode==`OP_JALR)|(opcode==`OP_BRANCH)|(opcode==`OP_LOAD)
                 |(opcode==`OP_STORE)|(opcode==`OP_OPIMM)|(opcode==`OP_OP)
                 |(opcode==`OP_FENCE)|(opcode==`OP_SYSTEM);
-  /* M8: OP-IMM 的移位只有 5 位 shamt —— RV32 里 SLLI 要求 inst[31:25]==0,
-   * SRLI/SRAI 要求 inst[31:25] ∈ {0, 0x20}（bit30 是算术/逻辑的选择位, bit25
-   * 也就是 shamt[5] 必须为 0）。
-   * 上一版只核 inst[31:26]（漏掉 bit25），且完全没管 SLLI：官方 rv32mi/shamt
-   * 于是过不去 —— `slli a0,a0,32`（0x02051513, bit25=1）不陷入, tohost=7。
-   * 这条缺口是**黄金模型先发现的**：同一份程序 ISS 在第 59 条退休处就与核分叉
-   * （它按规范判非法指令），归档 results/isco/rv32mi.json。
-   * 更早一版还把「f3==1 即非法」写死, 那会让每条 SLLI 都陷入 —— 判据本身错了
-   * 的时候, 合规套件比人眼可靠。 */
+  /* M8: RV32 里 SLLI 要求 inst[31:25]==0; SRLI/SRAI 要求 inst[31:25] ∈ {0,0x20}
+   * (bit30 是算术/逻辑选择位, bit25=shamt[5] 必须为 0)。上版只核 inst[31:26]
+   * 漏了 bit25, 且没管 SLLI, rv32mi/shamt 的 slli a0,a0,32 不陷入。 */
   wire imm_op_bad = (opcode==`OP_OPIMM) &&
                     ((f3==3'd1 && f7 != 7'h00) ||
                      (f3==3'd5 && f7 != 7'h00 && f7 != 7'h20));
   wire reg_op_bad = (opcode==`OP_OP) && (f7!=7'h00) && (f7!=7'h20) && (f7!=7'h01);
-  /* RV32M 的八个 funct3 全部合法 (MUL/MULH/MULHSU/MULHU/DIV/DIVU/REM/REMU)。
-   * 早先漏了 4 和 5, rv32um/div 直接以 cause=2 非法指令陷入。 */
+  /* RV32M 的八个 funct3 全部合法 (MUL/MULH/MULHSU/MULHU/DIV/DIVU/REM/REMU);
+   * 早先漏了 4 和 5, rv32um/div 以 cause=2 非法指令陷入。 */
   wire m_f3_ok    = 1'b1;   /* f3 是 3bit, 天然 0..7 全覆盖 */
   wire muldiv_bad = (opcode==`OP_OP) && (f7==7'h01) && !m_f3_ok;
   wire sys_bad    = (opcode==`OP_SYSTEM) && (f3==3'd0) &&
@@ -260,10 +249,8 @@ module epv32_core #(
   wire br_f3_bad  = (opcode==`OP_BRANCH) && (f3==3'd2 || f3==3'd3);
   wire ld_f3_bad  = (opcode==`OP_LOAD) && (f3==3'd3 || f3==3'd6);
   wire st_f3_bad  = (opcode==`OP_STORE) && (f3>3'd2);
-  /* 只有 JALR 的 [14:12] 是真 funct3。LUI / AUIPC / JAL 那三位属于立即数:
-   * 例: auipc t5,0x1000 = 0x00001f17, 其 [14:12] = 1 是 imm[14:12] 而不是
-   * funct3 —— 按 JALR 的规矩校验会把任何 imm[14:12]!=0 的 LUI/AUIPC/JAL
-   * 全判成非法指令 (实测 rv32ui 卡在 0x8000003c 的 auipc 上)。 */
+  /* 只有 JALR 的 [14:12] 是真 funct3: LUI/AUIPC/JAL 那三位属于立即数。按 JALR
+   * 的规矩校验会把任何 imm[14:12]!=0 的这三条全判非法 (实测 rv32ui 卡在 auipc)。 */
   wire other_f3_bad = (opcode==`OP_JALR) && (f3 != 3'd0);
   assign illegal_id = (!op_known && !op_custom) || imm_op_bad || reg_op_bad ||
                       muldiv_bad || sys_bad || csr_f3_bad || br_f3_bad ||
@@ -297,11 +284,9 @@ module epv32_core #(
                             d_a_pc=1; d_b_imm=1; d_imm=imm_j; end
         `OP_JALR:   begin d_reg_write=1; d_is_jmp=1; d_wr_pc4=1; d_b_imm=1; d_imm=imm_i; end
         `OP_BRANCH: begin
-          /* 关键: ALU 的两个操作数必须是 rs1 与 rs2 —— 分支比较的是寄存器。
-           * 跳转目标走另一条 pc + imm_b 的加法 (br_target), 不借 ALU 的 b 端。
-           * 早先这里写了 d_b_imm=1, 于是 BEQ 实际算的是 rs1 - imm_b:
-           * 实测让 rv32ui 全部 42 个用例卡死在 reset_vector 的 beqz/jr t5 上
-           * (dbg_mcause=0, dbg_mtval=0, mepc=0x80000028)。 */
+          /* ALU 两操作数必须是 rs1 与 rs2 (分支比较寄存器); 跳转目标走另一条
+           * pc+imm_b 的加法 (br_target), 不借 ALU 的 b 端。早先误写 d_b_imm=1,
+           * BEQ 实际算 rs1-imm_b, rv32ui 全部卡死在 reset_vector 的 beqz/jr。 */
           d_is_br=1; d_b_imm=0; d_imm=imm_b;
           d_alu_op = f3[2] ? (f3[1] ? `ALU_SLTU : `ALU_SLT) : `ALU_SUB;
         end
@@ -471,10 +456,8 @@ module epv32_core #(
    *   1 字节: LB=0, LBU=4, SB=0      -> 无对齐要求
    *   2 字节: LH=1, LHU=5, SH=1      -> 只需 2 字节对齐 (看 addr[0])
    *   4 字节: LW=2, SW=2             -> 需 4 字节对齐 (看 addr[1:0])
-   *     (SW 与 LW 共用 funct3=2, 由读/写区分; 本文件早期注释写成 SW=6,
-   *      那个编码不存在 —— 它曾让 m_widen 选错支, 见 MEM 级同一段注释)
-   * 之前把 LHU(5) 和 LW(2) 划进了同一档, rv32ui/lhu 的
-   * 「lhu a4,2(sp)」直接以 cause=4 陷入; ld_st / st_ld 里也各撞一次。 */
+   * SW 与 LW 共用 funct3=2, **不存在 SW=6 这种编码**。曾把 LHU(5) 与 LW(2) 划进
+   * 同一档, rv32ui/lhu 的 lhu a4,2(sp) 以 cause=4 陷入。 */
   wire ma_half = (idex_f3==3'd1) && mem_addr[0];
   wire ma_word = (idex_f3==3'd2) && (mem_addr[1:0] != 2'b00);
   wire misaligned = (c_ld || c_st) && (ma_half || ma_word);
@@ -501,13 +484,10 @@ module epv32_core #(
   wire fetch_err  = idex_valid && !addr_ok(idex_pc);
   /* 只有分支真的会跳时目标地址才进入控制流; 不跳的分支不该因为目标恰好
    * 落在非法地址而陷入 (此前无条件判, 与规范不符)。 */
-  /* M7: IALIGN=32 的指令地址非对齐检查。jalr 已经把 bit0 按规范清掉了, 所以
-   * 剩下唯一可能越界的位是 bit1 —— 实测(改前)核只判地址图范围, 于是
-   * 「跳到 mis_fn+2」不陷入, 而是按字取回对齐那条指令、同时把 +2 这个地址
-   * 当 PC 参与 auipc 计算, 结果 la a0,mis_flag 算偏 2 字节, 把值写进了
-   * mis_flag+2 (归档 results/sim/misalign_bisect_pre_m7.json 的 uart 行
-   * "C2 flag=11ce0000")。规范要的是 cause 0, 现在就是。
-   * 分支只在真的跳时判 (见上一行注释); JAL 的目标走 jr_err 同一条式子。 */
+  /* M7: IALIGN=32 的指令地址非对齐检查。jalr 已按规范清掉 bit0, 唯一可能越界
+   * 的是 bit1 —— 上版只判地址图范围, 「跳到 mis_fn+2」不陷入, 还把它当 PC 参与
+   * auipc 计算, la 目标算偏 2 字节。规范要的是 cause 0。JAL 目标走 jr_err 同一条
+   * 式子; 分支只在真的跳时判 (见上一行)。 */
   wire br_err     = idex_valid && idex_is_br && cond_take &&
                     (!addr_ok(br_target) || br_target[1]);
   wire jr_err     = idex_valid && idex_is_jmp &&
@@ -557,20 +537,12 @@ module epv32_core #(
   wire [4:0]  irq_cause = i_irq_ext ? `IRQ_M_EXT_NUM
                           : (i_irq_timer ? 5'd7 : 5'd3);
 
-  // M9: 「这一拍 EX 里的 CSR 指令是不是在写 mcycle/minstret (含高位别名)」
-  //      —— 只有这四个地址需要抑制自增; cycle/instret (0xC00/0xC02) 是只读镜像,
-  //      写被 CSR 模块忽略, 因此也不该抑制任何自增。
-  //
-  //      为什么把 minstret 的自增点从 WB 挪到**提交点 (EX)**: 实测
-  //      (results/sim/micro_bisect.json 的 C4, commit=106) 抓到一条真顺序 bug ——
-  //      写入在 EX、自增在 WB, 于是 `csrw minstret,-1` 与 `csrw minstreth,-1`
-  //      之间退休的那条 `li` 会把已经写成 0xFFFF_FFFF 的**低位**先翻成 0
-  //      并把这个进位丢掉 (同一拍里 `minstret[63:32] <= nxt` 覆盖了进位)。
-  //      读到的就是 lo=0(看着像对) 而 hi=0xFFFF_FFFF。改成在提交点计数之后,
-  //      同一条指令的「写」与「自增」在同一拍、且互斥, 两条计数器写之间
-  //      不再可能插进别人的自增。
-  //      口径变化要写进正文: 本核 minstret 数的是「已提交的指令数」,
-  //      读它的那条指令自己不计、它后面更年轻的指令也还没计。
+  // M9: 只有写 mcycle/mcycleh/minstret/minstreth 这四个地址才抑制自增;
+  //      cycle/instret (0xC00/0xC02) 是只读镜像, 写被 CSR 模块忽略, 不抑制自增。
+  //      minstret 的自增点从 WB 挪到**提交点 (EX)**: 写与自增必须在同一拍且互斥,
+  //      否则 `csrw minstret,-1`+`csrw minstreth,-1` 之间退休的 li 会把已写成
+  //      0xFFFF_FFFF 的低位先翻 0 并丢掉进位 (hi 覆盖了进位)。口径: minstret
+  //      数的是「已提交的指令数」, 读它的那条自己不计。
   wire [11:0] csr_addr_ex = idex_inst[31:20];
   wire        csr_cnt_wr  = csr_wr_now &&
       (csr_addr_ex == 12'hB00 || csr_addr_ex == 12'hB80 ||
@@ -650,10 +622,9 @@ module epv32_core #(
   // ================================================================ MEM
   /* ---- M6: 非对齐访问拆成两次对齐访问 ------------------------------------ */
   wire [1:0]  m_off   = exmem_addr[1:0];
-  /* 宽度只看 funct3 的低两位与 LHU 那一档: SW 与 LW 共用 funct3=2, 靠
-   * 读/写信号区分, **没有 funct3=6 这种访存编码** (第一版把 SW 记成 6,
-   * 于是 m_widen 落进「只搬 rs2[7:0]」那一支, sw 非对齐时只写出一个字节,
-   * 实测 ma_data test_48 tohost=97)。 */
+  /* 宽度只看 funct3 低两位与 LHU 那一档: SW 与 LW 共用 funct3=2, **没有 funct3=6
+   * 这种访存编码** (第一版把 SW 记成 6, m_widen 只搬 rs2[7:0], sw 非对齐只写
+   * 一个字节)。 */
   wire [2:0]  m_wb    = (exmem_f3==3'd2)            ? 3'd4
                       : (exmem_f3==3'd1 || exmem_f3==3'd5) ? 3'd2 : 3'd1;
   wire        m_active = exmem_valid && (exmem_mem_read || exmem_mem_write);
@@ -665,10 +636,8 @@ module epv32_core #(
   wire [31:0] m_word1 = m_word0 + 32'd4;
   wire [6:0]  m_sh    = {2'b00, m_off, 3'b000};           // 8*off, 0..24
   wire [6:0]  m_wb8   = {1'b0, m_wb, 3'b000};             // 8*宽度: 8/16/32
-  /* 写侧: 把操作数按字节通道摆进一个 64bit 窗口, 低字/高字各取一半。
-   * 这条式子对**对齐**访问退化得与旧写法逐项相同 (SB off=2 -> wdata=rs2<<16,
-   * be=0100; SH off=2 -> be=1100; SW -> be=1111 且不移位), 所以两档共用一条
-   * 数据通路, 不存在"对齐走老路、非对齐走新路"这种两套真源。 */
+  /* 写侧: 把操作数按字节通道摆进 64bit 窗口, 低字/高字各取一半。式子对**对齐**
+   * 访问退化得与旧写法逐项相同, 所以对齐/非对齐共用一条数据通路。 */
   wire [63:0] m_widen = (exmem_mem_read) ? 64'd0            /* 读侧不用它 */
                       : (exmem_f3==3'd2) ? {32'b0, exmem_rs2}
                       : (exmem_f3==3'd1) ? {48'b0, exmem_rs2[15:0]}
@@ -676,18 +645,15 @@ module epv32_core #(
   wire [63:0] m_val64 = m_widen << m_sh;
   wire [63:0] m_lmask = {64{1'b1}} >> (7'd64 - m_wb8);
   wire [63:0] m_be64  = m_lmask << m_sh;
-  /* m_be64 的「1」站在**位**通道上, 而 o_dmem_be 一位代表一个字节通道 ——
-   * 直接把 m_be64[3:0] 接出去只有 off=0 的访问侥幸正确 (SB@+1 会得到 be=0,
-   * 实测 rv32ui/ma_data test_46 的 sh 写空)。必须按字节归约。 */
+  /* m_be64 的「1」站在**位**通道上, 而 o_dmem_be 一位代表一个字节通道 —— 必须
+   * 按字节归约 (直接接 m_be64[3:0] 只有 off=0 的访问正确, SB@+1 会得到 be=0)。 */
   wire [3:0]  m_be0   = { |m_be64[31:24], |m_be64[23:16],
                           |m_be64[15:8],  |m_be64[7:0]  };
   wire [3:0]  m_be1   = { |m_be64[63:56], |m_be64[55:48],
                           |m_be64[47:40], |m_be64[39:32] };
-  /* 读侧: 一律「把被取对象挪到窗口最低字节, 再按 off=0 扩展」。
-   * 不跨字时高、低两半填同一个字, 于是 SB/LB 在 off=1/3、LH 在 off=1 这些
-   * 「字内非对齐但不跨界」的情形也走同一条式子 —— 旧的 ld_ext(off) 只认
-   * off[1], 半字取的是 d[15:0]/d[31:16], 对 lh @ +1 会读成 0x0100 而不是
-   * 0x0201 (rv32ui/ma_data test_1 实测 tohost=3)。 */
+  /* 读侧: 一律「把被取对象挪到窗口最低字节, 再按 off=0 扩展」, 字内非对齐但不
+   * 跨界的情形也走同一条式子。旧 ld_ext(off) 只认 off[1], lh @ +1 读成 0x0100
+   * 而非 0x0201。 */
   wire [63:0] m_win     = m_cross ? {i_dmem_rdata, mem_x_lo}
                                   : {i_dmem_rdata, i_dmem_rdata};
   wire [63:0] m_shift64 = m_win >> m_sh;

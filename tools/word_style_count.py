@@ -43,8 +43,7 @@ def band_of(entry):
 
 def main():
     src = io.open(W.REPORT, encoding="utf-8").read()
-    # 这份归档里每个 han_chars 都是本函数从同一个 src 算的，所以"归档与工作树不同源"
-    # 唯一可能的成因就是这份文件没随报告重跑。记下报告哈希，让矩阵能判它是不是过期。
+    # 记下报告哈希：归档与工作树不同源即说明这份文件没随报告重跑，可判过期。
     report_sha256 = hashlib.sha256(src.encode("utf-8")).hexdigest()
     # 复用 check_word_limits 那份分节器与那份「从赛题原文解析提纲」的函数 ——
     # 另写一个分节器就是第二份真源, 两处的节边界迟早各漂各的。
@@ -60,10 +59,8 @@ def main():
                     "nonspace_chars": W.nonspace_count(body),
                     "word_style": word_style(body),
                     "limit": outline[name][0],
-                    # 上限必须与汉字口径用**同一条 band 规则**（见
-                    # check_word_limits.py:12：「X 字左右」=> 0.8X..1.3X）。
-                    # 赛题 4.1.2 对摘要写的就是「200 字左右」，若这里仍拿 200
-                    # 当硬上限，同一个官方句子会在两个口径下得出两种判决。
+                    # 上限必须与汉字口径用同一条 band 规则 (check_word_limits.py:12:
+                    # 「X 字左右」=> 0.8X..1.3X)；否则 4.1.2 的「200 字左右」会在两口径得出两种判决。
                     "kind": outline[name][1],
                     "band": band_of(outline[name])})
     # 交叉核对：两个口径的 band 必须逐节相同，否则"两个口径同时达标"是假话。

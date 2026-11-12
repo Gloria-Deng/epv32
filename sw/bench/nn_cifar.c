@@ -35,12 +35,9 @@
 #define L2_N   (CIF_H2 * CIF_W2 * CIF_COUT)
 
 static int8_t act0[ACT0_N] __attribute__((aligned(4)));
-/* SVB 一次写满 16 字节, 而 conv/FC 是按 4 个一组往后写的: 最后一组会越出
- * 逻辑长度最多 12 字节。第一版就因此踩坏了紧随其后的计时静态量, 表现为
- * EPV_INST 读出 509,188,055 > 测试台数的退休总数 40,645,880 —— 一个物理上
- * 不可能的读数, 由 tools/cifar_archive.py 的门禁抓出。所以每个输出缓冲都按
- * 16 字节向上留白, 两臂一起留(比对只取前 N 个字节), 而留白量由 EPV_SVB_BUF
- * 里的 _Static_assert 在编译期钉住。 */
+/* SVB 一次写满 16 字节, 而 conv/FC 按 4 个一组往后写, 末组会越出逻辑长度
+ * 最多 12 字节, 踩坏紧随其后的计时静态量。故每个输出缓冲按 16 字节向上留白,
+ * 两臂一起留(比对只取前 N 字节), 留白量由 EPV_SVB_BUF 的 _Static_assert 编译期钉住。 */
 EPV_SVB_BUF(l1r, L1_N) EPV_SVB_BUF(l1e, L1_N)
 EPV_SVB_BUF(l2r, L2_N) EPV_SVB_BUF(l2e, L2_N)
 EPV_SVB_BUF(pfr, CIF_CIN) EPV_SVB_BUF(pfe, CIF_CIN)
@@ -79,10 +76,9 @@ static int8_t requant(int64_t acc, int32_t m, int s, int8_t rb)
 
 static int8_t relu8(int8_t v) { return v < 0 ? 0 : v; }
 
-/* -nostdlib 下没有 libc: 上面那个图像拷贝循环会被 GCC 收成 memset/memcpy 调用,
- * 链接期才报 undefined reference。补两个最小的自有实现, 而不是往 sw/lib/
- * platform.c 里加符号 —— 那个文件在每一次已认证运行的 build_inputs 里, 动它
- * 会让别的归档全部读成过期, 而这里缺的只是一个字节填充。 */
+/* -nostdlib 下无 libc: 图像拷贝循环会被 GCC 收成 memset/memcpy 调用, 链接期报
+ * undefined reference。故补最小自有实现, 不动 sw/lib/platform.c(它在已认证运行的
+ * build_inputs 里, 动它会让别的归档读成过期)。 */
 void *memset(void *d, int c, unsigned long n)
 {
   unsigned char *p = (unsigned char *)d;

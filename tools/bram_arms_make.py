@@ -1,22 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""results/pnr/bram_template_arms/make_arms.py -- throwaway TD arms that separate the two
-candidate root causes for "delivered top does not pass the backend".
+"""results/pnr/bram_template_arms/make_arms.py -- throwaway TD arms separating two
+candidate root causes for "delivered top does not pass the backend":
+A (template): rtl/epv32_ram.v reads the array combinationally, allegedly outside
+TD's BRAM-inference template.
+B (capacity): main memory is 65536 x 32 bit = 2048 Kbit, but EG4S20BG256 ERAM = 1088 Kbit.
 
-Cause A (template): rtl/epv32_ram.v reads the array combinationally, which is
-allegedly outside TD's BRAM-inference template.
-Cause B (capacity): the delivered main memory is 65536 x 32 bit = 2048 Kbit
-while the EG4S20BG256 device data says ERAM = 1088 Kbit.
+Every arm is a standalone .v, synthesized to EG4S20BG256 with area reports only.
+Capacity = WORDS * 32 Kbit (8192 -> 256, 65536 -> 2048 = 1.88x device ERAM).
 
-Every arm is a standalone .v with its own top module, synthesized to
-EG4S20BG256 with area reports only (no place, no route, no bitgen).
-
-Capacity of an arm = WORDS * 32 Kbit:
-  WORDS  8192 ->  256 Kbit  (well inside 1088)
-  WORDS 65536 -> 2048 Kbit  (1.88x the whole device's embedded RAM)
-
-This file writes ONLY inside results/pnr/bram_template_arms/.
-Console output is ASCII only (the host console is GBK).
+Writes ONLY inside results/pnr/bram_template_arms/. Console output is ASCII only (host console GBK).
 """
 import io
 import os

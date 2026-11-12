@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 # results/pnr/bram_template_arms/run_all.sh [timeout_per_arm]
-# Sequential driver: one job per arm, each with its own wall-clock bound, so a
-# hung arm cannot stop the others. Per-arm logs land next to each arm; the
-# driver's own stdout is captured to results/pnr/bram_template_arms/run_all.log by the caller.
-# Arm order is deliberate: the cheap/informative ones first.
+# 顺序驱动：一臂一作业、各自限时，挂死一臂不拖累其它；各臂日志落各臂旁，驱动 stdout 由调用方存 run_all.log。
+# 臂顺序刻意：先跑便宜/信息量大的。
 set -u
 HERE=$(cd "$(dirname "$0")" && pwd)
 TMO="${1:-900}"

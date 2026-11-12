@@ -73,9 +73,7 @@ def load(path):
         with io.open(path, encoding="utf-8") as f:
             return json.load(f)
     except (ValueError, UnicodeDecodeError) as e:
-        # 读不出 != 不存在: 把原因留给 R7 去报, 这里只返回 None。
-        # 以前这里直接抛 JSONDecodeError, 整道门变成一段 traceback ——
-        # 红是红了, 但不说「哪个归档坏了、该重跑哪一步」。
+        # 读不出 != 不存在：这里只返回 None，把「哪个归档坏了、该重跑哪一步」留给 R7 去报。
         UNREADABLE.add(os.path.abspath(path))
         return None
 
@@ -83,11 +81,8 @@ def load(path):
 def sweep_readability(root):
     """R7: 认证路径上不许有「文件在、但不是合法 JSON」的归档。
 
-    实测起因: 一次后台整表认证被中断, isco 步的两个归档留在 1700 字节全零的
-    状态(Windows 上 open(path,'w') 会先把已存在的文件截零再预占簇)。流程序
-    列现在写的是 tmp+fsync+os.replace(flow/atomic_json.py), 但门禁仍要能
-    指名道姓地说出坏的是哪一份 —— 否则下一次以别的方式弄坏它时仍然只是一屏
-    traceback。
+    起因: Windows 上 open(path,'w') 会先截零再预占簇, 中断的运行会留下全零
+    文件。门禁要指名道姓报出坏的是哪一份, 而不是只给一屏 traceback。
     """
     bad = []
     want = [os.path.join("results", "matrix.json")]
@@ -337,9 +332,7 @@ def selftest():
         write_json(p, d)
         expect("stepmissing", "R6 step-missing", check(work))
 
-        # R7: an archive that exists but is not JSON. This is the shape a run
-        # killed mid-write leaves behind on Windows (the file is truncated to
-        # zero then preallocated, so the bytes on disk are all NUL).
+        # R7: 模拟写一半被杀留下的全零文件（见 sweep_readability 的说明）。
         work = stage("unreadable")
         vp = os.path.join(work, "results", "sim", "epv_bisect.json")
         with open(vp, "wb") as f:

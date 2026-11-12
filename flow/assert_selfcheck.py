@@ -57,13 +57,11 @@ MUT = os.path.join(ROOT, "build", "sim_mut")
 # 每条 = (被点名的 tag, 要改的源文件, 原样片段, 改成的片段)
 # 原样片段必须在文件里唯一命中一次, 否则本件判 SETUP-FAIL 而不是「跳过」。
 MUTATIONS = [
-    # 注入方向由判据那条「不等式」现推, 不许凭直觉。三条纠正过的方法写在这里:
-    #   - 原来用 `trap_fire = ... || branch_take` 造 A1 的双源 —— 结构上是组合环
-    #     (branch_take 自己带 !trap_fire), Verilator 振铃后整趟仿真一条都不打印,
-    #     症状长得像「这条断言是死的」。改成动 branch/jump 那一侧的互斥项。
-    #   - 原来用 `flush_idex = hazard` 造 A6 —— 那只会让 flush_idex **更少**为真,
-    #     而 A6 判的是「flush 那一拍之后 idex_valid 必须是 0」, 方向正好相反。
-    #     改成把 flush 分支里的清零写成置 1。
+    # 注入方向由判据那条「不等式」现推, 不许凭直觉。两条纠正过的方法:
+    #   - 造 A1 用 `trap_fire = ... || branch_take` 是组合环 (branch_take 带 !trap_fire),
+    #     Verilator 振铃后一条都不打印, 症状像「这条断言是死的」。
+    #   - 造 A6 用 `flush_idex = hazard` 方向相反: 那只会让 flush 更少为真,
+    #     而 A6 判的是 flush 那一拍后 idex_valid 必须为 0。
     ("A1_TRAP_SRC_NOT_UNIQUE", "rtl/epv32_core.v",
      "assign jump_take   = idex_valid && idex_is_jmp && !trap_fire && !ex_stall;",
      "assign jump_take   = idex_valid && idex_is_jmp && !ex_stall;"),
@@ -113,12 +111,7 @@ MUTATIONS = [
 ]
 
 # 没有廉价源码注入的 tag —— 明写出来, 不靠「反正门是绿的」蒙过去。
-# E3/E6 需要单元级反例臂 (tb/epv_unit.cpp 直接驱动端口), 由那一格覆盖;
-# A11/A12 需要「两个多周期单元同拍 busy」/「一条指令同时非法又是 ecall」的
-# 构造性输入, 本机没有已知的合法或廉价非法路径能给出它。
-# 没有廉价源码注入的 tag —— 明写出来, 不靠「反正门是绿的」蒙过去。
-# 每一条都带上「为什么这条注不出来」与「什么实验能翻这一格」, 因为「未证明」
-# 与「不可能证明」是两句不同的话。
+# 每条带上「为什么注不出来」与「什么实验能翻这一格」: 未证明与不可能证明是两句话。
 NO_CHEAP_MUTATION = [
     # 需要一个「EX 里是分支」且「MEM 里正做跨字访问 (mem_hold)」同拍成立的定向
     # 汇编探针; 现有 14 个程序 (含 misalign_bisect 与三套件) 全跑完 14/14 都没给出

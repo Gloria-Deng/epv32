@@ -143,10 +143,8 @@ def check(path):
                 errs.append("中文字体不合: %r eastAsia=%r 应为 %r (head=%s)"
                             % (r.text[:24], ea, want, is_head))
             if r.font.name is not None and r.font.name != want:
-                # 内容字体只许仿宋、标题只许黑体：曾经给代码块开过 Consolas 例外，
-                # 独立拆包数到 230 个 Consolas run（评审 P1-4）。例外已取消，
-                # 这一条挡住它长回来。            if r.font.name is not None and r.font.name != want:
-                # 内容字体只许仿宋、标题只许黑体：曾经给代码块开过 Consolas 例外
+                # 内容字体只许仿宋、标题只许黑体：曾给代码块开 Consolas 例外
+                # （拆包数到 230 个 run，评审 P1-4）。例外已取消，这一条挡住它长回来。
                 errs.append("西文字体族不合: %r ascii=%r 应为 %r"
                             % (r.text[:24], r.font.name, want))
             if is_head:

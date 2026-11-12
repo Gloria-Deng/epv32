@@ -24,8 +24,7 @@ if hasattr(sys.stdout, "reconfigure"):
 sys.path.insert(0, os.path.join(ROOT, "flow"))
 import compress_artifact as ca                      # noqa: E402  (RERUN 表唯一权威)
 
-# 本轮实测的两份重跑产物（由 README/讲稿里那两条命令跑出来，跑完即删，
-# 因为 >10 MB 的明文产物随包只留压缩件 —— 尺寸判据见 flow/check_package_hygiene.py）
+# 本轮实测的两份重跑产物；测完即删，>10 MB 明文产物不随包（判据 flow/check_package_hygiene.py）
 MEASURED = {
     "results/demo/06_wave.vcd": {
         "regen_file": "results/wave/wave_regen.vcd",
@@ -64,9 +63,8 @@ def update(rel):
     m = MEASURED[rel]
     reg = os.path.join(ROOT, m["regen_file"])
     if not os.path.isfile(reg):
-        # 重跑产物是 13~17 MB 的明文波形，测完就删（>10 MB 的明文产物不随包）。
-        # 没有它们时**不许**把已经写好的 repro 抹掉：那会把一句实测结论换成空白，
-        # 而收条读起来仍然像"刚测过"。原样保留，只把 rerun 那一行对齐 RERUN 表。
+        # 产物不在盘（13~17 MB 明文测完即删）：不许抹掉已写 repro——否则实测结论
+        # 变空白、收条却像"刚测过"；只把 rerun 行对齐 RERUN 表。
         if "repro" in side:
             side["rerun"] = ca.RERUN[rel]
             with io.open(side_p, "w", encoding="utf-8", newline="\n") as f:

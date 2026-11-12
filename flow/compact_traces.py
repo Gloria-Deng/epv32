@@ -129,10 +129,8 @@ def compact(dry=True, archive_path=ARCHIVE, trace_dir=TRACE_DIR):
             shutil.copyfileobj(fin, fout, 1 << 20)
             fout.flush()
             os.fsync(fout.fileno())
-        # os.rename 在 Windows 上遇到同名目标会抛 FileExistsError，POSIX 上则静默替换
-        # —— 于是"同一份轨迹的第二次收拢"这条路只在类 Unix 上存在过。本轮复跑
-        # nn_bench/nn_net 之后 results/trace/*.gz 已在，这一发直接崩、矩阵末行判 FAIL。
-        # os.replace 在两个平台上都是原子覆盖。
+        # os.rename 在 Windows 遇同名目标抛 FileExistsError、POSIX 静默替换,
+        # 复跑时 .gz 已在会直接崩; os.replace 两平台都原子覆盖。
         os.replace(gz + ".tmp", gz)
         rt_sha, rt_lines = sha_and_lines(gz, decompressed=True)
         if rt_sha != sha_raw or rt_lines != lines:
@@ -153,8 +151,7 @@ def compact(dry=True, archive_path=ARCHIVE, trace_dir=TRACE_DIR):
                 f.write(l.decode("utf-8", "replace"))
         gz_sha, _n = sha_and_lines(gz)
         before, after = os.path.getsize(path), os.path.getsize(gz)
-        # 摘要路径只记 trace 目录内的相对名: os.path.relpath 在临时目录 (C:) 与
-        # 包根 (D:) 之间会直接 ValueError 炸掉, 夹具就跑不到判决行。
+        # 摘要只记 trace 目录内的相对名: relpath 在跨盘 (C:↔D:) 时 ValueError。
         rel_summ = os.path.basename(summ)
         total_before += before
         total_after += after

@@ -131,8 +131,7 @@ def selftest():
 
 
 def main():
-    # 注入自检要把一份**替身**运行归档喂进来, 所以路径可覆盖 (默认值不变,
-    # 正常复现命令一个参数都不用加)。
+    # 注入自检需喂替身运行归档，故路径可覆盖；默认值不变，正常复现命令不加参数。
     global SIMF, OUT
     argv = sys.argv[1:]
     for i, a in enumerate(argv):

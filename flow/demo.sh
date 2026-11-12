@@ -32,10 +32,8 @@ if [ "${1:-}" = "--check" ]; then
     else printf 'MISS  %s\n' "$f"; miss=$((miss+1)); fi
   done
   [ $miss -eq 0 ] || fail "缺 $miss 个产物"
-  # 产物在不在只是第一层：每一步还必须**自己印出成功那一句**。
-  # 起因是真实的一次假完整 —— 11 步里两条命令写错了参数（argparse 报
-  # "unrecognized arguments"），文件非空所以 --check 全绿，画面上其实什么都没有。
-  # 判据只认形状不认具体计数（[0-9]+/[0-9]+），复跑改了分母也不会把这里带红。
+  # 产物在不在只是第一层：每一步还必须**自己印出成功那一句**（真实假完整事故:
+  # argparse 报错文件非空却 --check 全绿）。判据只认形状不认计数，复跑改分母不会带红。
   mmiss=0
   while IFS='|' read -r f pat; do
     case "$f" in ''|'#'*) continue ;; esac
@@ -66,8 +64,8 @@ if [ "${1:-}" = "--check" ]; then
 14_video.txt|DEMO_VIDEO_SELFTEST_OK
 14_video.txt|DEMO_VIDEO_OK
 MARKS
-  # 上一条 11 步的 "unrecognized arguments" 是**禁令**：出现即红。
-  # 用 while 循环统一处理会把禁令和许可混在一起，所以单独判一次。
+  # "unrecognized arguments" 是禁令（出现即红），while 循环会把禁令与许可混在一起,
+  # 所以单独判一次。
   if grep -q "unrecognized arguments" "$OUT/11_isco_trace.txt" 2>/dev/null; then
     printf 'MARK  MISS  %-28s 画面里出现了 argparse 的用法错误\n' "11_isco_trace.txt"
     mmiss=$((mmiss+1))
@@ -138,17 +136,13 @@ $PY tools/vcd_probe.py > "$OUT/06_wave_probe.run.log" 2>&1
 probe_rc=$?
 log "  vcd_probe rc=$probe_rc（明文 .vcd 不在时它自己会读 .vcd.gz 并打印读的是哪份）"
 [ "$probe_rc" = 0 ] || fail "第 6 段波形解析没跑成，见 $OUT/06_wave_probe.run.log"
-# vcd_probe 写的是 results/wave/probe.txt；顺手拷一份到 demo 目录。
-# 这里以前是 `|| true` + `cp ... || true`：解析失败时 06_wave_probe.txt 里留下的
-# 是一屏 traceback，或者上一趟的残留，而 --check 只看"非空 + 有 vars_total 行"，
-# 两种故障都长得像成功。现在拷不上就停手。
+# vcd_probe 写的是 results/wave/probe.txt，拷一份进 demo 目录。以前是 `|| true`
+# + `cp ... || true`：解析失败会留下 traceback/残留，--check 只看非空会误判成功。
 cp -f results/wave/probe.txt "$OUT/06_wave_probe.txt" || fail "拷不到 results/wave/probe.txt"
-# 波形页自己那一趟运行的归档也收进包：它证明这一页来自一次 4200 拍的截窗运行，
-# 而不是一次认证运行 —— 认证归档 results/sim/epv_bisect.json 没被它写过。
+# 把波形页自己那趟的归档也收进包：证明这一页来自 4200 拍截窗运行, 认证归档没被写。
 cp -f results/sim/epv_bisect_wave.json "$OUT/06b_wave_archive.json" 2>/dev/null || true
-# 波形是录屏用的主产物。随包只留**压缩件**（17.8 MB 的明文 VCD 由本脚本重跑生成，
-# 压缩前用"回读解压 == 原件 sha256 且行数相等"验过，见 flow/compress_artifact.py），
-# 所以这里两种形态都接受，但都必须非空到可信的大小。
+# 波形是录屏主产物，随包只留压缩件（17.8 MB 明文由本脚本重跑生成, 压缩前经
+# flow/compress_artifact.py 回读验过），所以两种形态都接受、但必须非空到可信大小。
 $PY - <<'PY' || fail "06_wave.vcd(.gz) 缺失或过小"
 import gzip,os,sys
 plain = "results/demo/06_wave.vcd"
@@ -165,8 +159,8 @@ sys.exit(0 if ok else 1)
 PY
 
 log "6z 把明文波形收成压缩件（>10 MB 的明文产物不随包：尺寸判据见 flow/check_package_hygiene.py）"
-# 这一条排在波形页之后，所以"重跑 demo.sh 就能再生压缩件"这句话是真的：
-# 上面那段仿真只写明文 .vcd，若不收，包卫生门下一趟会把 17.8 MB 的明文抓成命中。
+# 排在波形页之后，"重跑 demo.sh 能再生压缩件"才成立：上面只写明文 .vcd,
+# 不收的话包卫生门会把 17.8 MB 明文抓成命中。
 $PY flow/compress_artifact.py results/demo/06_wave.vcd > "$OUT/06c_compress.txt" 2>&1 \
   || fail "波形压缩的回读核对没过（见 $OUT/06c_compress.txt），明文原件仍在盘上"
 grep -Eq 'COMPRESSED|SKIP-MISSING' "$OUT/06c_compress.txt" \

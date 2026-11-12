@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 """tools/bram_arms_check.py -- 核那八臂 BRAM 模板/容量实测的归档，**不重跑 TD**。
 
-为什么需要它：正文与附件 A 会写「换 BRAM 模板也装不下」「TD 在 gate 阶段不拦容量溢出」
-这两句话，而它们的凭据是一次约 40 分钟的 TD 批次（两臂在 900 s 上限内没返回）。
-太贵而不能进链条 ⇒ 链条里跑这一发便宜的核对，规则是：
+为什么需要它：正文与附件 A 断言「换 BRAM 模板也装不下」「TD 在 gate 阶段不拦容量溢出」，
+凭据是一次约 40 分钟的 TD 批次（两臂在 900 s 上限内没返回），太贵不能进链条，
+故链条里跑这一发便宜的核对，规则是：
 
  1. 臂源码没被人动过      sha256(<arm>.v) == 归档记的            否则 DRIFT-SOURCE
  2. 归档没有说谎          归档记的每一行 verdict 逐字还在原始 log 里   否则 LIES
@@ -100,7 +100,6 @@ def audit(root=ROOT):
         if name == "ram_bram_32k":
             fit_used = used
         by[name] = (used, cap)
-    # 结论三条
     if async_tot and async_zero != async_tot:
         P.append(("VERDICT", "异步读各臂应当**全部**推不出 BRAM，实得 %d/%d"
                   % (async_zero, async_tot)))

@@ -44,8 +44,7 @@ ROOT = os.path.dirname(HERE)
 
 LEDGER = os.path.join("docs", u"附件A_缺陷与门禁台账.md")
 
-# 计数句式。**不止一种** —— 一种句式一条锚点是本包记过的老账 (同一计数换个词序
-# 或折行就检不出)。顺序无关, 全部并成同一个 claim 集合。
+# 计数句式不止一种: 换个词序或折行就检不出, 故多锚点并成同一 claim 集合。
 CLAIM_PATTERNS = [
     (u"title", re.compile(u"缺陷台账（(\\d+)\\s*条")),
     (u"paren", re.compile(u"缺陷（(\\d+)\\s*条）")),
@@ -54,8 +53,7 @@ CLAIM_PATTERNS = [
     (u"tbl",   re.compile(u"(\\d+)\\s*条缺陷全表")),
 ]
 
-# 语料: 正文、README、讲稿, 以及**生成器自己的源码** (PPT 的「30 条」住在
-# flow/build_ppt.py 的字面量里; 只扫交付件会留下一份没人管的抄本)。
+# 语料含生成器自己的源码 (PPT 的「30 条」住在 flow/build_ppt.py 字面量里, 只扫交付件会漏掉它)。
 CORPUS = [os.path.join("docs", u"参赛项目设计报告.md"),
           "README.md",
           os.path.join("demo", u"演示脚本与讲稿.md"),
@@ -209,8 +207,7 @@ def selftest():
         for k in list(f):
             if k != LEDGER:
                 f[k] = u"这里没有那句话\n"
-        # A.1 标题自己那句「（3 条」也是一条 claim —— 要判 NO-CLAIM 就得把它也去掉,
-        # 只清另外四份会留下一条命中, 于是这条夹具测的其实不是它想测的那一格。
+        # A.1 标题自带的「（3 条」也是一条 claim, 必须一并去掉, 否则测不到 NO-CLAIM。
         f[LEDGER] = f[LEDGER].replace(u"缺陷台账（3 条，逐条带可反驳读数）",
                                        u"缺陷台账（逐条带可反驳读数）")
         t, c, e, p = audit(f)

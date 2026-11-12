@@ -1,11 +1,10 @@
 #!/bin/bash
-# Re-run the four Anlogic TD arms against the CURRENT rtl/ tree.
+# 对当前 rtl/ 树重跑 4 条 Anlogic TD 臂。
 #
-# 作业清单**不写死在这里**: 由 tools/pnr_archive.py 的 ARMS 现算。
-# 上一版这个文件跑的是 run2s_epv / run2s_noepv, 而归档器读的是 run3s_epv /
-# run3s_noepv —— 于是"刷新过了"和"被读的那份报告更新了"是两件事(今天抓到的)。
+# 作业清单由 tools/pnr_archive.py 的 ARMS 现算，不写死在这里
+# (曾因本脚本跑 run2s、归档器读 run3s，导致"刷新过"≠"被读的报告已更新")。
 #
-# 顺序: python flow/make_td_arms.py   (铺臂 + 写 tcl + 登记 run_id)
+# 顺序: python flow/make_td_arms.py   (铺臂/写 tcl/登记 run_id)
 #       bash   flow/run_td_refresh.sh (真跑 TD)
 #       python tools/pnr_archive.py   (出 results/pnr/summary2.json)
 set -u
@@ -19,11 +18,8 @@ LOG=$BASE/refresh3.log
 JOBS=$BASE/jobs.txt
 
 # ---- 单实例闸 -------------------------------------------------------------
-# 为什么要有这一闸：今天用 nohup+后台包装把这条链发了两遍，于是同一个臂目录
-# 被两个 TD 进程交替写（refresh3.log 里每一条 RC 都出现两遍、时间戳完全相同），
-# 跑完的器件报告说不清是哪一趟写的 —— 这类污染不会报错，只会让归档悄悄变脏。
-# 闸的形状：mkdir 是原语的，用它当锁；锁里写 PID 与起始时刻；超过 STALE_MIN
-# 的锁视为上次崩了留下的，点名后接管（不许静默绕过，也不许永远卡死）。
+# 防同臂目录被两个 TD 进程交替写、报告说不清是哪趟写的污染(不报错、只让归档悄悄变脏)。
+# mkdir 作原子锁，锁内写 PID 与起始时刻；超过 STALE_MIN 视为残留锁，点名后接管。
 LOCK=$BASE/.refresh.lock
 STALE_MIN=90
 if ! mkdir "$LOCK" 2>/dev/null; then
@@ -42,8 +38,7 @@ trap 'rm -rf "$LOCK"' EXIT
 # ---- 单实例闸结束 ---------------------------------------------------------
 
 : > "$LOG"
-# 作业清单由 python 自己落盘并按 LF 写: 用 shell 重定向接 print 的输出会得到 CRLF,
-# 于是 "$d/$tcl" 带着一个尾巴 \r, 四个臂全部报 MISSING-TCL(实测踩过)。
+# 作业清单由 python 落盘并按 LF 写: shell 重定向接 print 会得 CRLF, "$d/$tcl" 带 \r 报 MISSING-TCL。
 python - "$JOBS" <<'PY' || { echo "JOB_LIST_FAIL" >> "$LOG"; exit 1; }
 import io, sys
 sys.path.insert(0, "tools")      # cwd 已经是仓库根 (上面 cd 过)
@@ -70,8 +65,7 @@ while IFS=' ' read -r d tcl || [ -n "$d" ]; do
   ( cd "$d" && "$RUN" -b "$tcl" > "$name.out" 2> "$name.err" < /dev/null )
   rc=$?
   echo "RC $d $name $rc $(date +%H:%M:%S)" >> "$LOG"
-  # TD 写完报告之后常常 SIGSEGV(rc=139), 所以 rc 不是判据; 但「一个臂压根没跑」
-  # 必须是判据 —— 少跑一个臂就等于沿用上一版报告。
+  # TD 写完常 SIGSEGV(rc=139)，rc 不作判据；但"一个臂压根没跑"必须判——少跑一臂即沿用旧报告。
   n=$((n+1))
 done < "$JOBS"
 want=$(grep -c '' "$JOBS")

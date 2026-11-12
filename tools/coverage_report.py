@@ -55,9 +55,8 @@ RTL_BUILT = ["epv32_soc.v", "epv32_core.v", "epv32_alu.v", "epv32_rf.v",
 
 REC = re.compile(r"^C\s+'(.*)'\s+(\d+)\s*$")
 
-# 实测从 .dat 里读出来的四种记录类型 (第一版只列了三种, 于是 `branch` 那一整类
-# 每程序 372 条被静默丢掉 —— 是 PARSE-GAP 那条守卫把它报出来的, 不是人眼)。
-# 白名单必须由「.dat 里真的出现过哪些 t=」标定, 不许照文档抄。
+# 白名单由 .dat 里实际出现过的 t= 标定, 不许照文档抄
+# (第一版漏列 branch, 每程序 372 条被静默丢, 由 PARSE-GAP 报出)。
 TYPES = ("line", "branch", "toggle", "user")
 
 # 夹具名单: 末行的分母由它现算, 不写死字面量。
@@ -169,11 +168,7 @@ def stats(buckets):
 
 
 def selftest():
-    """夹具: 证明解析面认得全部四种记录, 且见到第五种会**报**而不是静默丢。
-
-    这一格不是走过场 —— 第一版白名单只有三种, `branch` 那一整类 (每程序 372 条)
-    被静默丢掉, 是 PARSE-GAP 那条守卫把 27156 这个数字吐出来才暴露的。
-    """
+    """夹具: 证明解析面认得全部四种记录, 且见到第五种会报而不是静默丢。"""
     import tempfile
     def rec(fields, hits):
         body = "".join("\x01%s\x02%s" % (k, v) for k, v in fields.items())

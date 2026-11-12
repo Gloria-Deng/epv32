@@ -125,11 +125,9 @@ def _bench(ctx, src, need_fields=()):
     p = os.path.join("results", "sim", name + ".json")
     before = os.path.getmtime(p) if os.path.isfile(p) else 0.0
     rc, out = run([PY, "flow/rt.py", "bench", src, "--max-cyc", "4000000"])
-    # 三层新鲜度，缺一层就会把旧结论认证成新的（今天真实栽在这一条上：
-    # epv_selftest.c 有四处 epv_lvb 少写参数、编译报错，而这一格连着三轮绿 ——
-    # 因为本步原来只核「归档在不在」，盘上那份属于 15:25 的旧 ELF）：
-    #   1) 这一步的退出码；2) 归档确实被这一趟写过；3) 归档里记的源码指纹
-    #      == 工作树现在的源码。指纹算法只在 rt.sha16 一处定义。
+    # 三层新鲜度，缺一层就会把旧结论认证成新的（曾因只核「归档在不在」把旧 ELF
+    # 连绿三轮）：1) 退出码；2) 归档被这一趟写过；3) 归档记的源码指纹 == 工作树
+    # 现在的源码。指纹算法只在 rt.sha16 一处定义。
     assert rc == 0, "%s 运行失败 rc=%d out=%s" % (name, rc, out[-700:])
     assert os.path.isfile(p), "%s 没有产出归档 (rc=%d)" % (name, rc)
     assert os.path.getmtime(p) > before, \
@@ -372,10 +370,8 @@ def step_claims(doc):
     句式只有两类各有各的真值: 「N 步认证矩阵/全绿/自动跑/产证据」指整表格数,
     「前 N 步」指后置格之前, 「第 N 步」是序数指代(只要求在范围内)。"""
     out = []
-    # 「前 22 步产证据」同时含「前 N 步」与「N 步产证据」两个形状, 两类句式会在同一句
-    # 话上重叠(实测: 光用否定环视会被「22」的第二位绕过去, 把 2 读成总步数, 于是本表
-    # 23 步却被判成"文档写了 2 步")。所以先把前/序两类整段抹掉, 再在剩下的文本上找
-    # 总步数那条。
+    # 「前 N 步产证据」两个形状会在同一句重叠(实测否定环视会被「22」的第二位绕过去,
+    # 把 2 读成总步数)。所以先把前/序两类整段抹掉, 再找总步数那条。
     spans = []
     for pat, kind in ((u"前\\s*(\\d+)\\s*步", u"前"), (u"第\\s*(\\d+)\\s*步", u"序")):
         for m in re.finditer(pat, doc):
@@ -572,28 +568,16 @@ def _suite(ctx, suite):
     return {"suite": suite, "pass": d["n_pass"], "of": d["n_tests"]}
 
 
-# 已知失败清单要**逐名核对**: 多出名字、少了名字都算红。
-# 少了名字 = 又坏了一个用例被当成"本来就这样"; 多了名字 = ma_data 修好了却没
-# 更新清单, 于是正文里那句"已知未过"变成假话。两个方向都会响。
-# 已知失败清单按名字双向核: 名单里有却过了 = 红 (提醒收账), 名单外却挂了 = 红。
-# 2026-09-24: rv32ui/ma_data 由「核按规范陷入」改成「MEM 拆两拍做硬件非对齐访问」
-# (rtl/epv32_core.v 的 M6 / SUPPORT_UNALIGNED), 42/42 后本表清空。
+# 已知失败清单按名字双向核: 名单里有却过了 = 红 (提醒收账), 名单外却挂了 = 红
+# (少了名字 = 坏用例被当成"本来就这样"; 多了名字 = 修好却没销账, 正文"已知未过"变假话)。
 # 留空表而不是删掉机制: 下一次挂用例时它照样会咬。
 KNOWN_FAILING = {"rv32ui": set(), "rv32um": set(),
-                 # M8 及以前: rv32mi 16 项里挂 2 项, 两条都有名字 ——
-                 #   pmpaddr          PMP 不在能力清单里 (写被忽略、读回 0、不陷入)
-                 #   instret_overflow mcycle/minstret 是只读观察量
-                 # M9 把这两条做进了硬件, 于是三套件 66 个程序全过。这张清单同样
-                 # 双向核: 还留着这两条名字的话, _check_suite 会报「已修好但清单
-                 # 未更新」并判红 —— 销账是强制的, 不是自觉的。
+                 # 曾挂 pmpaddr(写被忽略、读回 0、不陷入) 与 instret_overflow
+                 # (mcycle/minstret 是只读观察量), M9 做进硬件后清空; 销账是强制的。
                  "rv32mi": set()}
-# 模型 ↔ 核 的分歧清单，与失败清单同样双向核。rv32mi 那一条不是「谁算错了」而是
-# 「写入计数器那一拍算不算一条退休指令」——两侧各按自己的读法数，差一拍；
-# 这条用例本来就不通过，所以它既在 KNOWN_FAILING 也在这里，两个方向都记着。
-# M9 之后清空: 黄金模型补上了「计数器可写 + 写入那一拍抑制自增」与 PMP 寄存器的
-# WARL/锁定语义, 于是 rv32mi 的 16 个程序连退休轨迹也与核逐条相同 —— 三套件
-# 66 个程序、零已知分歧。这张清单是双向核的: 留着一条早已修好的名字, 这一步
-# 就红 (今天就是这样逼着把模型跟上设计, 而不是把分歧合法化)。
+# 模型 ↔ 核 的分歧清单, 与失败清单同样双向核。rv32mi 那一条不是「谁算错了」而是
+# 「写入计数器那一拍算不算一条退休指令」——两侧各按自己的读法数, 差一拍。M9 之后
+# 清空(模型补上计数器可写/PMP 语义); 留一条早已修好的名字, 这一步就红。
 ISCO_KNOWN_DIVERGE = {}
 
 
@@ -896,13 +880,9 @@ def readme_drift(anchors, rd):
             if lab in HEADLINE and val.replace(",", "") not in rdn]
 
 
-# 正文引用面普查：把交付件里写下的 `results/...` 一律收进来，再逐个问「盘上有吗」。
-# 判据按**形状**而不是扩展名白名单。原来这里是
-# `results/[\w/\-\.]+\.(?:json|txt|vcd|md)`，两个方向都错过：
-#   ①多段扩展名被截断 —— 波形收成 `06_wave.vcd.gz` 之后，那条正则只认到 `.vcd`
-#     为止，于是对着一个真实存在的产物报「引用了不存在的路径」；
-#   ②不在白名单里的形态根本不进判据 —— `demo_video.mp4`、目录名 `results/xxx/`
-#     一律免检，于是一份**从没存在过**的 `results/encoding/` 一路绿到本轮。
+# 正文引用面普查: 把交付件里写下的 `results/...` 收进来, 逐个问「盘上有吗」。
+# 判据按**形状**而非扩展名白名单(白名单会截断 `06_wave.vcd.gz` 只认到 .vcd,
+# 又放过 mp4/目录名等形态, 让从不存在的 results/encoding/ 一路绿)。
 DOC_PATH_RE = re.compile(u"results/[A-Za-z0-9_./\\-*?]+")
 GLOB_CHARS = ("*", "?", "[")
 # 正文点名一个包内工件时一律用反引号（`tools/pnr_archive.py`），所以「这句话能不能
@@ -982,10 +962,8 @@ def doc_path_resolver_selfcheck():
             got = unresolved_paths(refs, root=box)
             if got != want:
                 fails.append("%s: 判出 %r，应为 %r" % (why, got, want))
-        # 形状判据的回归正对照：多段扩展名与视频名都必须**整条**被收到，
-        # 而不是收到 `.vcd` 就停（那正是本轮第一次红在讲稿上的原因）；
-        # glob 也必须整条留着，把 `matrix_run*.log` 截成 `matrix_run` 会拿一个
-        # 「这一批日志」的引用去查一个不存在的文件（第一版就是这么红的）。
+        # 形状判据正对照: 多段扩展名/视频名/glob 都必须整条收到, 截断会拿
+        # 「这一批日志」的引用去查不存在的文件(第一版就这么红的)。
         shape = doc_paths(u"看 `results/demo/06_wave.vcd.gz` 与 "
                           u"`results/demo/demo_video.mp4`，目录 `results/demo/`，"
                           u"数法见 `results/logs/matrix_run*.log`。")
@@ -1167,10 +1145,9 @@ def s_docgate(ctx):
         "讲稿引用面判据不咬或误报: %s" % inj
     dmiss = unresolved_paths(drefs)
     assert not dmiss, "讲稿引用了不存在的路径: %s" % dmiss
-    # 讲稿那条「各段相加 … = 569 s / 余 31 s / 本版 51.3 MB」是成片 sidecar 的手工抄本，
-    # 本轮之前没有任何门核它（P1-5 那一行自己就写着这件事没做）。
-    # 判据的期望值一律取自 demo_video.json，不取自讲稿；解析不出来即判红 ——
-    # 一条从不发火的抄本核对，等于没有抄本核对。
+    # 讲稿那行「各段相加 … = 569 s / 余 31 s / 本版 51.3 MB」是成片 sidecar 的手工
+    # 抄本, 此前没有门核它。期望值一律取自 demo_video.json, 不取自讲稿; 解析不出
+    # 即判红 —— 一条从不发火的抄本核对等于没有。
     vd = jload(os.path.join("results", "demo", "demo_video.json"))
     scenes = [int(s["seconds"]) for s in vd["scenes"]]
     sec_tbl = dtxt.split(u"## 时间轴总览", 1)

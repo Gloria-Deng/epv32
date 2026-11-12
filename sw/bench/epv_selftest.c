@@ -20,9 +20,8 @@ static int8_t vc[16];
 static int32_t wa[4];
 static int32_t wb[4];
 static int32_t wc[4];
-/* 上面六个都是「正好一组 16 字节」的探针缓冲: va/vb/vc 是 16 个 int8,
- * wa/wb/wc 是 4 个 int32。SVB 会写满整组, 所以每条挂一次 n=0 的留白断言 ——
- * 少一个元素就编译不过, 而不是等读回数对不上再猜是谁踩了谁。 */
+/* 六个缓冲各正好一组(16 字节), 配 n=0 留白断言: 写少一个元素就编译不过,
+ * 而不是等读回数对不上再猜是谁踩了谁。 */
 EPV_SVB_HAS_TAIL(va, 0) EPV_SVB_HAS_TAIL(vb, 0) EPV_SVB_HAS_TAIL(vc, 0)
 EPV_SVB_HAS_TAIL(wa, 0) EPV_SVB_HAS_TAIL(wb, 0) EPV_SVB_HAS_TAIL(wc, 0)
 
@@ -113,7 +112,6 @@ int main(void)
   }
 
   /* ---------- 2. VMAC4 (累加进已有的 4 x int32) ---------- */
-  /* 先把 bias 向量装进 v2, 再让 VMAC4 往它上面累加 */
   {
     uint32_t base_wa = (uint32_t)(uintptr_t)wa;
     epv_lvb(2, 0, base_wa);
@@ -125,7 +123,6 @@ int main(void)
       /* 把 v2 的 lane i 搬到 GPR 需要 XMV, 它只取 lane0 -> 先 VSRA4 挪位 */
       (void)exp; (void)g;
     }
-    /* 直接把 v2 存回内存再逐 lane 比对 */
     {
       uint32_t base_wc = (uint32_t)(uintptr_t)wc;
       epv_svb(2, 0, base_wc);
@@ -244,10 +241,9 @@ int main(void)
     }
   }
 
-  /* ---------- 6b. VREQ4 的 RB 必须是**有符号**偏置 ----------
-   * 这条专门用来区分修复前后: 旧写法把 RB 零扩展, RB=-30 会变成 +226,
-   * 饱和后得 +127; 正确语义是 sh(=0) + (-30) = -30。取 acc=0 让中间量为 0,
-   * 期望值可以口算, 不依赖任何一位舍入细节。 */
+  /* ---------- 6b. VREQ4 的 RB 必须是有符号偏置 ----------
+   * 区分修复: 旧写法零扩展 RB=-30 -> +226 饱和成 +127, 正确应为 -30。
+   * acc=0 使中间量为 0, 期望可口算、不依赖舍入细节。 */
   {
     uint32_t base_wa2 = (uint32_t)(uintptr_t)wa;
     uint32_t base_wb2 = (uint32_t)(uintptr_t)wb;

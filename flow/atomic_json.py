@@ -1,18 +1,13 @@
 #!/usr/bin/env python3
 """归档落盘的唯一实现：临时文件 + fsync + 一步换名。
 
-为什么不是 `open(path,"w")` 直接写：Windows 上那样打开一个**已存在**的文件会
-立刻把它截成零长并按内核的分配单元预占簇，进程若在 write 之后、close 之前被
-杀掉，盘上留下的就是一整份 NUL 字节的「归档」。这不是假想的坑——实测过：一次
-后台整表认证跑到 isco 那一步被中断，results/sim/rv32ui__or_isco.json 与
-results/sim/rv32ui__ma_data_isco.json 各留下 1700 字节全零，
-tools/check_archive_clobber.py 读到它就抛 JSONDecodeError，红是红了，报的却
-是「解析不了」而不是「哪个归档坏了、该重跑哪一步」。
+为什么不是直接 open(path,"w"): Windows 上写已存在文件会先截成零长并预占簇,
+进程在 write 后、close 前被杀, 盘上留一整份 NUL 字节的「归档」(实测整表认证
+在 isco 一步被中断后留下两份 1700 字节全零, 门禁报 JSONDecodeError 而不是
+「哪份坏了、该重跑哪一步」)。换成 tmp+rename 后被杀只会多出 <path>.tmp, 内容
+要么上一版要么这一版, 不会再出现「文件在、读不出」的第三种状态。
 
-换成 tmp+rename 之后，被杀掉只会多出一个 <path>.tmp；认证路径上的内容要么
-是上一版、要么是这一版，不会出现第三种「文件在、读不出」的状态。
-
-用法（flow/ 与 tools/ 两侧都 import 这一份，避免"补丁端与门禁端各写一遍"）：
+用法（flow/ 与 tools/ 两侧都 import 这一份, 避免各写一遍）:
     sys.path.insert(0, os.path.join(ROOT, "flow"))
     from atomic_json import write_json_atomic
 """

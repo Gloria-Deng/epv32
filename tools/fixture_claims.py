@@ -217,9 +217,7 @@ def main(argv):
             f.write(u"\n== 问题 ==\n")
             for p in problems:
                 f.write("PROBLEM " + p + "\n")
-        # 判决行无条件落盘：干净时它也要在文件里，否则「产物在」与「判决行在」
-        # 分家，任何按文件名去核判决标记的入口（收口表、台账）都会指向一份
-        # grep 不到末行的读数。
+        # 判决行无条件落盘：保证任何按文件名 grep 末行的入口都能命中判决标记。
         f.write(u"\n== 判决 ==\n" + verdict + "\n")
     sys.stderr.write(("\n".join(problems[:10]) + "\n") if problems else "")
     print(verdict)

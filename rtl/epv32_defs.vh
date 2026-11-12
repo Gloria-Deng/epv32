@@ -66,7 +66,7 @@
 //  I-type: [31:20]=imm12  [19:15]=rs1   [14:12]=funct3  [11:7]=vd/rd  [6:0]=op
 //  R-type: [31:25]=funct7 [24:20]=rs2/vs [19:15]=rs1   [14:12]=funct3 [11:7]=vd/rd
 `define EPV_F3_LVB   3'd0   // EPV.LVB   vd, imm(rs1)   16B 内存 -> vd   (4 次总线读)
-`define EPV_F3_SVB   3'd1   // EPV.SVB   vs3, imm(rs1)  vs3 -> 16B 内存 (4 次总线写); vs3 在 [11:7] 字段 (I 型, 见下方说明)
+`define EPV_F3_SVB   3'd1   // EPV.SVB   vs3, imm(rs1)  vs3 -> 16B 内存 (4 次总线写); vs3 在 [11:7] 字段 (I 型)
 `define EPV_F3_MVX   3'd2   // EPV.MVX   vd, rs1        GPR 广播到 4 x int32 lane
 `define EPV_F3_XMV   3'd3   // EPV.XMV   rd, vs2        vs2 lane0 (int32) -> GPR
 `define EPV_F3_CFG   3'd4   // EPV.CFG   rs1            GPR -> vcfg
@@ -117,14 +117,14 @@
 `define SYSC_OF_CTRL    6'h4   // bit0 = 允许 commit 结束仿真
 
 // ---------------------------------------------------------------- 异常因果
-`define EXC_IAF      5'd1    // instruction access fault
+`define EXC_IAF      5'd1    // 取指访问错误
 `define EXC_ILLEGAL  5'd2
 `define EXC_IBREAK   5'd3
-`define EXC_LAMF     5'd4    // load address misaligned
-`define EXC_LAF      5'd5    // load access fault
+`define EXC_LAMF     5'd4    // 加载地址未对齐
+`define EXC_LAF      5'd5    // 加载访问错误
 `define EXC_SAMF     5'd6
 `define EXC_SAF      5'd7
-`define EXC_ECM      5'd11   // ecall from machine mode
+`define EXC_ECM      5'd11   // 机器模式 ecall
 
 // ---------------------------------------------------------------- mcause 高位的中断编码
 `define IRQ_M_BIT    31      // mcause[31] = 1 表示中断

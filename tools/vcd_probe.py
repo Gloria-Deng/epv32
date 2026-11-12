@@ -12,8 +12,8 @@ def resolve(p):
              % (p, p))
 
 path=os.path.abspath(sys.argv[1]) if len(sys.argv)>1 else 'results/wave/bisect.vcd'
-path, isgz = resolve(path)      # 先定位输入：OUT=open(...,'w') 一执行就把上一趟的
-OUT=open('results/wave/probe.txt','w',encoding='utf-8')   # probe.txt 截成 0 字节
+path, isgz = resolve(path)
+OUT=open('results/wave/probe.txt','w',encoding='utf-8')
 def w(*a): print(*a,file=OUT)
 open_txt = (lambda p: gzip.open(p, 'rt', encoding='utf-8', errors='replace')) if isgz \
     else (lambda p: io.open(p, encoding='utf-8', errors='replace'))

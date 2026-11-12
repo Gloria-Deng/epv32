@@ -2,16 +2,12 @@
 # -*- coding: utf-8 -*-
 """flow/make_td_arms.py -- 把「当前这一版 RTL」铺成安路 TD 的四个作业臂。
 
-为什么要有这个文件: 器件口径(LUT / DSP / Fmax)那一份归档, 之前是把 rtl/ **手工**
-拷进 results/pnr/<arm>/rtl/ 再手写 tcl 跑的。于是出现过两件事:
-  1. flow/run_td_refresh.sh 跑的是 run2s_*, 而 tools/pnr_archive.py 读的是
-     run3s_* —— 驱动与归档各说各话, 跑完刷新的根本不是被读的那份;
-  2. 顶层那个 verified_against_source 是写死的 True, 也就是说「报告对应哪版
-     RTL」从来没人核过。
-本脚本把臂的建立变成一条命令, 并钉一个 RUN-ID: 它由当前 RTL 与生成件的哈希算出,
-写进每个 tcl 的 `puts ARM-RUN-ID-...`, 于是 TD 的 log 自己带着「我是哪版源码跑出来的」
-这句话。归档器随后要求 log 里的 id == 本脚本登记的 id, 旧 RTL 留下的 log 一律不认。
-不含时间戳: RTL 没变时重跑得到同一个 id, 不会因为一次合法复跑就作废。
+为什么要这个文件: 器件口径(LUT/DSP/Fmax)归档以前手工拷 rtl/ + 手写 tcl 跑, 出过两件事:
+  1. run_td_refresh.sh 跑 run2s_*、pnr_archive.py 读 run3s_* —— 刷新的不是被读的那份;
+  2. verified_against_source 写死 True, 「报告对应哪版 RTL」没人核过。
+本脚本把臂建立变成一条命令并钉 RUN-ID(当前 RTL 与生成件的哈希), 写进每个 tcl 的
+`puts ARM-RUN-ID-...`; 归档器要求 log 里的 id == 本脚本登记的 id, 旧 RTL 的 log 不认。
+不含时间戳: RTL 没变时重跑得同一 id, 合法复跑不作废。
 
 跑法: python flow/make_td_arms.py        然后   bash flow/run_td_refresh.sh
 """

@@ -1,18 +1,13 @@
 #!/usr/bin/env python3
-"""把「交付顶层 P&R 没拿到」从一句未实测的边界，换成一条带拦路石的实测判决。
+"""把正文 5.5「交付顶层 P&R 未拿到」改成一条实测判决，详细结论进附件 A.23。
 
-正文 5.5 原来那一行写的是 **未拿到**：交付顶层的布线后资源、时序收敛运行、
-SoC/RAM 器件数据 —— 那是"没跑过"。本轮真跑了（`flow/make_soc_arm.py` +
-`flow/run_soc_td.sh`，臂目录 `results/pnr/run_soc_synth`），拿到的是：
-TD 走通 `import_device`/`read_verilog` 两步（`MARK-010-OK`、`MARK-020-OK`），
-随后在 RTL 优化阶段把 `epv32_ram` 的 65536x8 推成
-`Infer 5 Logic DRAMs, 0 Logic BRAMs`，此后 **1827 秒没有任何新输出**、
-`gate.area` 没有产出，人工终止并把这一趟按 UTC 留档在
-`results/pnr/soc_attempt_20260925T165352Z/`。
+本轮真跑了 `flow/make_soc_arm.py` + `flow/run_soc_td.sh`：TD 走通
+`import_device`/`read_verilog`（`MARK-010/020-OK`）后，把 `epv32_ram` 的
+65536x8 推成 `Infer 5 Logic DRAMs, 0 Logic BRAMs`，此后 1827 秒无新输出、
+`gate.area` 未产出，人工终止并留档 `results/pnr/soc_attempt_20260925T165352Z/`。
 
-所以这一格的真话从"没做"变成"做了、被一个具体的结构原因挡住、修法已知"。
-详细判决进附件 A.23（不受各节字数上限约束），正文只加一个短指针，
-并同时从 5.5 别处扣掉等量字数 —— 测试总结现在是 1986/2000，只剩 14 个单位。
+真话从"没做"变成"做了、被具体结构原因挡住、修法已知"。正文只加短指针，并
+从 5.5 别处扣等量字数（测试总结 1986/2000）。
 """
 import io
 import os

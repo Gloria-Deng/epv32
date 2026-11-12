@@ -182,9 +182,7 @@ def orphan_scan(root):
     """包内已存在但不在本次清单里的 .txt/许可证文件 —— 登记表与磁盘两份现实要一致。"""
     out_dir = os.path.join(root, OUT_DIR)
     listed = set()
-    # 两侧必须在同一个路径空间里比：orphan 那一侧是相对包根的路径，
-    # 这里如果用绝对路径拼，就永远匹配不上 —— 于是每一份合法交付件都被报成孤儿
-    # （首跑就是这样：10 份全文全被判 LIC-ORPHAN）。
+    # 两侧必须同一路径空间比（orphan 侧是相对包根的路径），否则合法交付件全被误判为孤儿。
     for comp in COMPONENTS:
         for fn in comp["files"]:
             listed.add(os.path.join(OUT_DIR, comp["name"], fn).replace("\\", "/"))
@@ -241,8 +239,7 @@ def write_outputs(root, recs):
           u"```",
           u"python tools/third_party_licenses.py            # 收编并自证",
           u"python tools/third_party_licenses.py --check     # 只核, 不复写",
-          # 条数由夹具清单本身现算。以前这行写死「三条注入」, 而本工具末行印的是
-          # LICENSE_SELFTEST_OK 8/8 —— 生成的自述句成了第二份抄本, 抄本已经漂了。
+          # 条数由 FIXTURE_NAMES 现算，不手抄；写死会与末行 N/N 漂移。
           u"python tools/third_party_licenses.py --selftest  # 跑 %d 条夹具"
           u"（含双向注入）, 末行 LICENSE_SELFTEST_OK N/N" % len(FIXTURE_NAMES),
           u"```", ""]

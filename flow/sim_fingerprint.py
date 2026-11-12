@@ -2,38 +2,16 @@
 """
 sim_fingerprint.py -- 「盘上这个仿真器二进制是不是由现在这几份源文件编出来的」
 
-为什么不是 mtime
-----------------
-build_sim 这一步原来判的是「exe 的 mtime >= 最新 RTL 的 mtime」。它有两个方向
-都会错：
+不判 mtime（两个方向都会错）：内容没变但 mtime 更新会假红，源比目标新而未重链会假绿。
+改为输入指纹：把真正喂给编译器的东西（RTL 源、C++ 测试台、build_sim.sh 配方、臂宏与
+覆盖率开关）逐个取 sha256 写进 <MDIR>/<OUT>.rtlfp.json。判据三条合取：侧车在；记录的
+指纹 == 现算指纹；记录的 exe sha == 盘上 exe sha。任何一条不成立 => plan() 报 stale。
 
-* **假红**：flow/rand_trace.py 的 A/B 把 rtl/epv32_muldiv.v 改回 buggy 版、重编、
-  再把**逐字节相同**的修好版写回去（实测 `restored_equal=True`）。内容没变，
-  mtime 却比 12:15:14 那次构建更新，于是链条判「仿真器比 RTL 旧 —— 这一趟跑的是
-  旧逻辑」。那一刻盘上的二进制恰恰就是新逻辑。flow/assert_selfcheck.py 的
-  restore() 也在做同一件事（写回同样内容），所以只要它跑过，下一趟 build_sim
-  必然红 —— 一道按构造过不去的门。
-* **假绿**：Verilator `--build` 底下是 make，源文件比目标新也未必重链（本轮
-  12:18 那一趟 muldiv.v 比 exe 新 10 秒而 exe 没动）。mtime 判据看不见这一点，
-  它只看得见时间戳排序。
-
-改成**输入指纹**：把这一臂真正喂给编译器的东西（rtl 源文件、C++ 测试台、
-build_sim.sh 自己的构建配方、臂的宏与覆盖率开关）逐个取 sha256，混成一个
-指纹写进 `<MDIR>/<OUT>.rtlfp.json`。判据换成三条合取：
-
-1. 侧车在；
-2. 侧车里记的指纹 == 现在重算的指纹（源或配方变了就必须重编）；
-3. 侧车里记的 exe sha == 盘上 exe 现在的 sha（有人绕过本步原地换了二进制也拦得住）。
-
-任何一条不成立 => `plan()` 报 stale 并点名原因，调用方（run_all 的 s_build）
-带 FORCE=1 整目录重编再重新记账；记完再核一次，不等即判红。
-
-用法
-----
+用法:
   python flow/sim_fingerprint.py --plan cert       # 只读: 要不要重编 + 为什么
-  python flow/sim_fingerprint.py --record cert     # 构建完成后记账 (s_build 调)
+  python flow/sim_fingerprint.py --record cert     # 构建完成后记账
   python flow/sim_fingerprint.py --verify cert     # 三条合取, 打印读数
-  python flow/sim_fingerprint.py --selftest        # 夹具 (全部在沙盒里跑)
+  python flow/sim_fingerprint.py --selftest        # 夹具 (全在沙盒里跑)
 退出码: 0 好 / 1 判红 / 2 用法或夹具之外的故障。判决行只有 ASCII。
 """
 

@@ -89,8 +89,7 @@ def scan(case, arc, trace, binf):
     segs = []
     marks = 0
     offimg = 0
-    # 每条读 minstret 的指令本身属于**它后面那个窗口之前**的边界: i0 把预热段收掉,
-    # i1 交出基线窗口, i2 交出 EPV 窗口。所以三次读数 => 三段, 取后两段。
+    # 三次读数 => 三段(取后两段): i0 收预热段, i1 基线窗口, i2 EPV 窗口。
     with io.open(trace, encoding="utf-8", errors="replace") as f:
         for ln in f:
             t = ln.split()
@@ -347,8 +346,7 @@ def selftest():
         log("SELFTEST-FAIL 曲线整段缺失没被抓住: %s" % pr)
     else:
         log("SELFTEST-OK %-14s -> %s" % ("曲线缺失", pr[-1][:64]))
-    # 条数由夹具自己数（+1 是上面那条不挂在 cases 里的「曲线整段缺失」探针）：
-    # 文档里那句「N 条注入」以前是手抄的，加一条夹具没人回头改文档。
+    # 条数由夹具自己数（+1 是不挂在 cases 里的「曲线整段缺失」探针）。
     inj = sum(1 for c in cases if c[0] != "clean") + 1
     log("MEMSENS_SELFTEST_%s (injections=%d bad=%d)"
         % ("OK" if not bad else "FAIL", inj, bad))

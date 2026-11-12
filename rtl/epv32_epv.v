@@ -111,15 +111,9 @@ module epv32_epv (
                                  (i_is_c0 && !c0_ok) || (!i_is_c0 && !c1_ok));
   wire active = i_valid && !o_illegal;
   wire is_mem = c0_lvb | c0_svb;
-  /* SVB 刻意编成 I 型: 源向量号占 [11:7] 而不是 S 型的 [24:20]。
-   * 原因是本机 binutils 不支持 ".insn s"/".insn ss" (实测报
-   * "illegal operands ... extension `f' required"), 而 ".insn i" 可用;
-   * I 型还顺带保住了 12 位偏移量。软件侧 epv32_hw.h 的 epv_svb() 与此一致,
-   * 由 tools/check_encoding_consistency.py 汇编-反汇编逐位核对。 */
-  /* LVB/SVB 现在是 R 型: 向量号在 [24:20] (rs2 字段), 基址就是 rs1, 不带
-   * 立即数。改用 R 型的原因: 本机 GAS 对 ".insn i" 的 simm12 操作数会填进
-   * 别的东西 (实测 epv_lvb(0,0,bs) 编出 0x0004800b, imm=72 而不是 0),
-   * 而 ".insn r" 的六个字段逐位核对正确。 */
+  /* LVB/SVB 用 R 型: 向量号在 [24:20] (rs2 字段), 基址就是 rs1, 不带立即数。
+   * 改 R 型的原因: 本机 GAS 对 ".insn i" 的 simm12 会填进别的东西, ".insn r"
+   * 的六个字段逐位核对正确。 */
   wire [2:0]   mv_n    = i_rs2f[2:0];
   wire [127:0] svb_src = vrf[mv_n];
   wire mem_ph = active && is_mem;         // 本拍真的处于搬运流程
@@ -247,10 +241,8 @@ module epv32_epv (
   reg  [1:0]   wc;
   reg  [127:0] macc;
   reg          mrun;
-  /* 立即数必须按 I 型语义符号扩展: 零扩展会让负偏移 (如 lw 的 -10) 算成
-   * rs1+4086, 静默读到别处去。 */
-  /* 基址同样需要快照: LVB/SVB 的 4 次总线访问跨多拍, 而这期间 rs1 的前递源
-   * 会排空。start_addr 打上一次, 整段搬运用它。 */
+  /* 基址需要快照: LVB/SVB 的 4 次总线访问跨多拍, 这期间 rs1 的前递源会排空,
+   * 打一次快照供整段搬运用。 */
   reg  [31:0]  base_q;
   wire         addr_start = i_valid && is_mem && !o_illegal && !mrun;
   wire [31:0]  base       = mrun ? base_q : i_gpr1;
@@ -259,10 +251,8 @@ module epv32_epv (
   wire         mem_fin  = granted && (wc == 2'd3);
 
   assign o_mem_req   = mem_ph;
-  /* wc 是「第几个字」(0..3), 地址偏移要乘 4: 之前写成 base + wc,
-   * 于是四次访问落在 base..base+3 同一个字内 (且 1/2/3 是非对齐地址),
-   * 而 RAM 按 addr[..:2] 索引 -> 四次都读到同一个字。
-   * 实测: LVB -> SVB 逐字节回环拿不到源数据。 */
+  /* wc 是「第几个字」(0..3), 地址偏移要乘 4: 之前写成 base + wc, 四次访问落在
+   * 同一个字内 (RAM 按 addr[..:2] 索引), LVB -> SVB 回环拿不到源数据。 */
   assign o_mem_addr  = base + {28'b0, wc, 2'b00};
   assign o_mem_we    = c0_svb && mem_ph;
   assign o_mem_wdata = svb_src[{wc, 5'b0} +: 32];
@@ -305,16 +295,13 @@ module epv32_epv (
       o_vcfg <= 32'h0;
       for (vi = 0; vi < NV; vi = vi + 1) vrf[vi] <= 128'h0;
     end else begin
-      /* 地址快照单独一条 if。之前把它塞进了搬运链的 if/else if 里, 结果
-       * else if (granted) 挂到了 if (addr_start) 上 —— 第 1 拍的传输整拍被
-       * 跳过, LVB -> SVB 回环读回全 0 (实测 epv_bisect 的 A 段)。 */
+      /* 地址快照单独一条 if: 塞进搬运链的 if/else if 会让 else if (granted)
+       * 挂到 if (addr_start) 上, 第 1 拍传输整拍被跳过, 回环读回全 0。 */
       if (addr_start)            base_q <= i_gpr1;
 
-      /* 每条搬运指令的状态必须在「本条完成拍」清空, 不能等「下一拍没有搬运指令」。
-       * 原写法在两条搬运指令紧邻时永不触发: LVB 完成拍的下一拍 SVB 已经进了 EX,
-       * mem_ph 全程为 1 -> mrun 保持 1 -> addr_start 不再触发 -> SVB 沿用 LVB 的
-       * base_q 与 wc=3, 只写一个字且写错地址 (实测 epv_bisect 的 dst 全 0,
-       * 而波形里 LVB 自己拼出的 0xAFAEADAC_A7A6A5A4_A3A2A1A0 是正确的)。 */
+      /* 搬运状态必须在「本条完成拍」清空, 不能等「下一拍没有搬运指令」: 两条
+       * 搬运指令紧邻时 mem_ph 全程为 1, mrun 不回落, SVB 会沿用 LVB 的 base_q
+       * 与 wc=3, 只写一个字且写错地址。 */
       if (mem_fin || !mem_ph) begin
         wc <= 2'd0; macc <= 128'h0; mrun <= 1'b0;
       end else begin
@@ -329,12 +316,10 @@ module epv32_epv (
     end
   end
 
-  /* i_gpr2 由核侧的前递结果 fwd2 驱动, 当前不参与任何架构可见输出。
-   * 「不参与」不是注释而是被实测过的一条性质: tb/epv_unit.cpp 的 GPR2 反事实臂
-   * 把该端口换成全 1 激励, 17 条指令的输出逐位不变 (归档 results/epv_unit/)。
-   * 所以它不是悬空端口, 而是一个已证明惰性的预留接口 —— 保留它比删掉它便宜:
-   * 删要动核侧连线, 而 fwd2 本来就已经算好了。
-   * 本行也放在 `ifdef 之外: _unused_ok 那一份吃掉的是 lint, 与断言臂无关。 */
+  /* i_gpr2 由核侧前递结果 fwd2 驱动, 当前不参与架构可见输出。它不是悬空端口,
+   * 而是预留的标量-向量混合接口: tb/epv_unit.cpp 把该端口换全 1 激励, 17 条指令
+   * 输出逐位不变 (已实测), 故为已证明惰性的预留。保留比删掉便宜 (删要动核侧
+   * 连线, fwd2 本就已算好)。本行放 `ifdef 之外: _unused_ok 吃掉的是 lint。 */
   wire _unused_ok = &{1'b0, i_gpr2, 1'b0};
 
 `ifdef EPV_ASSERTIONS

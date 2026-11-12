@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 # =============================================================================
-#  flow/rt.py  --  EPV32 的统一「编译 -> 装载 -> 仿真 -> 判定」驱动
+#  flow/rt.py -- EPV32 统一的「编译 -> 装载 -> 仿真 -> 判定」驱动。
 #
-#  为什么要有这个文件而不是直接敲命令: 交付里每一个数字都必须能追到一次
-#  真实运行。这个驱动把「用的是哪个编译器、哪份链接脚本、跑没跑出产物、
-#  产物里写了什么」一次性落到 results/ 下的 JSON, 并规定
-#    **判定只看 JSON 里的字段, 不看命令退出码**
-#  (本机踩过: 工具在中文路径下打不开文件仍退 0; 以及 verilator 的 perl 包装
-#   脚本崩了之后 shell 看到的还是 0)。
+#  每个数字都落到 results/ 下 JSON, **判定只看 JSON 字段, 不看退出码**
+#  (踩过: 工具在中文路径下打不开文件仍退 0; verilator 的 perl 包装崩了 shell 仍见 0)。
 #
 # 用法:
 #   python flow/rt.py riscv rv32ui             # 跑整个 rv32ui 合规套件
@@ -109,11 +105,9 @@ def build_elf(name, srcs, ldscript=None, extra_defs=None, link_env_ld=False):
         cmd.append(os.path.join(ROOT, "sw", "mem", "crt0.S"))
         cmd.append(os.path.join(ROOT, "sw", "lib", "platform.c"))
     cmd += list(srcs)
-    # -nostdlib drops libc startup/example routines, but on RV32 a 64-bit
-    # divide or modulo needs libgcc's __udivdi3 / __umoddi3 helpers; without
-    # an explicit -lgcc the benchmark link fails (observed: nn_bench printing
-    # the 64-bit cycle ratio -> undefined reference to __udivdi3).  libgcc is
-    # part of the compiler itself and does not pull in newlib's runtime.
+    # RV32 上 64 位乘/除需要 libgcc 的 __udivdi3/__umoddi3, 而 -nostdlib 不带这些;
+    # 不加 -lgcc 会 undefined reference (实测 nn_bench 打 64 位 cycle ratio)。libgcc
+    # 属编译器自身, 不会引入 newlib 运行时。
     cmd += ["-Wl,--start-group", "-lgcc", "-Wl,--end-group"]
     cmd += ["-o", elf]
     # 把"这次到底编进去了哪些文件"记下来。归档新鲜度以前只核 RTL 哈希，
@@ -154,10 +148,8 @@ from atomic_json import write_json_atomic   # 唯一实现, 见 flow/atomic_json
 def sim_provenance():
     """每条仿真归档都要说清「是哪一版 RTL、哪个仿真器跑出来的」。
 
-    为什么现在补: M7 改 jr/br 目标的 IALIGN 判据之前跑的那份探针归档, 事后
-    没有任何字段能证明它对应改前的核 —— 只能靠我在 RTL 注释里手写文件名。
-    「这结果是这版源码跑出来的」也是一条归属断言, 不记就等于没有 (同类教训:
-    综合归档、基准归档都为此单独存过哈希)。
+    「这结果是这版源码跑出来的」也是一条归属断言, 不记就等于没有 (M7 改 IALIGN 前
+    的探针归档事后无法对应到改前的核; 综合/基准归档都为此单独存哈希)。
     """
     h = lambda p: hashlib.sha256(open(p, "rb").read()).hexdigest()
     rtl = {}

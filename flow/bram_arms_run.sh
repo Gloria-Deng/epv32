@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 # results/pnr/bram_template_arms/run_arm.sh <arm> [timeout_seconds]
-# Run ONE TD arm as its own job: all stdout+stderr into a per-arm log file,
-# wall-clock bounded by `timeout`. rc is NOT evidence (TD run.exe often
-# SIGSEGVs after writing reports) -- the evidence is the MARK-* / ARTIFACT-*
-# lines and the report files, which tools/read_arms.py reads.
-# Writes only inside results/pnr/bram_template_arms/<arm>/.
+# 单独跑一条 TD 臂：stdout/stderr 进 per-arm 日志，timeout 限时。
+# 退出码不是证据（run.exe 写完报告常 SIGSEGV）——证据是 MARK-*/ARTIFACT-* 行与报告文件，由 tools/read_arms.py 读。
 set -u
 export PYTHONDONTWRITEBYTECODE=1
 

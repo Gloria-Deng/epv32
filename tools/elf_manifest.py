@@ -113,8 +113,8 @@ def build(family_names=FAMILY_NAMES, elf_dir=ELF_DIR):
                 unmapped.append([elf, "suite json has no such test"])
                 continue
             if stem not in sim:
-                # 官方套件的逐例判决**只**在 results/sim/<stem>.json 里；少了它就不许
-                # 顺着 _isco 那份继续算「映射成功」—— 退休轨迹比对不能代替逐例 PASS/FAIL。
+                # 逐例判决只在 results/sim/<stem>.json：缺了就报错，不许用 _isco
+                # 的退休轨迹比对顶替逐例 PASS/FAIL。
                 problems.append("VERDICT-ARCHIVE-MISSING %s 缺 %s"
                                 % (elf, os.path.join(SIM_DIR, stem + ".json")))
                 unmapped.append([elf, "compliance verdict json missing"])
@@ -193,7 +193,7 @@ def selftest():
         return 1
     fails, fired = [], 0
 
-    # positive: 上面已经跑过一遍, 这里显式再断言一次形状
+    # positive: 显式断言现树映射形状
     if data["mapped"] <= 0 or data["unmapped"]:
         fails.append("positive: 现树映射不成立")
     else:
@@ -211,7 +211,7 @@ def selftest():
     finally:
         os.remove(probe)
 
-    # archive_removed: 把一条真实归档 temporarily 拿走 -> 必须红且点名
+    # archive_removed: 拿走一条真实归档 -> 必须红且点名
     victim = _p(SIM_DIR, "rv32ui__add.json")
     bak = victim + ".selftest_bak"
     before = io.open(victim, "rb").read()

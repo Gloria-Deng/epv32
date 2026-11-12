@@ -15,8 +15,7 @@ static uint8_t  src[16];
 static uint8_t  dst[16];
 static int32_t  dv[4];
 static uint32_t dvb[4];
-/* dst/dv/dvb 是 SVB 的目的缓冲, 三者的逻辑长度都正好一组(16 字节):
- * 挂 n=0 的留白断言, 少写一个元素就编译不过。 */
+/* dst/dv/dvb 各正好一组(16 字节), 配 n=0 留白断言: 少写一个元素就编译不过。 */
 EPV_SVB_HAS_TAIL(dst, 0) EPV_SVB_HAS_TAIL(dv, 0) EPV_SVB_HAS_TAIL(dvb, 0)
 
 int main(void)
@@ -39,7 +38,7 @@ int main(void)
                             epv_puts("\n"); epv_exit(100 + i); }
   epv_puts("A OK\n");
 
-  /* 偏移量也要验: LVB/SVB 带 4 和 12 的偏移 */
+  /* 偏移量也要验: LVB 带 4 的偏移 */
   for (i = 0; i < 16; i++) dst[i] = 0;
   epv_lvb(1, 4, bs);            /* 读 src[4..19] */
   epv_svb(1, 0, bd);

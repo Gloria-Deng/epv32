@@ -36,9 +36,9 @@ TD_VERSION = "V6.2.168116"
 CLOCK_NS = 10.0
 OUT = os.path.join("results", "pnr", "summary2.json")
 
-# 交付顶层(综合 + 综合口径时序) / 引脚压缩替身档(完整 place+route)
-# 每个臂同时记 tcl 文件名: flow/run_td_refresh.sh 与本文件都从这里取作业清单,
-# 免得驱动跑 run2s_*、归档读 run3s_*, 两边各说各话(这一条真的错过一次, 见下)。
+# 交付顶层(综合 + 综合口径时序) / 引脚压缩替身档(完整 place+route)。
+# 每个臂同时记 tcl 文件名: flow/run_td_refresh.sh 与本文件都从这取作业清单,
+# 免得驱动 (run2s_*) 与归档 (run3s_*) 各说各话。
 ARMS = {
     "epv": {"synth_dir": "results/pnr/run3s_epv", "synth_out": "epv_flow.out",
             "synth_tcl": "epv_flow.tcl",
@@ -113,12 +113,9 @@ def read(path):
 
 
 # ----------------------------------------------------------- 源码同一性核对
-# 为什么必须有这一段: TD 每个臂吃的不是 <项目>/rtl, 而是它自己目录下那份
-# **副本**(arm/rtl/*.v)。副本是 flow/make_td_arms.py 拷进去的 —— 也就是说
-# 「报告描述的是哪一版 RTL」这件事, 光看 rtl_sha256 字段完全证不了:
-# 那份字段是归档器按**当前工作树**算的, 而报告数字来自**副本**。
-# 于是原先顶层那个 "verified_against_source": True 是一个写死的字面量,
-# flow/run_all.py 那道口 `is True` 永远绿 —— 它一次都没有核过任何东西。
+# TD 每个臂吃的是自己目录下的副本 (arm/rtl/*.v, 由 flow/make_td_arms.py 拷入),
+# 而 rtl_sha256 是按当前工作树算的, 证不了报告描述的是哪一版 RTL。
+# 原顶层 "verified_against_source": True 是写死的字面量, 一次都没核过。
 def file_sha(path):
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -298,8 +295,7 @@ def area_delta(e, b):
 
 def main():
     hs = rtl_hashes()
-    # 先把「报告到底描述了哪一版源码」核掉: 每个臂的输入副本必须与本树逐字节相同。
-    # 这一步放在取数之前 —— 取数成功了又怎样, 那些数说的是另一版设计。
+    # 先核「报告描述的是哪一版源码」: 每个臂的输入副本必须与本树逐字节相同 (放在取数之前)。
     gen = gen_inputs()
     man = load_manifest()
     verif, n_files = {}, 0
@@ -437,9 +433,8 @@ def main():
 
 
 # ---------------------------------------------------------------- 注入自检
-# 每条用例都必须核对**为什么红**, 不许只判「有没有抛异常」: 一个抛了别的原因的
-# 注入会伪装成"门在工作"。healthy 那条也不是走过场 —— 它断言核到的文件数,
-# 否则 check_arm_sources 退化成「一个文件都没看」时, 上面五条全都照样红。
+# 每条用例必须核对「为什么红」而非「有没有抛异常」, 否则抛了别的原因的注入会伪装成
+# 门在工作。healthy 断言核到的文件数, 防止 check_arm_sources 一个文件都没看时其余用例照样红。
 def selftest():
     import shutil
     import tempfile

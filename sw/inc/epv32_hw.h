@@ -114,16 +114,11 @@ static inline uint64_t epv_rd_instret(void) {
 #define epv_svb(vs3, off, rs1) \
   __asm__ volatile (".insn r 0x0B, 1, 0, x0, %0, x" #vs3 \
                     :: "r"((uint32_t)((uint32_t)(rs1) + (uint32_t)(off))) : "memory")
-/* ---- SVB 尾组留白: 从「人工约定」变成「编译不过」--------------------------------
- * SVB 一次写满 16 字节, 而按 4 个一组步进的写者最后一组会越出逻辑长度最多 12 字节
- * —— 台账第 22 条就是栽在这上面(越界踩坏紧随其后的 .bss 静态量, 读出
- * EPV_INST > 测试台自己数的退休总数这样一个物理上不可能的读数)。当时三个用例各自
- * 手写 +16, 留白这件事没有编译器管, 下一个新用例照样会重犯。
- * 现在缓冲一律用 EPV_SVB_BUF 声明: 少了尾置就编译失败。尺寸与从前手写的
- * "[N + 16]" 逐字节相同, 所以 .bss 布局不变、周期数不变。
- * 判据用 sizeof(name) >= (n) + EPV_SVB_TAIL —— sizeof 本身是无符号类型, 不
- * 再引 stddef.h 拿 size_t(这个头在裸机侧只保证有 stdint.h)。两条宏都以分号
- * 结尾, 所以可以一行里连着写两个声明。 */
+/* ---- SVB 尾组留白: SVB 一次写满 16 字节, 尾组会越出逻辑长度最多 12 字节,
+ * 曾越界踩坏紧随其后的 .bss 静态量。缓冲一律用 EPV_SVB_BUF 声明: 少了尾置就
+ * 编译失败; 尺寸与从前手写的 "[N + 16]" 逐字节相同, .bss 布局与周期数不变。
+ * 判据 sizeof(name) >= (n) + EPV_SVB_TAIL, 用 sizeof(无符号) 而非 size_t
+ * (裸机侧只保证有 stdint.h)。两条宏都以分号结尾, 可一行连写两个声明。 */
 #define EPV_SVB_TAIL 16
 #define EPV_SVB_BUF(name, n) \
   int8_t name[(n) + EPV_SVB_TAIL]; \

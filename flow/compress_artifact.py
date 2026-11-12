@@ -25,12 +25,9 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# 复跑命令按产物写死在这里，而不是只写"重跑 demo.sh"：
-# 一个没人能照做的"可再生"声明等于没声明。
-# 这条表里每条命令都必须**产出左边那个明文文件**（不是分析它）—— 早先 bisect 那一格
-# 写的是 `python tools/vcd_probe.py --record`，而该脚本没有 --record，它读波形、
-# 写 probe.txt，跑完一个 .vcd 也不会多出来。收条里那句话因此是假的，已改成
-# README §三 那条真的重跑式。
+# 复跑命令按产物写死（不是只写"重跑 demo.sh"）: 每条必须产出左边那个明文文件。
+# 早先 bisect 那格写 `python tools/vcd_probe.py --record`，而该脚本没有 --record，
+# 跑完一个 .vcd 也不会多出来，收条是假的——已改成 README §三 真的重跑式。
 RERUN = {"results/demo/06_wave.vcd":
          "bash flow/demo.sh   # 段 6 用 EPV_WAVE=1 --max-cyc 4200 重生明文波形，段 6z 收成 .gz",
          "results/wave/bisect.vcd":

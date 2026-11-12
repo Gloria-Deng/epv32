@@ -47,9 +47,8 @@ OUT_MP4 = os.path.join(DEMO, "demo_video.mp4")
 OUT_JSON = os.path.join(DEMO, "demo_video.json")
 W, H, FPS = 1280, 720, 10
 LIMIT_S, LIMIT_MB = 600.0, 100.0
-# 目标时长：上一版排到 569 s，距赛题 600 s 上限只剩 31 s（5.2%），评审的 P1-9 点的
-# 就是这种「合规但没有余量」的形状 —— 任何一屏内容变多都会顶破上限。压到 510 s 之后
-# 余量 90 s（15%），而且解说音轨是按这个时长配的，二者由同一个 TARGET_S 导出。
+# 目标时长压到 510 s, 留 90 s(15%)余量: 上一版 569 s 只剩 31 s 余量, 评审点的正是
+# 这种「合规但没有余量」; 解说音轨按同一 TARGET_S 配, 二者同源导出。
 TARGET_S = 510.0
 LINE_H = 22
 TOP_Y, BOT_Y = 78, 660                 # 正文可用区; 一屏放得下的行数:
@@ -104,10 +103,8 @@ def jload(p):
 # --------------------------------------------------------------- 语料与取数
 def corpus():
     """本次可引用的全部读数来源 (文件 -> 文本)。数字只能从这里来。"""
-    # 成片**自己的**那份运行日志不进语料: 它逐行回显 --selftest 的输出, 而其中
-    # 有一条故意造出来的假数 (注入用的 187.421)。让"造数必须被抓住"这条判据去
-    # 读一份会回显假数的日志, 等于第二趟自检必然空转 —— 实测症状: 单独重跑
-    # --selftest 时 fake-number 不报红了, 因为 187.421 此刻「确实在语料里」。
+    # 成片自己的运行日志**不进语料**: 它回显 --selftest 注入的假数 187.421, 会让
+    # 「造数必须被抓」这条判据在第二趟空转 (重跑 --selftest 时 fake-number 不再报红)。
     want = [os.path.join(DEMO, f) for f in sorted(os.listdir(DEMO))
             if (f.endswith(".txt") or f.endswith(".log")) and "video" not in f]
     want += ["results/matrix.json", "results/bench/nn_bench.json",
@@ -117,8 +114,7 @@ def corpus():
              "results/compliance/rv32um.json", "results/isco/rv32ui.json",
              "results/isco/rv32um.json", "results/iss/selftest.json",
              "results/word_limits.json", "results/sim/misalign_bisect.json"]
-    # 本轮新增的两块证据: 真实数据集那条链 (精度 + 在环周期) 与访存代价曲线。
-    # 是把语料**扩大**到这些归档, 而不是放宽「屏上每个数字都要逐字在语料里」。
+    # 新增证据靠**扩语料**到这些归档, 不放宽「屏上每个数字都要逐字在语料里」。
     want += ["results/bench/cifar10_int8.json", "results/bench/cifar10_net.json",
              "results/bench/mem_sensitivity.json"]
     have = {}
@@ -711,8 +707,7 @@ def encode(S, fonts, path):
             vw = cv2.VideoWriter(path, fourcc, FPS, (W, H))
             if not vw.isOpened():
                 raise AssertionError("VideoWriter 打不开编码器 (fourcc=mp4v)")
-        # 打字速度由 FILL_FRAC 决定, 与 reveal_check 共用同一个算式：
-        # 第一版按整段线性铺开, 抽帧一看大半画面是空的。
+        # 打字速度由 FILL_FRAC 决定, 与 reveal_check 共用同一算式 (第一版整段线性铺开, 大半画面空)。
         steps = max(1, min(len(rows), n))
         fill = max(1, int(round(n * FILL_FRAC)))
         cache = {}
@@ -783,9 +778,8 @@ def selfcheck(S, corpus_map):
         problems.append("DRAWN-NOT-IN-ARCHIVE: %d 处, 首例 %s / %r"
                         % (len(uns), uns[0][2], uns[0][1]))
     problems += reveal_check(S)
-    # 字幕超行也排在编码之前：渲染端那条「装不下就抛」的断言是对的，但它抛在
-    # 已经写完 5000 帧之后 —— 产物被删、这一趟白跑。这里提前判，同一把尺子
-    # （同一个字体、同一个 CAP_MAX_LINES），不另写第二份容量算式。
+    # 字幕超行提前判: 渲染端那条断言会抛在写完 5000 帧之后(产物被删白跑); 这里用
+    # 同一把尺子(同字体、同 CAP_MAX_LINES)先判, 不另写第二份容量算式。
     if CAPTIONS:
         over = []
         for t, txt in sorted(CAPTIONS.items()):
@@ -868,9 +862,8 @@ def main(argv):
         raise SystemExit("SELF-CHECK-FAIL: 编码后 %.1f MB 超 100 MB, 已删除产物"
                          % (size / 1048576.0))
     # ---- 解说音轨：合成 -> 装配 -> 混流 -> 从容器回读自证 ------------------
-    # 音轨失败时**不许**留一段无声片而 sidecar 说它有声音：audio_block 保持 None,
-    # 下面的 not 列表就会重新写上「没有解说音轨」，并把失败原因留在 audio_error 里，
-    # 整步以非零退出。`not` 由本函数算出来的状态导出，不是抄一份写死的话。
+    # 音轨失败不许留无声片而 sidecar 说有声音: audio_block 保持 None, 状态由本函数
+    # 现算导出, not 列表据此重写「没有解说音轨」, 失败原因留 audio_error, 非零退出。
     audio_block, audio_err = None, None
     if "--no-audio" not in argv:
         import tempfile
@@ -890,9 +883,8 @@ def main(argv):
                 raise AssertionError("混流后 %.0f s / %.1f MB 超上限"
                                      % (dur, size / 1048576.0))
         except Exception as e:
-            # 混流已经把 mp4 换掉了。这时候如果只报错不留痕迹，盘上就是一份
-            # 「成片是新的、sidecar 是上一份」的错位交付件 —— 所以连产物一起删，
-            # 让下一步（demo.sh 或人）必须重出，而不是拿一份与 sidecar 不符的片子交上去。
+            # 混流已替换 mp4: 只报错不删会留下「成片新、sidecar 旧」的错位交付件,
+            # 故连产物一起删, 让下一步必须重出。
             audio_err = repr(e)[:300]
             audio_block = None
             if os.path.isfile(OUT_MP4):
@@ -902,9 +894,8 @@ def main(argv):
         finally:
             import shutil
             shutil.rmtree(wk, ignore_errors=True)
-    # 波形页那一屏的截窗拍数: 从它自己那份带 tag 的归档现读, 读不到就明写读不到。
-    # (上一版这里从 corpus_map 取, 而语料只收 .txt/.log, 于是 .get("max_cyc")
-    #  拿到 None, sidecar 的 caveat 印成"一次 None 拍" —— 一个静默的假读数。)
+    # 波形页截窗拍数从它自己带 tag 的归档现读, 读不到就明写读不到 (语料只收 .txt/.log,
+    # 从 corpus_map 取会拿到 None 而印出「一次 None 拍」这种假读数)。
     wave_win = "[缺 results/demo/06b_wave_archive.json]"
     wave_arc = os.path.join(DEMO, "06b_wave_archive.json")
     try:
@@ -1060,8 +1051,7 @@ def selftest():
     else:
         print("[selftest] no-corpus     红作为 %s" % probs[0][:80])
 
-    # 5) 打字太慢 -> 必须报 SLOW-REVEAL。把 FILL_FRAC 退回第一版的"整段线性"
-    #    形状 (1.0) 就是当时的真实实现, 这条注入演的正是那次事故。
+    # 5) 打字太慢 -> 必须报 SLOW-REVEAL。FILL_FRAC=1.0 即第一版整段线性形状, 注入演那次事故。
     globals()["FILL_FRAC"] = 1.0
     try:
         probs, _t, _u = run(base)

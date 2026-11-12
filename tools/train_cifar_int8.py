@@ -1,20 +1,19 @@
 # ============================================================================
 #  tools/train_cifar_int8.py
 #
-#  Closes the "no real dataset / no accuracy" gap.  Trains a small CNN on the
-#  real CIFAR-10 pixels, quantizes it into exactly the int8 fixed point that
-#  sw/bench/nn_cifar.c runs on the RTL, measures top-1 of *that integer*
-#  network on the whole 10000-image test set, and exports the weights plus the
-#  quantized images the simulator arm will run.
+#  Trains a small CNN on real CIFAR-10 pixels, quantizes it into exactly the
+#  int8 fixed point sw/bench/nn_cifar.c runs on the RTL, measures top-1 of that
+#  integer network on the whole 10000-image test set, and exports the weights
+#  plus the quantized images the simulator arm will run.
 #
-#  The layer sequence is the one nn_cifar.c implements, so the accuracy number
-#  and the cycle number describe the same network rather than two look-alikes:
+#  The layer sequence is the one nn_cifar.c implements, so the accuracy and
+#  cycle numbers describe the same network:
 #     conv valid 3x3  8x8 x16 -> 6x6 x16   requant + relu
 #     conv valid 3x3  6x6 x16 -> 4x4 x16   requant + relu
 #     global max pool 4x4 -> 1x1           (max over int8: no rescale)
 #     FC 16 -> 10                    requant, no relu
 #  CIFAR's 3 channels are zero-padded to the 16-lane vector width; the padding
-#  lanes are reported as a measured MAC-efficiency cost, not hidden.
+#  lanes are reported as measured MAC-efficiency cost.
 #
 #  Calibration is done entirely in the int8 domain (max over the int8
 #  accumulator x the exact per-channel product scale), because the requantized
@@ -123,11 +122,9 @@ def requant_int8(acc, m, s, rb):
     t = (acc*M + 2^30) >> 31;  if s>0: t += 1<<(s-1);  then shift by s;  sat8(t+RB)
 
     The shift is ASYMMETRIC in the C reference (nn_net.c: `else if (t >= 0)
-    sh = t >> s;` but for t<0 it shifts the magnitude and adds 1 whenever a
-    remainder is left), and this function has to stay asymmetric the same way.
-    A symmetric "round half away from zero" reads more principled and is wrong:
-    --selftest caught exactly that and disagreed with the scalar port on every
-    positive operand that still had a remainder.
+    sh = t >> s;` but for t<0 it shifts the magnitude and adds 1 when a
+    remainder is left), and this function must stay asymmetric the same way; a
+    symmetric "round half away from zero" is wrong and --selftest catches it.
     """
     acc = np.asarray(acc, dtype = np.int64)
     m = np.asarray(m, dtype = np.int64)
@@ -430,10 +427,9 @@ def stage_quant_eval(export = True, full_eval = True):
     log("SAT_COUNTS_200IMG", sat)
 
     # ---- accuracy over the real test set
-    # int8 logits are 10 values in [-128,127], so ties are possible; argmax
-    # takes the lowest class index, and that can cost accuracy on its own.
-    # The number of tied images is reported next to the accuracy so the
-    # reader can see the size of that effect instead of guessing.
+    # int8 logits lie in [-128,127], so ties are possible; argmax takes the
+    # lowest class index, which can cost accuracy. Tied-image count is logged
+    # next to accuracy to size that effect.
     Xte = downsample(xte)
     n = Xte.shape[0]
     good_i = good_f = 0

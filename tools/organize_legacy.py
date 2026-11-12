@@ -21,28 +21,20 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TDIR = os.path.join(ROOT, "tools")
 LEG = os.path.join(TDIR, "legacy")
 
-# 名字形状: 改稿类一次性工具。这只是**假设**，不是判决 —— 判决是「零引用」。
-# 2026-09-27 补齐：本轮按名字无关的普查发现 `append_closure_*`、`cleanup_after_*`、
-# `compress_body_*`、`repair_closure_*` 这几族同样是「把上一版文档改成当时那一版」的
-# 一次性笔，而旧 CAND 收不到它们（收不到就等于永远不会被清理，而 README 会把它们
-# 列成「长期工具」——那是名字形状在替用途撒谎）。
+# 名字形状只是**候选**，判决是「零引用」。2026-09-27 按名字无关普查补齐
+# `append_closure_*`/`cleanup_after_*`/`compress_body_*`/`repair_closure_*` 四族
+# 一次性笔（旧 CAND 收不到，漏了就不会被清理）。
 CAND = re.compile(r"^(patch_|trim_|collapse_|rewrite_|slim_|move_|strip_|sweep_|"
                   r"sync_|apply_|fix_|hack_|tmp_|once_|append_|cleanup_|compress_|"
                   r"repair_|close_.*_debt)")
 CORPUS_EXT = (".py", ".md", ".sh", ".json", ".log", ".txt", ".ys", ".c", ".h",
               ".cpp", ".v", ".vh", ".bat")
-# 语料口径 = **会调用它的那些出口**: 驱动 (flow/)、门禁与工具 (tools/, 除本文件)、
-# 四份交付件 (docs/ README.md demo/)、以及归档里按名字点过某支驱动的 log/json (results/)。
-# 明确**不含** `三方评审/`: 评审把某个脚本列成"你包里为什么混了一次性脚本"的缺陷,
-# 那是点名批评而不是依赖关系 —— 把它算进引用面会让 23 个候选里 21 个"被引用",
-# 于是这条清理永远做不成, 而且理由看起来完全合法 (本轮实测到的形状)。
+# 语料口径 = 会调用脚本的出口：驱动 (flow/)、门禁与工具 (tools/, 除本文件)、
+# 交付件 (docs/ README.md demo/) 与归档 log/json (results/)。不含 `三方评审/`：
+# 那是批评不是依赖，算进去会让清理做不成（实测 23 个候选 21 个"被引用"）。
 REF_EXCLUDE_TOP = (os.path.join("三方评审", ""),)
-# 普查语料的**自我引用**排除：本工具自己写出的那份清单、以及那份清单的派生物，
-# 都不许算「有人依赖这支脚本」。不排除就会得到一个自我实现的判决 ——
-# `tools/README.md` 列了 trim_s5c.py，于是它「被引用」，于是它留在原地并被继续列出来；
-# `results/logs/historical_archives.txt` 那一行同理（它是扫这些脚本时把它们记进去的）。
-# 一次性探针 `scratch_*` 也不算：那是我这一轮的草稿，不是包内长期依赖，
-# 且它们按前缀排除（逐个列名字一定会漏掉下一支新写的）。
+# 排除自我引用：本工具写出的清单及其派生物不算依赖，否则「被 README 列出 → 被引用
+# → 留下并被继续列出」形成自我实现的判决；`scratch_*` 探针按前缀排除。
 REF_EXCLUDE_NAMES = (os.path.join("tools", "README.md"),
                      os.path.join("results", "logs", "historical_archives.txt"))
 REF_EXCLUDE_PREFIX = ("scratch_",)
@@ -74,14 +66,12 @@ def main():
         move_out = sys.argv[i + 1]
     all_names = sorted(f for f in os.listdir(TDIR)
                        if f.endswith(".py") and os.path.isfile(os.path.join(TDIR, f)))
-    # 分母是**全部**脚本，不是 CAND 命中的那几支：只有 CAND 命中的会被搬，
-    # 但「零引用而没人搬」那一档必须打印出来，否则一支再也没人调用的诊断脚本会
-    # 被 README 的清单默认成「长期工具」（名字形状不像改稿笔 ≠ 它有主人）。
+    # 分母是**全部**脚本，非 CAND 命中集：零引用而没被搬的必须打印，
+    # 否则无人调用的诊断脚本会被 README 默认成「长期工具」。
     names = all_names
     if not names:
-        # 这里不许 return：清单的**新鲜度**不能取决于「有没有 CAND 命中的候选」。
-        # 早退会让 --apply 在一次政策清理之后再也不重生成 README，于是那份清单
-        # 停在清理之前的样子而所有门照绿（本轮实测到的正是这种「没活干=没刷新」）。
+        # 不许早退：清单新鲜度不能取决于有没有候选，否则 --apply 清空后不再
+        # 重生成 README，清单停在旧样子而所有门照绿。
         print("NO-CANDIDATES —— 候选集为空，仍然会按目录现状重生成清单")
     texts = {}
     skipped_outside = 0

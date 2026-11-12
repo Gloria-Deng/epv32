@@ -43,9 +43,7 @@ if hasattr(sys.stdout, "reconfigure"):
 OFFICIAL_DIR = os.path.join("赛题", "附件")
 OUT_REL = os.path.join("赛题", "官方模板全文.md")
 MIN_PARAS = 30                     # 官方模板实测 40 段非空；低于这个数就是解析面塌了
-# 具名夹具清单（本包的契约：自带 --selftest 的脚本必须在**模块级**列出夹具名，
-# 这样"末行的分母"由清单长度导出，而跑过的集合要和清单求差——否则某条夹具因为
-# 分支没走到而从未执行，末行照样写 n/n。`tools/fixture_claims.py` 就是查这个的。）
+# 具名夹具清单: 末行分母由清单长度导出, 跑过的集合与清单求差, 防止分支没走到仍报 n/n。
 FIXTURE_NAMES = ("writer", "positive", "dropped_paragraph", "reworded",
                  "missing_template")
 HEAD = u"# 官方模板附件正文转写\n"
@@ -164,7 +162,6 @@ def selftest():
         if check(root=box) != 2:
             fails.append("原件缺失没报 SETUP-FAIL")
         ran.append("missing_template")
-        # 清单与"真跑过的集合"求差: 分支没走到 = 那条夹具根本没跑, 末行不许照样写 n/n
         never = [n for n in FIXTURE_NAMES if n not in ran]
         if never:
             fails.append("具名清单里有 %d 条从未被执行: %s" % (len(never), never))

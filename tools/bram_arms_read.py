@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""results/pnr/bram_template_arms/read_arms.py -- pull the measurements out of the TD logs.
+"""results/pnr/bram_template_arms/read_arms.py -- 从 TD 日志里取出测量数。
 
-Read-only over the arm directories. Prints ASCII only (the host console is
-GBK, so anything non-ASCII is backslash-escaped rather than emitted).
-
-For every arm it prints, verbatim where the source is a tool line:
-  * the rc/elapsed record written by run_arm.sh
-  * the MARK-*-OK / MARK-*-FAILED ladder (how far the job got)
-  * every RAM-inference tool line (SYN-1023 / SYN-1026 / SYN-1027 / ...)
-  * every line that looks like an error / resource complaint
-  * #bram / #bram9k / #bram32k / #lut / #Total_luts from rtl.area + gate.area
-  * the last few lines of stdout (what the arm was doing when it stopped)
+对臂目录只读。只印 ASCII（宿主控制台是 GBK，非 ASCII 用反斜杠转义）。
+逐臂按工具行原样印出：rc/elapsed、MARK 梯子、RAM 推断行（SYN-1023/1026/1027…）、
+错误/资源告警、rtl.area 与 gate.area 的 #bram/#lut 等键、stdout 尾部。
 """
 import glob
 import io

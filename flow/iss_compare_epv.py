@@ -1,28 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""flow/iss_compare_epv.py -- 把 EPV 扩展程序也接进「黄金 ISS ↔ RTL 逐条轨迹比对」
+"""flow/iss_compare_epv.py -- 把 EPV 扩展程序也接进「黄金 ISS ↔ RTL 逐条轨迹比对」。
 
-评审件 P2-3 要的是：17 条扩展不能只有「用例通过 + 探针逐项读数」，要升到
-与 ISA 三套件同一档的「逐条轨迹一致」。它给的修法（"给 epv_iss.py 加 LVB/SVB"）
-实测是错的——那份黄金模型早就实现了它们。真缺口在这里：比对器只吃 ISA 的 .S 套件。
+两个投影一起比：R 线 (pc, rd, wdata) 管计算类写回；S 线 (addr, wdata, be) 只覆盖
+退休记录里可见的标量 store —— SVB 的四次总线拍在退休轨迹里看不见（o_tr_memwr=0），
+其数据通路由 R 线传递性覆盖。每条扩展是否被比到由指令字现场解码给出（pc 回指 flat
+image 按 funct3/funct7 对 rtl/epv32_defs.vh 那张编码唯一真源表），一条都没解出就 raise。
 
-**两个投影一起比**，因为 EPV 的两类副作用不一样：
-  * R 线 (pc, rd, wdata)：计算类指令把结果写回通用寄存器（这正是本设计的卖点），
-    所以 VDOT8/VREQ4/VRELU8/VMAX8/XMV/CFGR 这类会出现在这里；
-  * S 线 (addr, wdata, be)：每笔**退休记录里可见**的 store。`SVB` 的四次总线拍
-    在退休轨迹里是**看不见的**（它不驱动 idex_mem_write，o_tr_memwr=0，测试台
-    不为它印 S 行 —— 见 epv_iss.py quirk 17 与 A.11 的仪器边界注记），所以 S 线
-    只覆盖标量 store；SVB 的数据通路由 R 线传递性地覆盖（回读型程序把写进去的
-    字节再读回来算），两侧的退休 store 序列因此 1:1 可比。
-
-**每条扩展到底有没有被比对到**由指令字现场解码给出（不是由用例名字推）：
-把被比对轨迹里的 pc 映射回 flat image 的那 4 个字节，按 CUSTOM0 看 funct3、
-按 CUSTOM1 看 funct7，与 `rtl/epv32_defs.vh` 那张**编码唯一真源**表对上
-（表由 check_encoding_consistency.parse_rtl_table 解析，本件不开第二份表）。
-一条都没解出来就 raise —— 那说明这一趟比的还是普通整数指令，不该拿它当 EPV 证据。
-
-不改动 flow/iss_compare.py：它把自己的 sha256 记进已认证的 results/isco/*.json
-（comparator_sha256），动它就等于让三套件的归档指纹全部对不上。
+不改动 flow/iss_compare.py：它把自己的 sha256 记进已认证归档，动它就三套件指纹全对不上。
 """
 import io
 import json

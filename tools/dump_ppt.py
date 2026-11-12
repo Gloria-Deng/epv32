@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Dump every text run of the defense deck (numbers-gate development aid)."""
+"""把答辩 PPT 的每个文本 run 全部导出（数字门禁的开发辅助）。"""
 import io, os, re, sys
 from pptx import Presentation
 
