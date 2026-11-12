@@ -3,12 +3,6 @@
 A RISC-V RV32IM SoC with a custom instruction extension (**EPV**) that accelerates
 edge-side INT8 neural-network inference.
 
-> **中文简介**：EPV32 是一款面向端侧 INT8 神经网络推理的 RISC-V SoC。它在五级流水
-> RV32IM 处理器核上扩展了 17 条 EPV 自定义指令，把 INT8 卷积里的搬运、广播、点积与
-> 乘加等热点操作下沉为单条指令。相比 `-O2` 纯 C 基线，同一份 INT8 卷积实测加速
-> **15.73×**，输出逐 int8 全等；核心通过官方 riscv-tests 合规集，并与独立黄金 ISS
-> 做逐条退休轨迹比对，零已知分歧。
-
 ---
 
 ## Overview
