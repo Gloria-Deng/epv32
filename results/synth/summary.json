@@ -1,0 +1,108 @@
+{
+  "tool": "Yosys 0.69 (git sha1 9f75ca1f9-dirty, Release, GNU E:/msys64/ucrt64/bin/g++.exe 16.2.0)",
+  "scripts": [
+    "flow/synth_core_epv.ys",
+    "flow/synth_core_noepv.ys",
+    "flow/synth_epv.ys",
+    "tools/make_wrappers.py -> rtl/synth_wrappers.v",
+    "tools/synth_archive.py (本文件)"
+  ],
+  "arms": {
+    "core_with_epv": {
+      "cells": 1670,
+      "wires": 1619,
+      "wire_bits": 18265,
+      "dff_cells": 109,
+      "cell_histogram_top15": {
+        "$logic_and_1": 235,
+        "$mux_8": 132,
+        "$mux_1": 128,
+        "$mux_32": 123,
+        "$or_1": 77,
+        "$logic_or_1": 67,
+        "$eq_3": 57,
+        "$add_32": 47,
+        "$logic_not_1": 38,
+        "$gt_9": 32,
+        "$lt_8": 32,
+        "$lt_9": 32,
+        "$adffe_1": 31,
+        "$eq_12": 31,
+        "$adffe_32": 29
+      },
+      "source_log": "results/synth/core_epv.txt"
+    },
+    "core_no_epv": {
+      "cells": 1010,
+      "wires": 1009,
+      "wire_bits": 9301,
+      "dff_cells": 94,
+      "cell_histogram_top15": {
+        "$logic_and_1": 132,
+        "$mux_1": 127,
+        "$mux_32": 118,
+        "$logic_or_1": 60,
+        "$adffe_1": 31,
+        "$eq_12": 31,
+        "$logic_not_1": 30,
+        "$adffe_32": 29,
+        "$or_1": 25,
+        "$eq_3": 24,
+        "$ge_32": 20,
+        "$le_32": 20,
+        "$not_1": 18,
+        "$add_32": 15,
+        "$eq_7": 14
+      },
+      "source_log": "results/synth/core_noepv.txt"
+    },
+    "epv_unit_only": {
+      "cells": 650,
+      "wires": 613,
+      "wire_bits": 9016,
+      "dff_cells": 13,
+      "cell_histogram_top15": {
+        "$mux_8": 128,
+        "$logic_and_1": 98,
+        "$or_1": 54,
+        "$eq_3": 33,
+        "$add_32": 32,
+        "$gt_9": 32,
+        "$lt_8": 32,
+        "$lt_9": 32,
+        "$gt_8": 25,
+        "$add_9": 16,
+        "$mul_18": 16,
+        "$sub_9": 16,
+        "$mux_128": 14,
+        "$add_64": 12,
+        "$eq_7": 11
+      },
+      "source_log": "results/synth/epv_only.txt"
+    }
+  },
+  "epv_unit_cells": 650,
+  "epv_net_overhead_cells": 660,
+  "epv_net_overhead_pct": 65.3,
+  "cross_check": {
+    "unit_cells_lte_net_overhead": true,
+    "residual_cells": 10,
+    "meaning": "核的净增量应 >= 单独综合 EPV 单元的单元数, 差值就是核内为它加的分派/冻结逻辑; 差值为负说明两次统计不是同一份 RTL"
+  },
+  "scope_caveat": "Yosys 通用单元计数, 未映射到任何器件工艺库: 这不是 LUT 数, 也不能被引成 LUT 数。真器件资源与时序见 results/pnr/ (安路 TD)。",
+  "not_included": "主存 epv32_ram.v 是 65536 字异步读阵列, 任何 FPGA 都无法用 BRAM 实现, 故不计入核面积; 256 KiB 按容量单独折算。",
+  "rtl_sha256": {
+    "epv32_alu.v": "a5ddcc35bbd676b02fd1cb0efbc0afcd2513fbcdee5d3517cdaa8636d96a89ae",
+    "epv32_assert_core.vh": "e79bca325a42cfc5c5e57887f879cf84c92040a7cb100a2d0ae4a24a05056dd2",
+    "epv32_assert_epv.vh": "7a375a09b4c8cf0e058237aeae33d3d966d1c3b3a3f21fc3d7be277fd123541e",
+    "epv32_core.v": "6192d45d963ea0f3cece6e726a3dfe9b5210ac3fa5796fec5494b57d7492b49c",
+    "epv32_csr.v": "107d97eb64010bb1e4d349c9d8be93d39ecf2a3d72b71e75f5e44b5a70802f46",
+    "epv32_defs.vh": "b3194e838d73f4ab5118958ccb42c74862986b8aeda500116803b791b2807dfd",
+    "epv32_epv.v": "f13b566f34d1b3ecd988ee763bb8cfda7739e0f330fae646d87ddcddd0363a3c",
+    "epv32_muldiv.v": "56462174dfde2e522230349415abc842f4114e3c2af24d3c3d686f76b46b8341",
+    "epv32_ram.v": "287f3f7b51cc264170bdb291a752734838e81eb8347c1a6372681f6a8e47c23d",
+    "epv32_rf.v": "ab5b9e94b0167f3a6ec5f56733e0dfb9c73cde16007d11409a29c8d5e46fe989",
+    "epv32_soc.v": "37e05c85c94cd5ca6f57ab4949d5d0d0c2606f727370ca021b32976dd81342b4",
+    "synth_wrappers.v": "c794869bf524788e5216c40017e3a7f59c7006a1f9aae1f08a156bd20619f5cd"
+  }
+}

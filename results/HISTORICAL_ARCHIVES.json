@@ -1,0 +1,533 @@
+{
+  "current_tree_head": "6192d45d963ea0f3",
+  "entries": [
+    {
+      "cited_by": [
+        "README.md",
+        "参赛项目设计报告.md",
+        "演示脚本与讲稿.md",
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/bench/cifar10_int8.json",
+      "produced_by": "cifar10_net",
+      "reason": "真实数据集口径读数:新鲜度由它自己记的数据集/浮点权重哈希与 torch/numpy 版本保证,增量写入者内容未变时不重写"
+    },
+    {
+      "cited_by": [
+        "README.md",
+        "参赛项目设计报告.md",
+        "演示脚本与讲稿.md",
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/bench/mem_sensitivity.json",
+      "produced_by": "mem_sensitivity",
+      "reason": "访存敏感性读数:新鲜度由它记的被扫镜像与所引归档哈希保证,由 mem_sensitivity 步骤产出"
+    },
+    {
+      "cited_by": [
+        "参赛项目设计报告.md",
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/compliance/rv32mi.json",
+      "produced_by": "rv32mi",
+      "reason": "合规套件读数:本身不记逐文件 rtl 全串,由 rv32mi 步骤产出并随矩阵刷新"
+    },
+    {
+      "cited_by": [
+        "README.md",
+        "参赛项目设计报告.md",
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/compliance/rv32ui.json",
+      "produced_by": "rv32ui",
+      "reason": "合规套件读数:本身不记逐文件 rtl 全串,由 rv32ui 步骤产出并随矩阵刷新"
+    },
+    {
+      "cited_by": [
+        "README.md",
+        "参赛项目设计报告.md",
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/compliance/rv32um.json",
+      "produced_by": "rv32um",
+      "reason": "合规套件读数:本身不记逐文件 rtl 全串,由 rv32um 步骤产出并随矩阵刷新"
+    },
+    {
+      "cited_by": [
+        "README.md"
+      ],
+      "class": "unsigned",
+      "path": "results/iss/selftest.json",
+      "produced_by": "iss_selftest",
+      "reason": "ISS 自测读数:记 ISS 源文件哈希头,由 iss_selftest 步骤产出并随矩阵刷新"
+    },
+    {
+      "cited_by": [
+        "参赛项目设计报告.md",
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/pnr/ab_m6_vs_m7.json",
+      "produced_by": "tools/ab_m6_m7.py",
+      "reason": "一次性 A/B 对照归档,不在矩阵复跑范围内;引用它时按历史读数读"
+    },
+    {
+      "cited_by": [
+        "参赛项目设计报告.md",
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/pnr/ab_sdc_sensitivity.json",
+      "produced_by": "tools/ab_m6_m7.py",
+      "reason": "一次性 SDC 敏感性对照归档,不在矩阵复跑范围内"
+    },
+    {
+      "cited_by": [
+        "README.md",
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/pnr/bram_template_arms.json",
+      "produced_by": "tools/bram_arms_build.py",
+      "reason": "八臂 TD 实测读数:臂源码是独立最小 RAM 模块、不吃 rtl/ 那棵树，故本身不记 rtl 指纹；一次约 40 分钟（两臂在 900 s 上限内未返回），矩阵不为当前树重跑它；链条里跑的是 tools/bram_arms_check.py 那发便宜核对"
+    },
+    {
+      "cited_by": [
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/pnr/summary.json",
+      "reason": "上一代器件口径归档;现役 pnr_gate 只认 summary2.json,这份留着做配对对照的旧侧",
+      "supersedes": "results/pnr/summary2.json"
+    },
+    {
+      "cited_by": [
+        "README.md"
+      ],
+      "class": "unsigned",
+      "path": "results/ppt/verify.json",
+      "produced_by": "ppt",
+      "reason": "PPT 回读校验产物:由 ppt 步骤产出"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/rand_trace/prefix_divzero_summary.json",
+      "reason": "rand_trace 除零那一格的 A/B 判决件：反例臂把 muldiv.v 退回旧行为，所以它记的指纹属改前那一代；现役随机流结论由 results/rand_trace/summary.json 承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/chainab__00_isco.json",
+      "reason": "09-26 链式 A/B（一次改动多臂对照）留下的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "ddaf07aeddfddfb1",
+      "path": "results/sim/epv_bisect_wave2.json",
+      "reason": "EPV 二分定位的第二发波形;定位完成后不再复跑,留档只为那条分叉可回看"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "ddaf07aeddfddfb1",
+      "path": "results/sim/epv_bisect_wavegen.json",
+      "reason": "EPV 二分定位的波形生成件,一次性过程产物,矩阵不复跑"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/minimal__repro_isco.json",
+      "reason": "09-26 最小复现程序的一发读数（定位过程证据，不是结论），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c00.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c01.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c02.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c03.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c04.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c05.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c06.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c07.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c08.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c09.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c10.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c11.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/rem2__c12.json",
+      "reason": "09-26 rem 除零那一格的 A/B 逐发读数（反例臂把 REM 退回返回 |被除数|），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0001_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0002_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0003_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0004_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0005_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0006_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0007_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0008_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0009_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0010_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0011_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0012_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0013_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0014_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0015_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0016_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0017_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0018_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0019_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0020_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0021_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0022_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0023_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0024_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0025_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0026_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0027_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0028_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0029_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/shrink__0030_isco.json",
+      "reason": "09-26 那轮缩例探针（把复现程序逐条删到最小）的逐发读数，由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代。矩阵不为当前树重跑这些探针，现役结论由同名的无 tag 归档承担"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/signab__00_isco.json",
+      "reason": "09-26 有符号除法 A/B 两臂的逐发读数（把商与余数的符号处理退回旧行为那一臂），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/signab__01_isco.json",
+      "reason": "09-26 有符号除法 A/B 两臂的逐发读数（把商与余数的符号处理退回旧行为那一臂），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/signab__02_isco.json",
+      "reason": "09-26 有符号除法 A/B 两臂的逐发读数（把商与余数的符号处理退回旧行为那一臂），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/signab__03_isco.json",
+      "reason": "09-26 有符号除法 A/B 两臂的逐发读数（把商与余数的符号处理退回旧行为那一臂），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/signab__04_isco.json",
+      "reason": "09-26 有符号除法 A/B 两臂的逐发读数（把商与余数的符号处理退回旧行为那一臂），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/signab__05_isco.json",
+      "reason": "09-26 有符号除法 A/B 两臂的逐发读数（把商与余数的符号处理退回旧行为那一臂），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/signab__06_isco.json",
+      "reason": "09-26 有符号除法 A/B 两臂的逐发读数（把商与余数的符号处理退回旧行为那一臂），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [],
+      "class": "historical",
+      "generation_head": "6192d45d963ea0f3",
+      "path": "results/sim/signab__07_isco.json",
+      "reason": "09-26 有符号除法 A/B 两臂的逐发读数（把商与余数的符号处理退回旧行为那一臂），由 flow/rt.py bench --tag 产出；与当前树唯一的差是本轮改掉的 rtl/epv32_muldiv.v，故属旧代"
+    },
+    {
+      "cited_by": [
+        "README.md",
+        "演示脚本与讲稿.md",
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/word_limits.json",
+      "produced_by": "word_gate",
+      "reason": "字数上限台账:由 check_word_limits 从赛题原文现读,由 word_gate 步骤产出"
+    },
+    {
+      "cited_by": [
+        "README.md",
+        "附件A_缺陷与门禁台账.md"
+      ],
+      "class": "unsigned",
+      "path": "results/word_style.json",
+      "produced_by": "word_gate",
+      "reason": "字数口径读数:由字数门现算,增量写入时内容未变就不重写,故不按每代刷新读它"
+    }
+  ],
+  "note": "results/ 归档的读数类别登记表。historical=旧代取到、矩阵不为当前树重取；unsigned=不记逐文件 rtl 全串、新鲜度由别的键或别的步骤保证。类别/代前缀/produced_by 一律由 tools/historical_archives.py 现填并复核，不要手改本文件。",
+  "schema": "epv32.historical_archives.v1"
+}

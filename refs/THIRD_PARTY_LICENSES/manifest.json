@@ -1,0 +1,118 @@
+{
+ "counting_basis": "本次运行逐条现算; 期望条数由 COMPONENTS 的 files 求和",
+ "components_declared": 8,
+ "files_expected": 12,
+ "files_recorded": 12,
+ "status_counts": {
+  "COPIED": 10,
+  "DECLARED_UNAVAILABLE": 2
+ },
+ "entries": [
+  {
+   "component": "yosys",
+   "file": "LICENSE",
+   "source": "E:/msys64/ucrt64/share/licenses/yosys/LICENSE",
+   "delivered": "refs/THIRD_PARTY_LICENSES/yosys/LICENSE",
+   "sha256": "6998b5724d4cb3f459d1c12b6bd0cdbfa9c949ef14d0fb6d7d97d97404e5b5f3",
+   "bytes": 777,
+   "status": "COPIED"
+  },
+  {
+   "component": "verilator",
+   "file": "LICENSE",
+   "source": "E:/msys64/ucrt64/share/licenses/verilator/LICENSE",
+   "delivered": "refs/THIRD_PARTY_LICENSES/verilator/LICENSE",
+   "sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1",
+   "bytes": 42098,
+   "status": "COPIED"
+  },
+  {
+   "component": "binutils",
+   "file": "COPYING",
+   "source": "E:/msys64/ucrt64/share/licenses/binutils/COPYING",
+   "delivered": "refs/THIRD_PARTY_LICENSES/binutils/COPYING",
+   "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c",
+   "bytes": 18002,
+   "status": "COPIED"
+  },
+  {
+   "component": "binutils",
+   "file": "COPYING3",
+   "source": "E:/msys64/ucrt64/share/licenses/binutils/COPYING3",
+   "delivered": "refs/THIRD_PARTY_LICENSES/binutils/COPYING3",
+   "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+   "bytes": 35147,
+   "status": "COPIED"
+  },
+  {
+   "component": "binutils",
+   "file": "COPYING.LIB",
+   "source": "E:/msys64/ucrt64/share/licenses/binutils/COPYING.LIB",
+   "delivered": "refs/THIRD_PARTY_LICENSES/binutils/COPYING.LIB",
+   "sha256": "56bdea73b6145ef6ac5259b3da390b981d840c24cb03b8e1cbc678de7ecfa18d",
+   "bytes": 25291,
+   "status": "COPIED"
+  },
+  {
+   "component": "binutils",
+   "file": "COPYING3.LIB",
+   "source": "E:/msys64/ucrt64/share/licenses/binutils/COPYING3.LIB",
+   "delivered": "refs/THIRD_PARTY_LICENSES/binutils/COPYING3.LIB",
+   "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c",
+   "bytes": 7639,
+   "status": "COPIED"
+  },
+  {
+   "component": "gcc",
+   "file": "COPYING3",
+   "source": "E:/msys64/ucrt64/share/licenses/gcc/COPYING3",
+   "delivered": "refs/THIRD_PARTY_LICENSES/gcc/COPYING3",
+   "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+   "bytes": 35147,
+   "status": "COPIED"
+  },
+  {
+   "component": "gcc",
+   "file": "COPYING.RUNTIME",
+   "source": "E:/msys64/ucrt64/share/licenses/gcc/COPYING.RUNTIME",
+   "delivered": "refs/THIRD_PARTY_LICENSES/gcc/COPYING.RUNTIME",
+   "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74",
+   "bytes": 3324,
+   "status": "COPIED"
+  },
+  {
+   "component": "mingw-crt",
+   "file": "COPYING",
+   "source": "E:/msys64/ucrt64/share/licenses/crt/COPYING",
+   "delivered": "refs/THIRD_PARTY_LICENSES/mingw-crt/COPYING",
+   "sha256": "99a69660981156c21336fdb5661f89341b013c94e4bf9e1c7467b4745718397f",
+   "bytes": 2326,
+   "status": "COPIED"
+  },
+  {
+   "component": "riscv-tests",
+   "file": "LICENSE",
+   "source": "D:/Desktop/RSIC-V高校/refs/riscv-tests/LICENSE",
+   "delivered": "refs/THIRD_PARTY_LICENSES/riscv-tests/LICENSE",
+   "sha256": "43b7309213293b4323d65301a90e05472579abcd51feb260a850354bcb49ff8f",
+   "bytes": 1402,
+   "status": "COPIED"
+  },
+  {
+   "component": "anlogic-td",
+   "file": "LICENSE",
+   "source": "E:/Anlogic/TD_6.2.1_Engineer_6.2.168.116/__no_eula_on_disk__/LICENSE",
+   "delivered": "refs/THIRD_PARTY_LICENSES/anlogic-td/LICENSE",
+   "status": "DECLARED_UNAVAILABLE",
+   "reason": "本机安装树 license/ 下只有机器密钥 Anlogic.lic，协议全文不在磁盘上；全文随厂商装机合同分发，包内只指向其安装位置而不复制"
+  },
+  {
+   "component": "newlib",
+   "file": "COPYING",
+   "source": "E:/msys64/ucrt64/share/licenses/newlib/COPYING",
+   "delivered": "refs/THIRD_PARTY_LICENSES/newlib/COPYING",
+   "status": "DECLARED_UNAVAILABLE",
+   "reason": "本机交叉工具链是自建前缀，MSYS2 的 share/licenses/ 下没有 newlib 条目，磁盘上没有可逐字节取回的全文副本"
+  }
+ ]
+}

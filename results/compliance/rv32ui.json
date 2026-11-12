@@ -1,0 +1,387 @@
+{
+  "suite": "rv32ui",
+  "n_tests": 42,
+  "n_pass": 42,
+  "all_pass": true,
+  "march": "rv32im_zicsr_zifencei",
+  "rows": [
+    {
+      "test": "add",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 556,
+      "retired": 507,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "addi",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 315,
+      "retired": 284,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "and",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 576,
+      "retired": 527,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "andi",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 271,
+      "retired": 240,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "auipc",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 124,
+      "retired": 101,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "beq",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 404,
+      "retired": 333,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "bge",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 440,
+      "retired": 351,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "bgeu",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 465,
+      "retired": 376,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "blt",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 404,
+      "retired": 333,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "bltu",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 429,
+      "retired": 358,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "bne",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 408,
+      "retired": 333,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "fence_i",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 566,
+      "retired": 341,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "jal",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 120,
+      "retired": 97,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "jalr",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 200,
+      "retired": 157,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "lb",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 328,
+      "retired": 295,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "lbu",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 328,
+      "retired": 295,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "ld_st",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 1168,
+      "retired": 1005,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "lh",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 344,
+      "retired": 311,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "lhu",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 353,
+      "retired": 320,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "lui",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 126,
+      "retired": 107,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "lw",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 358,
+      "retired": 325,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "ma_data",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 558,
+      "retired": 422,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "or",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 579,
+      "retired": 530,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "ori",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 278,
+      "retired": 247,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sb",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 555,
+      "retired": 496,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sh",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 608,
+      "retired": 549,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "simple",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 100,
+      "retired": 83,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sll",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 584,
+      "retired": 535,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "slli",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 314,
+      "retired": 283,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "slt",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 550,
+      "retired": 501,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "slti",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 310,
+      "retired": 279,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sltiu",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 310,
+      "retired": 279,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sltu",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 550,
+      "retired": 501,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sra",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 603,
+      "retired": 554,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "srai",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 329,
+      "retired": 298,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "srl",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 597,
+      "retired": 548,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "srli",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 323,
+      "retired": 292,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "st_ld",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 544,
+      "retired": 525,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sub",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 548,
+      "retired": 499,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sw",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 615,
+      "retired": 556,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "xor",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 578,
+      "retired": 529,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "xori",
+      "suite": "rv32ui",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 280,
+      "retired": 249,
+      "stop": "TOHOST"
+    }
+  ]
+}

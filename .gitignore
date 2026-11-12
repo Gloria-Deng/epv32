@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+
+# Build / generated artifacts (regenerable via flow/)
+build/
+results/trace/
+results/traces/
+results/pnr/
+results/wave/
+results/demo/
+results/backup/
+results/logs/
+results/rand_trace/
+results/cov/
+
+# Large binary artifacts
+*.mp4
+*.db
+*.gz
+*.vcd.gz
+*.vcd
+*.log
+
+# Scratch probes and lock dirs
+scratch_*.py
+scratch_*.txt
+*.lock/
+.lock/

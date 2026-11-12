@@ -1,0 +1,4 @@
+read_verilog -Irtl rtl/epv32_epv.v
+hierarchy -top epv32_epv
+proc; opt; memory -nomap; opt; flatten; opt_clean -purge
+stat -width

@@ -1,0 +1,366 @@
+{
+  "suite": "rv32ui",
+  "n_tests": 42,
+  "n_agree": 42,
+  "all_agree": true,
+  "wall_s": 12.0,
+  "rows": [
+    {
+      "test": "rv32ui__add",
+      "rtl_commits": 377,
+      "iss_commits": 377,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__addi",
+      "rtl_commits": 211,
+      "iss_commits": 211,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__and",
+      "rtl_commits": 408,
+      "iss_commits": 408,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__andi",
+      "rtl_commits": 178,
+      "iss_commits": 178,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__auipc",
+      "rtl_commits": 74,
+      "iss_commits": 74,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__beq",
+      "rtl_commits": 206,
+      "iss_commits": 206,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__bge",
+      "rtl_commits": 215,
+      "iss_commits": 215,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__bgeu",
+      "rtl_commits": 240,
+      "iss_commits": 240,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__blt",
+      "rtl_commits": 206,
+      "iss_commits": 206,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__bltu",
+      "rtl_commits": 231,
+      "iss_commits": 231,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__bne",
+      "rtl_commits": 206,
+      "iss_commits": 206,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__fence_i",
+      "rtl_commits": 184,
+      "iss_commits": 184,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__jal",
+      "rtl_commits": 70,
+      "iss_commits": 70,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__jalr",
+      "rtl_commits": 117,
+      "iss_commits": 117,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__lb",
+      "rtl_commits": 222,
+      "iss_commits": 222,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__lbu",
+      "rtl_commits": 222,
+      "iss_commits": 222,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__ld_st",
+      "rtl_commits": 644,
+      "iss_commits": 644,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__lh",
+      "rtl_commits": 238,
+      "iss_commits": 238,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__lhu",
+      "rtl_commits": 247,
+      "iss_commits": 247,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__lui",
+      "rtl_commits": 77,
+      "iss_commits": 77,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__lw",
+      "rtl_commits": 252,
+      "iss_commits": 252,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__ma_data",
+      "rtl_commits": 305,
+      "iss_commits": 305,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__or",
+      "rtl_commits": 411,
+      "iss_commits": 411,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__ori",
+      "rtl_commits": 185,
+      "iss_commits": 185,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__sb",
+      "rtl_commits": 339,
+      "iss_commits": 339,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__sh",
+      "rtl_commits": 392,
+      "iss_commits": 392,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__simple",
+      "rtl_commits": 60,
+      "iss_commits": 60,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__sll",
+      "rtl_commits": 401,
+      "iss_commits": 401,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__slli",
+      "rtl_commits": 210,
+      "iss_commits": 210,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__slt",
+      "rtl_commits": 371,
+      "iss_commits": 371,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__slti",
+      "rtl_commits": 206,
+      "iss_commits": 206,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__sltiu",
+      "rtl_commits": 206,
+      "iss_commits": 206,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__sltu",
+      "rtl_commits": 371,
+      "iss_commits": 371,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__sra",
+      "rtl_commits": 419,
+      "iss_commits": 419,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__srai",
+      "rtl_commits": 225,
+      "iss_commits": 225,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__srl",
+      "rtl_commits": 413,
+      "iss_commits": 413,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__srli",
+      "rtl_commits": 219,
+      "iss_commits": 219,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__st_ld",
+      "rtl_commits": 404,
+      "iss_commits": 404,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__sub",
+      "rtl_commits": 370,
+      "iss_commits": 370,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__sw",
+      "rtl_commits": 400,
+      "iss_commits": 400,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__xor",
+      "rtl_commits": 410,
+      "iss_commits": 410,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    },
+    {
+      "test": "rv32ui__xori",
+      "rtl_commits": 187,
+      "iss_commits": 187,
+      "rtl_verdict": null,
+      "iss_stop": "tohost",
+      "agree": true
+    }
+  ],
+  "projection": "R-line == retired && rd!=0 && reg-write, both sides",
+  "sources": {
+    "rtl_sha256": {
+      "epv32_alu.v": "a5ddcc35bbd676b02fd1cb0efbc0afcd2513fbcdee5d3517cdaa8636d96a89ae",
+      "epv32_assert_core.vh": "e79bca325a42cfc5c5e57887f879cf84c92040a7cb100a2d0ae4a24a05056dd2",
+      "epv32_assert_epv.vh": "7a375a09b4c8cf0e058237aeae33d3d966d1c3b3a3f21fc3d7be277fd123541e",
+      "epv32_core.v": "6192d45d963ea0f3cece6e726a3dfe9b5210ac3fa5796fec5494b57d7492b49c",
+      "epv32_csr.v": "107d97eb64010bb1e4d349c9d8be93d39ecf2a3d72b71e75f5e44b5a70802f46",
+      "epv32_defs.vh": "b3194e838d73f4ab5118958ccb42c74862986b8aeda500116803b791b2807dfd",
+      "epv32_epv.v": "f13b566f34d1b3ecd988ee763bb8cfda7739e0f330fae646d87ddcddd0363a3c",
+      "epv32_muldiv.v": "56462174dfde2e522230349415abc842f4114e3c2af24d3c3d686f76b46b8341",
+      "epv32_ram.v": "287f3f7b51cc264170bdb291a752734838e81eb8347c1a6372681f6a8e47c23d",
+      "epv32_rf.v": "ab5b9e94b0167f3a6ec5f56733e0dfb9c73cde16007d11409a29c8d5e46fe989",
+      "epv32_soc.v": "37e05c85c94cd5ca6f57ab4949d5d0d0c2606f727370ca021b32976dd81342b4",
+      "synth_wrappers.v": "c794869bf524788e5216c40017e3a7f59c7006a1f9aae1f08a156bd20619f5cd"
+    },
+    "simulator_sha256": "aad720d224d418285d7ce77e575f38de4ad6a0efad31d52cdf2c15661092ba03",
+    "golden_iss_sha256": "bffbbbf447e0856c791789854c06dbdac4251b464f5c6afc0fba793f69da8e6b",
+    "comparator_sha256": "b0d29b6c9ca1549a9af5d043140a4453499038c2a25b0d1718861aec6172ed77",
+    "how_to_read": "门禁只认 rtl_sha256 == 当前工作树 的那一份归档"
+  }
+}

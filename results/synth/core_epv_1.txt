@@ -1,0 +1,8 @@
+ERROR: Can't guess frontend for input file `EPV_ENABLE' (missing -f option)!
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.69 (git sha1 9f75ca1f9-dirty, Release, GNU E:/msys64/ucrt64/bin/g++.exe 16.2.0)

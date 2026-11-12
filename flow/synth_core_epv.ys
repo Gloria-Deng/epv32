@@ -1,0 +1,5 @@
+read_verilog -Irtl rtl/epv32_core.v rtl/epv32_alu.v rtl/epv32_rf.v rtl/epv32_muldiv.v rtl/epv32_epv.v rtl/epv32_csr.v rtl/synth_wrappers.v
+hierarchy -top epv32_core_epv
+proc; opt; memory -nomap; opt
+flatten; opt_clean -purge
+stat -width

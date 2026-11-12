@@ -1,0 +1,886 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.69 (git sha1 9f75ca1f9-dirty, Release, GNU E:/msys64/ucrt64/bin/g++.exe 16.2.0)
+
+-- Executing script file `flow/synth_epv.ys' --
+
+1. Executing Verilog-2005 frontend: rtl/epv32_epv.v
+Parsing Verilog input from `rtl/epv32_epv.v' to AST representation.
+Generating RTLIL representation for module `\epv32_epv'.
+Warning: Replacing memory \vrf with list of registers. See rtl/epv32_epv.v:306
+Successfully finished Verilog frontend.
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1. Analyzing design hierarchy..
+Top module:  \epv32_epv
+
+2.2. Analyzing design hierarchy..
+Top module:  \epv32_epv
+Removed 0 unused modules.
+
+3. Executing PROC pass (convert processes to netlists).
+
+3.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed 1 dead cases from process $proc$rtl/epv32_epv.v:124$915 in module epv32_epv.
+Marked 1 switch rules as full_case in process $proc$rtl/epv32_epv.v:124$915 in module epv32_epv.
+Removed 1 dead cases from process $proc$rtl/epv32_epv.v:65$912 in module epv32_epv.
+Marked 1 switch rules as full_case in process $proc$rtl/epv32_epv.v:65$912 in module epv32_epv.
+Removed 1 dead cases from process $proc$rtl/epv32_epv.v:64$909 in module epv32_epv.
+Marked 1 switch rules as full_case in process $proc$rtl/epv32_epv.v:64$909 in module epv32_epv.
+Removed 1 dead cases from process $proc$rtl/epv32_epv.v:63$906 in module epv32_epv.
+Marked 1 switch rules as full_case in process $proc$rtl/epv32_epv.v:63$906 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:239$898 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:239$879 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:239$860 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:239$841 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$737 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$726 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$707 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$696 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$677 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$666 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$647 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$636 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$617 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$606 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$587 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$576 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$557 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$546 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$527 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$516 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$497 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$486 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$467 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$456 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$437 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$426 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$407 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$396 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$377 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$366 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$347 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$336 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$317 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$306 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:164$287 in module epv32_epv.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_epv.v:163$276 in module epv32_epv.
+Marked 4 switch rules as full_case in process $proc$rtl/epv32_epv.v:301$256 in module epv32_epv.
+Removed a total of 4 dead cases.
+
+3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 149 assignments to connections.
+
+3.4. Executing PROC_INIT pass (extract init attributes).
+
+3.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+
+3.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~85 debug messages>
+
+3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:124$915'.
+     1/1: $1$mem2reg_rd$\vrf$rtl/epv32_epv.v:124$78_DATA[127:0]$917
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:65$912'.
+     1/1: $1$mem2reg_rd$\vrf$rtl/epv32_epv.v:65$77_DATA[127:0]$914
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:64$909'.
+     1/1: $1$mem2reg_rd$\vrf$rtl/epv32_epv.v:64$76_DATA[127:0]$911
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:63$906'.
+     1/1: $1$mem2reg_rd$\vrf$rtl/epv32_epv.v:63$75_DATA[127:0]$908
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:239$898'.
+     1/2: $2\sat8_64$func$rtl/epv32_epv.v:239$74.$result[7:0]$905
+     2/2: $1\sat8_64$func$rtl/epv32_epv.v:239$74.$result[7:0]$903
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:239$879'.
+     1/2: $2\sat8_64$func$rtl/epv32_epv.v:239$73.$result[7:0]$886
+     2/2: $1\sat8_64$func$rtl/epv32_epv.v:239$73.$result[7:0]$884
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:239$860'.
+     1/2: $2\sat8_64$func$rtl/epv32_epv.v:239$72.$result[7:0]$867
+     2/2: $1\sat8_64$func$rtl/epv32_epv.v:239$72.$result[7:0]$865
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:239$841'.
+     1/2: $2\sat8_64$func$rtl/epv32_epv.v:239$71.$result[7:0]$848
+     2/2: $1\sat8_64$func$rtl/epv32_epv.v:239$71.$result[7:0]$846
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$737'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$70.$result[7:0]$747
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$70.$result[7:0]$744
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$726'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$69.$result[7:0]$736
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$69.$result[7:0]$733
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$707'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$68.$result[7:0]$717
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$68.$result[7:0]$714
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$696'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$67.$result[7:0]$706
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$67.$result[7:0]$703
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$677'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$66.$result[7:0]$687
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$66.$result[7:0]$684
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$666'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$65.$result[7:0]$676
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$65.$result[7:0]$673
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$647'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$64.$result[7:0]$657
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$64.$result[7:0]$654
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$636'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$63.$result[7:0]$646
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$63.$result[7:0]$643
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$617'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$62.$result[7:0]$627
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$62.$result[7:0]$624
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$606'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$61.$result[7:0]$616
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$61.$result[7:0]$613
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$587'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$60.$result[7:0]$597
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$60.$result[7:0]$594
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$576'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$59.$result[7:0]$586
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$59.$result[7:0]$583
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$557'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$58.$result[7:0]$567
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$58.$result[7:0]$564
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$546'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$57.$result[7:0]$556
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$57.$result[7:0]$553
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$527'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$56.$result[7:0]$537
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$56.$result[7:0]$534
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$516'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$55.$result[7:0]$526
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$55.$result[7:0]$523
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$497'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$54.$result[7:0]$507
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$54.$result[7:0]$504
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$486'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$53.$result[7:0]$496
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$53.$result[7:0]$493
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$467'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$52.$result[7:0]$477
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$52.$result[7:0]$474
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$456'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$51.$result[7:0]$466
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$51.$result[7:0]$463
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$437'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$50.$result[7:0]$447
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$50.$result[7:0]$444
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$426'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$49.$result[7:0]$436
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$49.$result[7:0]$433
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$407'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$48.$result[7:0]$417
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$48.$result[7:0]$414
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$396'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$47.$result[7:0]$406
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$47.$result[7:0]$403
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$377'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$46.$result[7:0]$387
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$46.$result[7:0]$384
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$366'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$45.$result[7:0]$376
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$45.$result[7:0]$373
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$347'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$44.$result[7:0]$357
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$44.$result[7:0]$354
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$336'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$43.$result[7:0]$346
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$43.$result[7:0]$343
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$317'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$42.$result[7:0]$327
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$42.$result[7:0]$324
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$306'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$41.$result[7:0]$316
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$41.$result[7:0]$313
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:164$287'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:164$40.$result[7:0]$297
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:164$40.$result[7:0]$294
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:163$276'.
+     1/2: $2\sat8_9$func$rtl/epv32_epv.v:163$39.$result[7:0]$286
+     2/2: $1\sat8_9$func$rtl/epv32_epv.v:163$39.$result[7:0]$283
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+     1/18: $2$mem2reg_wr$\vrf$rtl/epv32_epv.v:327$79_ADDR[2:0]$268
+     2/18: $2$mem2reg_wr$\vrf$rtl/epv32_epv.v:327$79_DATA[127:0]$269
+     3/18: $1$mem2reg_wr$\vrf$rtl/epv32_epv.v:327$79_DATA[127:0]$261
+     4/18: $1$mem2reg_wr$\vrf$rtl/epv32_epv.v:327$79_ADDR[2:0]$260
+     5/18: $1\vi[31:0]
+     6/18: $0\vrf[7][127:0]
+     7/18: $0\vrf[6][127:0]
+     8/18: $0\vrf[5][127:0]
+     9/18: $0\vrf[4][127:0]
+    10/18: $0\vrf[3][127:0]
+    11/18: $0\vrf[2][127:0]
+    12/18: $0\vrf[1][127:0]
+    13/18: $0\vrf[0][127:0]
+    14/18: $0\base_q[31:0]
+    15/18: $0\mrun[0:0]
+    16/18: $0\macc[127:0]
+    17/18: $0\wc[1:0]
+    18/18: $0\o_vcfg[31:0]
+Creating decoders for process `\epv32_epv.$proc$rtl/epv32_epv.v:188$191'.
+
+3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\epv32_epv.$mem2reg_rd$\vrf$rtl/epv32_epv.v:124$78_DATA' from process `\epv32_epv.$proc$rtl/epv32_epv.v:124$915'.
+No latch inferred for signal `\epv32_epv.$mem2reg_rd$\vrf$rtl/epv32_epv.v:65$77_DATA' from process `\epv32_epv.$proc$rtl/epv32_epv.v:65$912'.
+No latch inferred for signal `\epv32_epv.$mem2reg_rd$\vrf$rtl/epv32_epv.v:64$76_DATA' from process `\epv32_epv.$proc$rtl/epv32_epv.v:64$909'.
+No latch inferred for signal `\epv32_epv.$mem2reg_rd$\vrf$rtl/epv32_epv.v:63$75_DATA' from process `\epv32_epv.$proc$rtl/epv32_epv.v:63$906'.
+No latch inferred for signal `\epv32_epv.\sat8_64$func$rtl/epv32_epv.v:239$38.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:239$898'.
+No latch inferred for signal `\epv32_epv.\sat8_64$func$rtl/epv32_epv.v:239$37.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:239$879'.
+No latch inferred for signal `\epv32_epv.\sat8_64$func$rtl/epv32_epv.v:239$36.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:239$860'.
+No latch inferred for signal `\epv32_epv.\sat8_64$func$rtl/epv32_epv.v:239$35.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:239$841'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$34.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$737'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$33.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$726'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$32.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$707'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$31.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$696'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$30.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$677'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$29.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$666'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$28.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$647'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$27.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$636'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$26.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$617'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$25.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$606'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$24.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$587'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$23.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$576'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$22.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$557'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$21.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$546'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$20.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$527'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$19.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$516'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$18.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$497'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$17.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$486'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$16.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$467'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$15.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$456'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$14.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$437'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$13.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$426'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$12.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$407'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$11.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$396'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$10.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$377'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$9.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$366'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$8.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$347'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$7.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$336'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$6.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$317'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$5.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$306'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:164$4.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:164$287'.
+No latch inferred for signal `\epv32_epv.\sat8_9$func$rtl/epv32_epv.v:163$3.$result' from process `\epv32_epv.$proc$rtl/epv32_epv.v:163$276'.
+No latch inferred for signal `\epv32_epv.\dotv' from process `\epv32_epv.$proc$rtl/epv32_epv.v:188$191'.
+No latch inferred for signal `\epv32_epv.\kd' from process `\epv32_epv.$proc$rtl/epv32_epv.v:188$191'.
+
+3.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\epv32_epv.\o_vcfg' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1379' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\wc' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1384' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\macc' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1389' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\mrun' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $dff cell `$procdff$1396' with positive edge clock.
+Creating register for signal `\epv32_epv.\base_q' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $dff cell `$procdff$1403' with positive edge clock.
+Creating register for signal `\epv32_epv.\vi' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1408' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\vrf[0]' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1413' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\vrf[1]' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1418' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\vrf[2]' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1423' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\vrf[3]' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1428' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\vrf[4]' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1433' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\vrf[5]' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1438' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\vrf[6]' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1443' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.\vrf[7]' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1448' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.$mem2reg_wr$\vrf$rtl/epv32_epv.v:327$79_ADDR' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1453' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_epv.$mem2reg_wr$\vrf$rtl/epv32_epv.v:327$79_DATA' using process `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+  created $adff cell `$procdff$1458' with positive edge clock and positive level reset.
+
+3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\epv32_epv.$proc$rtl/epv32_epv.v:124$915'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:124$915'.
+Found and cleaned up 1 empty switch in `\epv32_epv.$proc$rtl/epv32_epv.v:65$912'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:65$912'.
+Found and cleaned up 1 empty switch in `\epv32_epv.$proc$rtl/epv32_epv.v:64$909'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:64$909'.
+Found and cleaned up 1 empty switch in `\epv32_epv.$proc$rtl/epv32_epv.v:63$906'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:63$906'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:239$898'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:239$898'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:239$879'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:239$879'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:239$860'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:239$860'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:239$841'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:239$841'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$737'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$737'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$726'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$726'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$707'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$707'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$696'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$696'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$677'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$677'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$666'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$666'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$647'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$647'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$636'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$636'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$617'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$617'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$606'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$606'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$587'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$587'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$576'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$576'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$557'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$557'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$546'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$546'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$527'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$527'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$516'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$516'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$497'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$497'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$486'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$486'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$467'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$467'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$456'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$456'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$437'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$437'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$426'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$426'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$407'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$407'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$396'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$396'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$377'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$377'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$366'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$366'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$347'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$347'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$336'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$336'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$317'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$317'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$306'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$306'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:164$287'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:164$287'.
+Found and cleaned up 2 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:163$276'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:163$276'.
+Found and cleaned up 9 empty switches in `\epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:301$256'.
+Removing empty process `epv32_epv.$proc$rtl/epv32_epv.v:188$191'.
+Cleaned up 85 empty switches.
+
+3.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module epv32_epv.
+<suppressed ~58 debug messages>
+
+4. Executing OPT pass (performing simple optimizations).
+
+4.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module epv32_epv.
+<suppressed ~2 debug messages>
+
+4.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\epv32_epv'.
+Computing hashes of 777 cells of `\epv32_epv'.
+Finding duplicate cells in `\epv32_epv'.
+Computing hashes of 723 cells of `\epv32_epv'.
+Finding duplicate cells in `\epv32_epv'.
+Computing hashes of 710 cells of `\epv32_epv'.
+Finding duplicate cells in `\epv32_epv'.
+<suppressed ~201 debug messages>
+Removed a total of 67 cells.
+
+4.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \epv32_epv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port B of cell $procmux$1354: \mrun -> 1'1
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$1264.
+    dead port 1/2 on $mux $procmux$1255.
+    dead port 1/2 on $mux $procmux$1246.
+    dead port 1/2 on $mux $procmux$1237.
+    dead port 1/2 on $mux $procmux$1228.
+    dead port 1/2 on $mux $procmux$1219.
+    dead port 1/2 on $mux $procmux$1210.
+    dead port 1/2 on $mux $procmux$1201.
+    dead port 1/2 on $mux $procmux$1192.
+    dead port 1/2 on $mux $procmux$1183.
+    dead port 1/2 on $mux $procmux$1174.
+    dead port 1/2 on $mux $procmux$1165.
+    dead port 1/2 on $mux $procmux$1156.
+    dead port 1/2 on $mux $procmux$1147.
+    dead port 1/2 on $mux $procmux$1138.
+    dead port 1/2 on $mux $procmux$1129.
+    dead port 1/2 on $mux $procmux$1120.
+    dead port 1/2 on $mux $procmux$1111.
+    dead port 1/2 on $mux $procmux$1102.
+    dead port 1/2 on $mux $procmux$1093.
+    dead port 1/2 on $mux $procmux$1084.
+    dead port 1/2 on $mux $procmux$1075.
+    dead port 1/2 on $mux $procmux$1066.
+    dead port 1/2 on $mux $procmux$1057.
+    dead port 1/2 on $mux $procmux$1048.
+    dead port 1/2 on $mux $procmux$1039.
+    dead port 1/2 on $mux $procmux$1030.
+    dead port 1/2 on $mux $procmux$1021.
+    dead port 1/2 on $mux $procmux$1012.
+    dead port 1/2 on $mux $procmux$1003.
+    dead port 1/2 on $mux $procmux$994.
+    dead port 1/2 on $mux $procmux$985.
+    dead port 1/2 on $mux $procmux$976.
+    dead port 1/2 on $mux $procmux$967.
+    dead port 1/2 on $mux $procmux$958.
+    dead port 1/2 on $mux $procmux$1282.
+    dead port 2/2 on $mux $procmux$1282.
+    dead port 1/2 on $mux $procmux$1279.
+    dead port 2/2 on $mux $procmux$1279.
+    dead port 1/2 on $mux $procmux$1273.
+Removed 40 multiplexer ports.
+<suppressed ~1653 debug messages>
+
+4.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \epv32_epv.
+  Optimizing cells in module \epv32_epv.
+Performed a total of 1 changes.
+
+4.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\epv32_epv'.
+Computing hashes of 671 cells of `\epv32_epv'.
+Finding duplicate cells in `\epv32_epv'.
+Computing hashes of 664 cells of `\epv32_epv'.
+Finding duplicate cells in `\epv32_epv'.
+<suppressed ~21 debug messages>
+Removed a total of 7 cells.
+
+4.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$1423 ($adff) from module epv32_epv (D = $ternary$rtl/epv32_epv.v:272$234_Y, Q = \vrf[2]).
+Adding EN signal on $procdff$1403 ($dff) from module epv32_epv (D = \i_gpr1, Q = \base_q).
+Adding EN signal on $procdff$1433 ($adff) from module epv32_epv (D = $ternary$rtl/epv32_epv.v:272$234_Y, Q = \vrf[4]).
+Adding EN signal on $procdff$1379 ($adff) from module epv32_epv (D = $and$rtl/epv32_epv.v:328$272_Y, Q = \o_vcfg).
+Adding EN signal on $procdff$1448 ($adff) from module epv32_epv (D = $ternary$rtl/epv32_epv.v:272$234_Y, Q = \vrf[7]).
+Adding EN signal on $procdff$1418 ($adff) from module epv32_epv (D = $ternary$rtl/epv32_epv.v:272$234_Y, Q = \vrf[1]).
+Adding EN signal on $procdff$1428 ($adff) from module epv32_epv (D = $ternary$rtl/epv32_epv.v:272$234_Y, Q = \vrf[3]).
+Adding EN signal on $procdff$1384 ($adff) from module epv32_epv (D = $procmux$1371_Y, Q = \wc).
+Handling D = Q on $procdff$1408 ($adff) from module epv32_epv (removing D path).
+Adding EN signal on $procdff$1389 ($adff) from module epv32_epv (D = $procmux$1364_Y, Q = \macc).
+Adding EN signal on $procdff$1438 ($adff) from module epv32_epv (D = $ternary$rtl/epv32_epv.v:272$234_Y, Q = \vrf[5]).
+Adding EN signal on $procdff$1396 ($dff) from module epv32_epv (D = $procmux$1357_Y, Q = \mrun).
+Adding SRST signal on $auto$ff.cc:337:slice$1495 ($dffe) from module epv32_epv (D = $procmux$1354_Y, Q = \mrun, rval = 1'0).
+Adding EN signal on $procdff$1443 ($adff) from module epv32_epv (D = $ternary$rtl/epv32_epv.v:272$234_Y, Q = \vrf[6]).
+Adding EN signal on $procdff$1413 ($adff) from module epv32_epv (D = $ternary$rtl/epv32_epv.v:272$234_Y, Q = \vrf[0]).
+Setting constant 0-bit at position 0 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 1 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 2 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 1-bit at position 3 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 4 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 5 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 6 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 7 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 8 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 9 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 10 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 11 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 12 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 13 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 14 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 15 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 16 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 17 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 18 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 19 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 20 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 21 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 22 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 23 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 24 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 25 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 26 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 27 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 28 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 29 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 30 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 31 on $procdff$1408 ($dlatch) from module epv32_epv.
+Setting constant 0-bit at position 0 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 1 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 2 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 3 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 4 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 5 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 6 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 7 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 8 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 9 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 10 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 11 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 12 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 13 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 14 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 15 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 16 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 17 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 18 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 19 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 20 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 21 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 22 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 23 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 24 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 25 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 26 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 27 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 28 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 29 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 30 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 31 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 32 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 33 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 34 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 35 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 36 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 37 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 38 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 39 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 40 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 41 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 42 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 43 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 44 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 45 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 46 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 47 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 48 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 49 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 50 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 51 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 52 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 53 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 54 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 55 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 56 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 57 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 58 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 59 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 60 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 61 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 62 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 63 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 64 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 65 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 66 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 67 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 68 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 69 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 70 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 71 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 72 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 73 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 74 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 75 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 76 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 77 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 78 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 79 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 80 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 81 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 82 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 83 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 84 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 85 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 86 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 87 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 88 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 89 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 90 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 91 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 92 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 93 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 94 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 95 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 96 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 97 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 98 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 99 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 100 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 101 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 102 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 103 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 104 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 105 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 106 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 107 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 108 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 109 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 110 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 111 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 112 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 113 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 114 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 115 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 116 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 117 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 118 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 119 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 120 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 121 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 122 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 123 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 124 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 125 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 126 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 127 on $procdff$1458 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 0 on $procdff$1453 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 1 on $procdff$1453 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 2 on $procdff$1453 ($adff) from module epv32_epv.
+Setting constant 0-bit at position 18 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 19 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 20 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 21 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 22 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 23 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 24 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 25 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 26 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 27 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 28 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 29 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 30 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+Setting constant 0-bit at position 31 on $auto$ff.cc:337:slice$1468 ($adffe) from module epv32_epv.
+
+4.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \epv32_epv..
+Removed 23 unused cells and 793 unused wires.
+<suppressed ~26 debug messages>
+
+4.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module epv32_epv.
+<suppressed ~4 debug messages>
+
+4.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \epv32_epv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~170 debug messages>
+
+4.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \epv32_epv.
+Performed a total of 0 changes.
+
+4.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\epv32_epv'.
+Computing hashes of 651 cells of `\epv32_epv'.
+Finding duplicate cells in `\epv32_epv'.
+Computing hashes of 650 cells of `\epv32_epv'.
+Finding duplicate cells in `\epv32_epv'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+4.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \epv32_epv..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+4.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module epv32_epv.
+
+4.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+4.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \epv32_epv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~170 debug messages>
+
+4.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \epv32_epv.
+Performed a total of 0 changes.
+
+4.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\epv32_epv'.
+Computing hashes of 650 cells of `\epv32_epv'.
+Finding duplicate cells in `\epv32_epv'.
+Removed a total of 0 cells.
+
+4.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+4.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \epv32_epv..
+
+4.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module epv32_epv.
+
+4.23. Finished fast OPT passes. (There is nothing left to do.)
+
+5. Executing MEMORY pass.
+
+5.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+5.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+5.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+5.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+5.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+5.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \epv32_epv..
+
+5.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+5.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+5.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \epv32_epv..
+
+5.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+6. Executing OPT pass (performing simple optimizations).
+
+6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module epv32_epv.
+
+6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\epv32_epv'.
+Computing hashes of 650 cells of `\epv32_epv'.
+Finding duplicate cells in `\epv32_epv'.
+Removed a total of 0 cells.
+
+6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \epv32_epv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~170 debug messages>
+
+6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \epv32_epv.
+Performed a total of 0 changes.
+
+6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\epv32_epv'.
+Computing hashes of 650 cells of `\epv32_epv'.
+Finding duplicate cells in `\epv32_epv'.
+Removed a total of 0 cells.
+
+6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \epv32_epv..
+
+6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module epv32_epv.
+
+6.9. Finished fast OPT passes. (There is nothing left to do.)
+
+7. Executing FLATTEN pass (flatten design).
+
+8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \epv32_epv..
+Removed 0 unused cells and 161 unused wires.
+<suppressed ~161 debug messages>
+
+9. Printing statistics.
+
+=== epv32_epv ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      613 wires
+     9016 wire bits
+      191 public wires
+     5088 public wire bits
+       26 ports
+      401 port bits
+      650 cells
+        1   $add_2
+       32   $add_32
+        4   $add_33
+       12   $add_64
+       16   $add_9
+        9   $adffe_128
+        1   $adffe_18
+        1   $adffe_2
+        3   $and_1
+        1   $dffe_32
+        1   $eq_2
+       33   $eq_3
+       11   $eq_7
+        4   $gt_64
+       25   $gt_8
+       32   $gt_9
+       98   $logic_and_1
+        7   $logic_not_1
+        5   $logic_not_3
+        4   $logic_or_1
+        4   $lt_64
+       32   $lt_8
+       32   $lt_9
+       16   $mul_18
+        4   $mul_64
+        1   $mux_1
+       14   $mux_128
+        3   $mux_2
+        1   $mux_3
+        5   $mux_32
+        1   $mux_5
+        1   $mux_64
+      128   $mux_8
+        1   $ne_2
+       54   $or_1
+        1   $or_128
+        3   $pmux_128_8
+       11   $reduce_and_2
+        6   $reduce_bool_2
+        1   $reduce_bool_3
+        1   $reduce_bool_5
+        1   $sdffce_1
+        1   $shiftx_128
+        1   $shl_128
+        1   $shl_32
+        1   $shl_64
+        4   $sshr_33
+        4   $sshr_64
+        1   $sub_5
+       16   $sub_9
+
+Warnings: 1 unique messages, 1 total
+End of script. Logfile hash: 99d7ee687c
+Yosys 0.69 (git sha1 9f75ca1f9-dirty, Release, GNU E:/msys64/ucrt64/bin/g++.exe 16.2.0)
+Time spent: 3% 7x opt_expr (0 sec), 3% 7x opt_clean (0 sec), ...

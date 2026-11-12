@@ -1,0 +1,95 @@
+{
+  "benchmark": "nn_net: 端到端三层 INT8 网络 (conv3x3 6x6x16->4x4x16 -> conv3x3 4x4x16->2x2x16 -> 2x2 最大池化 -> FC 16->4), 3 个样本",
+  "run_archive": "results/sim/nn_net.json",
+  "source": "sw/bench/nn_net.c",
+  "source_sha256": "4ad080b3701080861209a31346992cb0a61c1d6c1f8da69e8227347070e22f64",
+  "macs_per_sample": 46144,
+  "samples": 3,
+  "macs_total": 138432,
+  "ref_cycles": 2172053,
+  "epv_cycles": 109569,
+  "wide_cycles": 2324550,
+  "ref_instret": 1877089,
+  "epv_instret": 69333,
+  "speedup_x1000": 19823,
+  "speedup": 19.823,
+  "per_layer_cycles": {
+    "conv_l1": {
+      "ref": 1732664,
+      "epv": 87108
+    },
+    "conv_l2": {
+      "ref": 433425,
+      "epv": 21975
+    },
+    "pool_fc": {
+      "ref": 5964,
+      "epv": 486
+    }
+  },
+  "cyc_per_mac_ref": 15.69,
+  "cyc_per_mac_epv": 0.7915,
+  "layer_mismatches": 0,
+  "logit_mismatches": 0,
+  "bit_exact_per_layer": true,
+  "argmax_int8_vs_wide": 0,
+  "argmax_int8_vs_epv": 3,
+  "max_abs_logit_dev_vs_wide": 584,
+  "per_sample_argmax": [
+    {
+      "i": 0,
+      "ref": 2,
+      "epv": 2,
+      "wide": 3
+    },
+    {
+      "i": 1,
+      "ref": 1,
+      "epv": 1,
+      "wide": 3
+    },
+    {
+      "i": 2,
+      "ref": 1,
+      "epv": 1,
+      "wide": 3
+    }
+  ],
+  "verdict": "PASS",
+  "commit_val": 0,
+  "total_cycles": 4767315,
+  "total_retired": 4123140,
+  "toolchain": {
+    "simulator": "Verilator 5.050 2026-07-01 rev vUNKNOWN-built20260702",
+    "cc": "riscv64-unknown-elf-gcc.exe (GCC) 16.1.0",
+    "march": "rv32im_zicsr_zifencei",
+    "mabi": "ilp32",
+    "opt": "-O2 -nostdlib -lgcc"
+  },
+  "rtl_sha256": {
+    "epv32_alu.v": "a5ddcc35bbd676b02fd1cb0efbc0afcd2513fbcdee5d3517cdaa8636d96a89ae",
+    "epv32_assert_core.vh": "e79bca325a42cfc5c5e57887f879cf84c92040a7cb100a2d0ae4a24a05056dd2",
+    "epv32_assert_epv.vh": "7a375a09b4c8cf0e058237aeae33d3d966d1c3b3a3f21fc3d7be277fd123541e",
+    "epv32_core.v": "6192d45d963ea0f3cece6e726a3dfe9b5210ac3fa5796fec5494b57d7492b49c",
+    "epv32_csr.v": "107d97eb64010bb1e4d349c9d8be93d39ecf2a3d72b71e75f5e44b5a70802f46",
+    "epv32_defs.vh": "b3194e838d73f4ab5118958ccb42c74862986b8aeda500116803b791b2807dfd",
+    "epv32_epv.v": "f13b566f34d1b3ecd988ee763bb8cfda7739e0f330fae646d87ddcddd0363a3c",
+    "epv32_muldiv.v": "56462174dfde2e522230349415abc842f4114e3c2af24d3c3d686f76b46b8341",
+    "epv32_ram.v": "287f3f7b51cc264170bdb291a752734838e81eb8347c1a6372681f6a8e47c23d",
+    "epv32_rf.v": "ab5b9e94b0167f3a6ec5f56733e0dfb9c73cde16007d11409a29c8d5e46fe989",
+    "epv32_soc.v": "37e05c85c94cd5ca6f57ab4949d5d0d0c2606f727370ca021b32976dd81342b4",
+    "synth_wrappers.v": "c794869bf524788e5216c40017e3a7f59c7006a1f9aae1f08a156bd20619f5cd"
+  },
+  "caveats": [
+    "权重由 LFSR 定种子生成, 这张网络**没有训练过**: 所以本归档里没有「公开数据集精度」这类读数, 只有逐位相同、周期与量化误差量级",
+    "ARGMAX_AGREE=0 是这张随机权重网络的性质, 不是缺陷: int8 与宽精度的 logits 最大偏差 584 已一并记下, 它只是误差量级, 不是精度",
+    "宽精度那一档只用于量化误差对照, 不作为性能读数",
+    "存储为单周期理想模型 (无 cache); 无实物板"
+  ],
+  "self_consistency": {
+    "ref_total_equals_layer_sum": true,
+    "epv_total_equals_layer_sum": true,
+    "speedup_recomputed_from_cycles": 19823,
+    "note": "三条都在取数前核过; 任何一条不符本工具直接报错退出, 不落归档"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "suite": "rv32mi",
+  "n_tests": 16,
+  "n_pass": 16,
+  "all_pass": true,
+  "march": "rv32im_zicsr_zifencei",
+  "rows": [
+    {
+      "test": "breakpoint",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 143,
+      "retired": 118,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "csr",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 190,
+      "retired": 169,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "illegal",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 152,
+      "retired": 119,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "instret_overflow",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 128,
+      "retired": 109,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "lh-misaligned",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 120,
+      "retired": 101,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "lw-misaligned",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 145,
+      "retired": 123,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "ma_addr",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 226,
+      "retired": 185,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "ma_fetch",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 295,
+      "retired": 230,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "mcsr",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 121,
+      "retired": 102,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "pmpaddr",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 115,
+      "retired": 96,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sbreak",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 135,
+      "retired": 109,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "scall",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 118,
+      "retired": 98,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sh-misaligned",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 136,
+      "retired": 113,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "shamt",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 133,
+      "retired": 109,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "sw-misaligned",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 172,
+      "retired": 139,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "zicntr",
+      "suite": "rv32mi",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 170,
+      "retired": 151,
+      "stop": "TOHOST"
+    }
+  ]
+}

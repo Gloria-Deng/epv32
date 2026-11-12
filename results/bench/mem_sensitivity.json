@@ -1,0 +1,212 @@
+{
+  "model": "第 W 档 = 每个整字总线访问多付 W 拍; 基线臂按其实测字数加价, EPV 臂给区间(下界=打印得到的字, 上界=把窗口内不可见指令全当成 4 字向量装载)。两组曲线: 只罚数据 / 数据+取指(取指字数=退休数)。",
+  "w_points": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "words_per_vec_move": 4,
+  "cases": [
+    {
+      "case": "nn_bench",
+      "archive": "results\\bench\\nn_bench.json",
+      "archive_sha256": "391402c0aa5f3e3c",
+      "image_sha256": "1dcc9416e36bbb51",
+      "measured": {
+        "ref_cycles": 361967,
+        "epv_cycles": 23005,
+        "ref_instret": 284717,
+        "epv_instret": 12568,
+        "speedup_archive": 15.734,
+        "ref": {
+          "ld": 74695,
+          "store_words": 593,
+          "store_instr": 593,
+          "regwrite_records": 242174,
+          "mix": [
+            [
+              "LD",
+              74695
+            ],
+            [
+              "_REGWR",
+              167479
+            ]
+          ],
+          "be_hist": [
+            [
+              1,
+              64
+            ],
+            [
+              2,
+              64
+            ],
+            [
+              4,
+              64
+            ],
+            [
+              8,
+              64
+            ],
+            [
+              15,
+              337
+            ]
+          ]
+        },
+        "epv": {
+          "ld": 512,
+          "store_words": 514,
+          "store_instr": 514,
+          "regwrite_records": 8275,
+          "mix": [
+            [
+              "LD",
+              512
+            ],
+            [
+              "VDOT8",
+              2304
+            ],
+            [
+              "_REGWR",
+              5459
+            ]
+          ],
+          "be_hist": [
+            [
+              15,
+              514
+            ]
+          ]
+        }
+      },
+      "invisible_instr_ref": 41950,
+      "invisible_instr_epv": 3779,
+      "words_ref_data": 75288,
+      "words_epv_data": [
+        1026,
+        17684
+      ],
+      "words_ref_all": 360005,
+      "words_epv_all": [
+        13594,
+        30252
+      ],
+      "curve_data_only": [
+        {
+          "wait_states": 0,
+          "ref_cycles": 361967,
+          "epv_cycles_lo": 23005,
+          "epv_cycles_hi": 23005,
+          "speedup_at_epv_lo": 15.7343,
+          "speedup_pessimistic": 15.7343
+        },
+        {
+          "wait_states": 1,
+          "ref_cycles": 437255,
+          "epv_cycles_lo": 24031,
+          "epv_cycles_hi": 40689,
+          "speedup_at_epv_lo": 18.1955,
+          "speedup_pessimistic": 10.7463
+        },
+        {
+          "wait_states": 2,
+          "ref_cycles": 512543,
+          "epv_cycles_lo": 25057,
+          "epv_cycles_hi": 58373,
+          "speedup_at_epv_lo": 20.4551,
+          "speedup_pessimistic": 8.7805
+        },
+        {
+          "wait_states": 4,
+          "ref_cycles": 663119,
+          "epv_cycles_lo": 27109,
+          "epv_cycles_hi": 93741,
+          "speedup_at_epv_lo": 24.4612,
+          "speedup_pessimistic": 7.0739
+        },
+        {
+          "wait_states": 8,
+          "ref_cycles": 964271,
+          "epv_cycles_lo": 31213,
+          "epv_cycles_hi": 164477,
+          "speedup_at_epv_lo": 30.8932,
+          "speedup_pessimistic": 5.8626
+        },
+        {
+          "wait_states": 16,
+          "ref_cycles": 1566575,
+          "epv_cycles_lo": 39421,
+          "epv_cycles_hi": 305949,
+          "speedup_at_epv_lo": 39.7396,
+          "speedup_pessimistic": 5.1204
+        }
+      ],
+      "curve_data_plus_fetch": [
+        {
+          "wait_states": 0,
+          "ref_cycles": 361967,
+          "epv_cycles_lo": 23005,
+          "epv_cycles_hi": 23005,
+          "speedup_at_epv_lo": 15.7343,
+          "speedup_pessimistic": 15.7343
+        },
+        {
+          "wait_states": 1,
+          "ref_cycles": 721972,
+          "epv_cycles_lo": 36599,
+          "epv_cycles_hi": 53257,
+          "speedup_at_epv_lo": 19.7265,
+          "speedup_pessimistic": 13.5564
+        },
+        {
+          "wait_states": 2,
+          "ref_cycles": 1081977,
+          "epv_cycles_lo": 50193,
+          "epv_cycles_hi": 83509,
+          "speedup_at_epv_lo": 21.5563,
+          "speedup_pessimistic": 12.9564
+        },
+        {
+          "wait_states": 4,
+          "ref_cycles": 1801987,
+          "epv_cycles_lo": 77381,
+          "epv_cycles_hi": 144013,
+          "speedup_at_epv_lo": 23.2872,
+          "speedup_pessimistic": 12.5127
+        },
+        {
+          "wait_states": 8,
+          "ref_cycles": 3242007,
+          "epv_cycles_lo": 131757,
+          "epv_cycles_hi": 265021,
+          "speedup_at_epv_lo": 24.606,
+          "speedup_pessimistic": 12.233
+        },
+        {
+          "wait_states": 16,
+          "ref_cycles": 6122047,
+          "epv_cycles_lo": 240509,
+          "epv_cycles_hi": 507037,
+          "speedup_at_epv_lo": 25.4545,
+          "speedup_pessimistic": 12.0742
+        }
+      ],
+      "zero_point_ok": true
+    }
+  ],
+  "unavailable": [
+    "nn_net: nn_net: 读到 42 条 minstret 低字读数, 需要恰好 3 条(预热前/基线后/EPV后) -> 本用例判 UNAVAILABLE: 逐层或逐图的读数会把窗口切碎, 硬拼出来的段不再对应归档里那一对周期",
+    "nn_cifar: nn_cifar: 读到 288 条 minstret 低字读数, 需要恰好 3 条(预热前/基线后/EPV后) -> 本用例判 UNAVAILABLE: 逐层或逐图的读数会把窗口切碎, 硬拼出来的段不再对应归档里那一对周期"
+  ],
+  "note": "",
+  "gate_cases": 1,
+  "gate_problems": [],
+  "gate": "PASS"
+}

@@ -1,0 +1,469 @@
+{
+  "started_utc": "2026-10-17T06:52:04Z",
+  "steps": 32,
+  "n_pass": 32,
+  "failed": 0,
+  "skipped": 0,
+  "n_total_in_table": 32,
+  "all_green": true,
+  "ran_subset": false,
+  "rows": [
+    {
+      "step": "lint",
+      "status": "PASS",
+      "wall_s": 0.5,
+      "evidence": {
+        "LINT_CORE_RC": "0",
+        "LINT_NOEPV_RC": "0"
+      }
+    },
+    {
+      "step": "build_sim",
+      "status": "PASS",
+      "wall_s": 8.4,
+      "evidence": {
+        "n_sources": 13,
+        "fp12": "87f9cbe50d14",
+        "clean_rebuild": true,
+        "sim_sha16": "aad720d224d41828",
+        "exe_mtime": 1792219933
+      }
+    },
+    {
+      "step": "iss_selftest",
+      "status": "PASS",
+      "wall_s": 0.1,
+      "evidence": {
+        "assertions": 374,
+        "failed": 0
+      }
+    },
+    {
+      "step": "epv_bisect",
+      "status": "PASS",
+      "wall_s": 0.7,
+      "evidence": {
+        "cycles": 9869,
+        "retired": 6738,
+        "verdict": "PASS",
+        "src_sha": "b019e43b02f5143a"
+      }
+    },
+    {
+      "step": "epv_selftest",
+      "status": "PASS",
+      "wall_s": 0.7,
+      "evidence": {
+        "cycles": 4680,
+        "retired": 3355,
+        "verdict": "PASS",
+        "src_sha": "9ad9d9a3f124aeae"
+      }
+    },
+    {
+      "step": "nn_bench",
+      "status": "PASS",
+      "wall_s": 1.4,
+      "evidence": {
+        "speedup": 15.734,
+        "mismatch": 0,
+        "ref_cyc": 361967,
+        "epv_cyc": 23005,
+        "src_sha": "a7f78417b9e850fd"
+      }
+    },
+    {
+      "step": "nn_net",
+      "status": "PASS",
+      "wall_s": 5.0,
+      "evidence": {
+        "speedup": 19.823,
+        "bit_exact_per_layer": true,
+        "samples": 3,
+        "macs": 138432,
+        "cyc_per_mac": [
+          15.69,
+          0.7915
+        ]
+      }
+    },
+    {
+      "step": "cifar10_net",
+      "status": "PASS",
+      "wall_s": 32.2,
+      "evidence": {
+        "speedup": 19.782,
+        "nsamp": 24,
+        "top1_in_sim": [
+          11,
+          11
+        ],
+        "lane_efficiency_pct": 43.83,
+        "bit_exact_three_ways": true,
+        "test_set_top1": 0.4548
+      }
+    },
+    {
+      "step": "mem_sensitivity",
+      "status": "PASS",
+      "wall_s": 38.5,
+      "evidence": {
+        "case": "nn_bench",
+        "words_ref_data": 75288,
+        "words_epv_data_range": [
+          1026,
+          17684
+        ],
+        "speedup_w0": 15.7343,
+        "pessimistic_w4_w16": [
+          7.0739,
+          5.1204
+        ],
+        "curves": 1,
+        "unavailable": 2
+      }
+    },
+    {
+      "step": "rv32ui",
+      "status": "PASS",
+      "wall_s": 11.8,
+      "evidence": {
+        "suite": "rv32ui",
+        "pass": 42,
+        "of": 42,
+        "known_failing": []
+      }
+    },
+    {
+      "step": "rv32um",
+      "status": "PASS",
+      "wall_s": 2.3,
+      "evidence": {
+        "suite": "rv32um",
+        "pass": 8,
+        "of": 8,
+        "known_failing": []
+      }
+    },
+    {
+      "step": "rv32mi",
+      "status": "PASS",
+      "wall_s": 4.6,
+      "evidence": {
+        "suite": "rv32mi",
+        "pass": 16,
+        "of": 16,
+        "known_failing": []
+      }
+    },
+    {
+      "step": "micro_bisect",
+      "status": "PASS",
+      "wall_s": 0.7,
+      "evidence": {
+        "cycles": 32259,
+        "retired": 21132,
+        "verdict": "PASS",
+        "src_sha": "d964183a0b44f977"
+      }
+    },
+    {
+      "step": "isco_trace",
+      "status": "PASS",
+      "wall_s": 19.7,
+      "evidence": {
+        "suites": {
+          "rv32um": "8/8",
+          "rv32ui": "42/42",
+          "rv32mi": "16/16"
+        },
+        "compared_commits": 14700,
+        "diverging": [],
+        "inject": "3 条 (wdata 扰动 / 少一条退休 / 正对照) + 1 条哈希扰动 A/B"
+      }
+    },
+    {
+      "step": "rand_trace",
+      "status": "PASS",
+      "wall_s": 6.0,
+      "evidence": {
+        "programs": 13,
+        "agree": 13,
+        "diverging": 0,
+        "retired": 1666,
+        "problems": 0,
+        "programs_total": 13,
+        "fixtures": "6/6",
+        "gate_rc": 0
+      }
+    },
+    {
+      "step": "synthesis",
+      "status": "PASS",
+      "wall_s": 1.3,
+      "evidence": {
+        "core_epv": 1670,
+        "core_noepv": 1010,
+        "overhead": 660
+      }
+    },
+    {
+      "step": "encoding_gate",
+      "status": "PASS",
+      "wall_s": 0.7,
+      "evidence": {
+        "injected_rc": 1
+      }
+    },
+    {
+      "step": "pnr_gate",
+      "status": "PASS",
+      "wall_s": 0.0,
+      "evidence": {
+        "part": "EG4S20BG256",
+        "rtl_sha_head": "6192d45d963e",
+        "epv_luts": 8727,
+        "base_luts": 3781,
+        "epv_dsp": "28/29",
+        "routed_fmax_epv": 27.615,
+        "routed_fmax_base": 28.611
+      }
+    },
+    {
+      "step": "doc_gate",
+      "status": "PASS",
+      "wall_s": 0.1,
+      "evidence": {
+        "checked_anchors": 31,
+        "archive_refs": 15,
+        "readme_refs": 38,
+        "demo_anchors": 25,
+        "demo_refs": 18,
+        "cited_paths_policed": 248,
+        "injected_anchors": 30
+      }
+    },
+    {
+      "step": "word_gate",
+      "status": "PASS",
+      "wall_s": 0.6,
+      "evidence": {
+        "sections": 5,
+        "tightest": "项目摘要",
+        "tightest_pct": 95.0,
+        "word_style_over": 0,
+        "word_style_tightest_units": 1,
+        "word_style_age_vs_source_sec": 22536.7
+      }
+    },
+    {
+      "step": "figures",
+      "status": "PASS",
+      "wall_s": 9.0,
+      "evidence": {
+        "figures": 8,
+        "numbers_policed": 82
+      }
+    },
+    {
+      "step": "docx",
+      "status": "PASS",
+      "wall_s": 4.9,
+      "evidence": {
+        "title_runs": 526,
+        "bold_runs": 0,
+        "max_level": 3,
+        "selftest_rc": 0,
+        "report_cover_lines": 2,
+        "report_fixtures": "3",
+        "attachment_runs": 2076,
+        "attachment_anchors": 34
+      }
+    },
+    {
+      "step": "ppt",
+      "status": "PASS",
+      "wall_s": 7.0,
+      "evidence": {
+        "slides": 30,
+        "tokens": 290,
+        "tiers": {
+          "D": 1,
+          "C": 3,
+          "A": 283,
+          "B": 3
+        },
+        "selftest_rc": 0
+      }
+    },
+    {
+      "step": "consistency",
+      "status": "PASS",
+      "wall_s": 0.4,
+      "evidence": {
+        "rules": 21,
+        "docs_policed": 4,
+        "sentences_policed": 1259,
+        "problems": 0,
+        "fixture_rules": 21,
+        "fixture_failed": 0,
+        "gate_rc_live": 0,
+        "gate_rc_selftest": 0
+      }
+    },
+    {
+      "step": "pair_gates",
+      "status": "PASS",
+      "wall_s": 98.9,
+      "evidence": {
+        "elf_manifest_elfs": 86,
+        "elf_manifest_mapped": 86,
+        "elf_manifest_fixture": "5/5",
+        "elf_manifest_rc": "0/0",
+        "dump_official_template_paras": 40,
+        "dump_official_template_fixture": "5/5",
+        "dump_official_template_rc": "0/0",
+        "official_coverage_total": 36,
+        "official_coverage_covered": 33,
+        "official_coverage_declared": 3,
+        "official_coverage_fixture": "7/7",
+        "official_coverage_rc": "0/0",
+        "third_party_licenses_copied": 10,
+        "third_party_licenses_declared_unavailable": 2,
+        "third_party_licenses_expected": 12,
+        "third_party_licenses_fixture": "8/8",
+        "third_party_licenses_rc": "0/0",
+        "fixture_claims_scripts": 16,
+        "fixture_claims_computed": 13,
+        "fixture_claims_literal_declared": 3,
+        "fixture_claims_fixture": "7/7",
+        "fixture_claims_rc": "0/0",
+        "historical_archives_objects": 248,
+        "historical_archives_current": 174,
+        "historical_archives_historical": 56,
+        "historical_archives_unsigned": 18,
+        "historical_archives_registered": 69,
+        "historical_archives_fixture": "21/21",
+        "historical_archives_rc": "0/0",
+        "defect_count_gate_total": 32,
+        "defect_count_gate_claims": 4,
+        "defect_count_gate_fixture": "9/9",
+        "defect_count_gate_rc": "0/0",
+        "coverage_report_programs": 73,
+        "coverage_report_buckets": 27276,
+        "coverage_report_covered": 22819,
+        "coverage_report_fixture": "5/5",
+        "coverage_report_rc": "0/0",
+        "assert_selfcheck_programs": 14,
+        "assert_selfcheck_tags": 18,
+        "assert_selfcheck_proven": 12,
+        "assert_selfcheck_no_cheap": 6,
+        "assert_selfcheck_fixture": "2/2",
+        "assert_selfcheck_rc": "0/0",
+        "bram_arms_arms": 8,
+        "bram_arms_async_zero": 4,
+        "bram_arms_async_arms": 4,
+        "bram_arms_fit_used": 32,
+        "bram_arms_overflow_used": 256,
+        "bram_arms_overflow_cap": 64,
+        "bram_arms_fixture": "6/6",
+        "bram_arms_rc": "0/0",
+        "sim_fingerprint_n_sources": 13,
+        "sim_fingerprint_fixture": "9/9",
+        "sim_fingerprint_rc": "0/0"
+      }
+    },
+    {
+      "step": "archive_clobber",
+      "status": "PASS",
+      "wall_s": 0.3,
+      "evidence": {
+        "violations": 0,
+        "gate_rc": 0,
+        "checked": "epv_bisect,epv_selftest,nn_bench"
+      }
+    },
+    {
+      "step": "compact_traces",
+      "status": "PASS",
+      "wall_s": 89.9,
+      "evidence": {
+        "compacted_files": 3,
+        "bytes_saved": 881506412,
+        "gate_rc": 0,
+        "fixture_cases": 3,
+        "threshold_bytes": 4194304
+      }
+    },
+    {
+      "step": "deliverables",
+      "status": "PASS",
+      "wall_s": 0.5,
+      "evidence": {
+        "verdict": "ALL-DELIVERABLE-CHECKS-PASS",
+        "fail_lines": 0,
+        "checks": 17,
+        "gate_rc": 0
+      }
+    },
+    {
+      "step": "table_shape",
+      "status": "PASS",
+      "wall_s": 0.3,
+      "evidence": {
+        "tables": 57,
+        "body_rows": 499,
+        "problems": 0,
+        "fixtures": "5/5",
+        "gate_rc": 0
+      }
+    },
+    {
+      "step": "navigation",
+      "status": "PASS",
+      "wall_s": 8.1,
+      "evidence": {
+        "files": 5,
+        "results_entries": 28,
+        "logs": 92,
+        "used_refs": 4,
+        "fixtures": "9/9",
+        "gate_rc": 0
+      }
+    },
+    {
+      "step": "demo_artifacts",
+      "status": "PASS",
+      "wall_s": 3.9,
+      "evidence": {
+        "readings": 91,
+        "drift": 0,
+        "volatile_excluded": 11,
+        "agg_excluded": 4,
+        "partial_skipped": 7,
+        "footprint_excluded": 0,
+        "snapshot_lines": 31,
+        "duration_s": 511.0,
+        "size_mib": 4.5,
+        "audio": "rms=0.011202/510.98s",
+        "problems": 0,
+        "fixtures": "10/10",
+        "gate_rc": 0
+      }
+    },
+    {
+      "step": "package_hygiene",
+      "status": "PASS",
+      "wall_s": 1.8,
+      "evidence": {
+        "scanned": 2169,
+        "hits": 0,
+        "cleaned": 8,
+        "still_there": 0,
+        "gate_rc": 0,
+        "fixtures": "13/13"
+      }
+    }
+  ],
+  "rtl_sha256_head": "6192d45d963ea0f3"
+}

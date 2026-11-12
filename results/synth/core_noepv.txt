@@ -1,0 +1,1932 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.69 (git sha1 9f75ca1f9-dirty, Release, GNU E:/msys64/ucrt64/bin/g++.exe 16.2.0)
+
+-- Executing script file `flow/synth_core_noepv.ys' --
+
+1. Executing Verilog-2005 frontend: rtl/epv32_core.v
+Parsing Verilog input from `rtl/epv32_core.v' to AST representation.
+Generating RTLIL representation for module `\epv32_core'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: rtl/epv32_alu.v
+Parsing Verilog input from `rtl/epv32_alu.v' to AST representation.
+Generating RTLIL representation for module `\epv32_alu'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: rtl/epv32_rf.v
+Parsing Verilog input from `rtl/epv32_rf.v' to AST representation.
+Generating RTLIL representation for module `\epv32_rf'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: rtl/epv32_muldiv.v
+Parsing Verilog input from `rtl/epv32_muldiv.v' to AST representation.
+Generating RTLIL representation for module `\epv32_muldiv'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: rtl/epv32_epv.v
+Parsing Verilog input from `rtl/epv32_epv.v' to AST representation.
+Generating RTLIL representation for module `\epv32_epv'.
+Warning: Replacing memory \vrf with list of registers. See rtl/epv32_epv.v:306
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: rtl/epv32_csr.v
+Parsing Verilog input from `rtl/epv32_csr.v' to AST representation.
+Generating RTLIL representation for module `\epv32_csr'.
+Warning: Replacing memory \pmpaddr with list of registers. See rtl/epv32_csr.v:256
+Warning: Replacing memory \pmpcfg with list of registers. See rtl/epv32_csr.v:254
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: rtl/synth_wrappers.v
+Parsing Verilog input from `rtl/synth_wrappers.v' to AST representation.
+Generating RTLIL representation for module `\epv32_core_epv'.
+Generating RTLIL representation for module `\epv32_core_noepv'.
+Successfully finished Verilog frontend.
+
+8. Executing HIERARCHY pass (managing design hierarchy).
+
+8.1. Analyzing design hierarchy..
+Top module:  \epv32_core_noepv
+Used module:     \epv32_core
+Used module:         \epv32_epv
+Used module:         \epv32_csr
+Used module:         \epv32_muldiv
+Used module:         \epv32_alu
+Used module:         \epv32_rf
+Parameter \IMPID = 3
+Parameter \PMP_N = 4
+
+8.2. Executing AST frontend in derive mode using pre-parsed AST for module `\epv32_csr'.
+Parameter \IMPID = 3
+Parameter \PMP_N = 4
+Generating RTLIL representation for module `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Warning: Replacing memory \pmpaddr with list of registers. See rtl/epv32_csr.v:256
+Warning: Replacing memory \pmpcfg with list of registers. See rtl/epv32_csr.v:254
+Parameter \EPV_ENABLE = 0
+
+8.3. Executing AST frontend in derive mode using pre-parsed AST for module `\epv32_core'.
+Parameter \EPV_ENABLE = 0
+Generating RTLIL representation for module `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+
+8.4. Analyzing design hierarchy..
+Top module:  \epv32_core_noepv
+Used module:     $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000
+Used module:         \epv32_csr
+Used module:         \epv32_muldiv
+Used module:         \epv32_alu
+Used module:         \epv32_rf
+Parameter \IMPID = 3
+Parameter \PMP_N = 4
+Found cached RTLIL representation for module `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+
+8.5. Analyzing design hierarchy..
+Top module:  \epv32_core_noepv
+Used module:     $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000
+Used module:         $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr
+Used module:         \epv32_muldiv
+Used module:         \epv32_alu
+Used module:         \epv32_rf
+
+8.6. Analyzing design hierarchy..
+Top module:  \epv32_core_noepv
+Used module:     $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000
+Used module:         $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr
+Used module:         \epv32_muldiv
+Used module:         \epv32_alu
+Used module:         \epv32_rf
+Removing unused module `\epv32_core_epv'.
+Removing unused module `\epv32_csr'.
+Removing unused module `\epv32_epv'.
+Removing unused module `\epv32_core'.
+Removed 4 unused modules.
+
+9. Executing PROC pass (convert processes to netlists).
+
+9.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 4 empty switches in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:158$2651'.
+Found and cleaned up 4 empty switches in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:157$2541'.
+Found and cleaned up 4 empty switches in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:155$2431'.
+Found and cleaned up 4 empty switches in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:154$2321'.
+Cleaned up 16 empty switches.
+
+9.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 3 switch rules as full_case in process $proc$rtl/epv32_csr.v:181$2761 in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Marked 17 switch rules as full_case in process $proc$rtl/epv32_csr.v:158$2651 in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Marked 17 switch rules as full_case in process $proc$rtl/epv32_csr.v:157$2541 in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Marked 17 switch rules as full_case in process $proc$rtl/epv32_csr.v:155$2431 in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Marked 17 switch rules as full_case in process $proc$rtl/epv32_csr.v:154$2321 in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Marked 3 switch rules as full_case in process $proc$rtl/epv32_csr.v:248$2294 in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Marked 1 switch rules as full_case in process $proc$rtl/epv32_csr.v:200$2274 in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Marked 3 switch rules as full_case in process $proc$rtl/epv32_muldiv.v:100$751 in module epv32_muldiv.
+Marked 1 switch rules as full_case in process $proc$rtl/epv32_rf.v:26$611 in module epv32_rf.
+Marked 1 switch rules as full_case in process $proc$rtl/epv32_core.v:705$3302 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_core.v:719$3199 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_core.v:708$3195 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_core.v:618$3144 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Marked 1 switch rules as full_case in process $proc$rtl/epv32_core.v:609$3138 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Marked 7 switch rules as full_case in process $proc$rtl/epv32_core.v:521$3063 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Marked 3 switch rules as full_case in process $proc$rtl/epv32_core.v:361$2950 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Removed 2 dead cases from process $proc$rtl/epv32_core.v:284$2922 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Marked 10 switch rules as full_case in process $proc$rtl/epv32_core.v:284$2922 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Marked 2 switch rules as full_case in process $proc$rtl/epv32_core.v:217$2786 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Marked 1 switch rules as full_case in process $proc$rtl/epv32_core.v:198$2780 in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Removed a total of 2 dead cases.
+
+9.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 21 redundant assignments.
+Promoted 189 assignments to connections.
+
+9.4. Executing PROC_INIT pass (extract init attributes).
+
+9.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+Found async reset \rst_n in `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+Found async reset \rst_n in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+Found async reset \rst_n in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:708$3195'.
+Found async reset \rst_n in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+Found async reset \rst_n in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:609$3138'.
+Found async reset \rst_n in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+Found async reset \rst_n in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:217$2786'.
+Found async reset \rst_n in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:198$2780'.
+
+9.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~117 debug messages>
+
+9.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:181$2761'.
+     1/3: $3\pick$func$rtl/epv32_csr.v:181$2256.$result[3:0]$2767
+     2/3: $2\pick$func$rtl/epv32_csr.v:181$2256.$result[3:0]$2766
+     3/3: $1\pick$func$rtl/epv32_csr.v:181$2256.$result[3:0]$2765
+Creating decoders for process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:158$2651'.
+     1/29: $13\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2760
+     2/29: $12\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2756
+     3/29: $11\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2755
+     4/29: $10\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2753
+     5/29: $4\pmp_deny$func$rtl/epv32_csr.v:158$2251.found[0:0]$2754
+     6/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2255.$result[0:0]$2739
+     7/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2255.m[31:0]$2740
+     8/29: $4\pmp_deny$func$rtl/epv32_csr.v:158$2251.any_lock[0:0]$2738
+     9/29: $9\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2736
+    10/29: $8\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2735
+    11/29: $7\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2733
+    12/29: $3\pmp_deny$func$rtl/epv32_csr.v:158$2251.found[0:0]$2734
+    13/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2254.$result[0:0]$2719
+    14/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2254.m[31:0]$2720
+    15/29: $3\pmp_deny$func$rtl/epv32_csr.v:158$2251.any_lock[0:0]$2718
+    16/29: $6\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2716
+    17/29: $5\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2715
+    18/29: $4\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2713
+    19/29: $2\pmp_deny$func$rtl/epv32_csr.v:158$2251.found[0:0]$2714
+    20/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2253.$result[0:0]$2699
+    21/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2253.m[31:0]$2700
+    22/29: $2\pmp_deny$func$rtl/epv32_csr.v:158$2251.any_lock[0:0]$2698
+    23/29: $3\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2696
+    24/29: $2\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2695
+    25/29: $1\pmp_deny$func$rtl/epv32_csr.v:158$2251.$result[0:0]$2693
+    26/29: $1\pmp_deny$func$rtl/epv32_csr.v:158$2251.found[0:0]$2694
+    27/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2252.$result[0:0]$2679
+    28/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2252.m[31:0]$2680
+    29/29: $1\pmp_deny$func$rtl/epv32_csr.v:158$2251.any_lock[0:0]$2678
+Creating decoders for process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:157$2541'.
+     1/29: $13\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2650
+     2/29: $12\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2646
+     3/29: $11\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2645
+     4/29: $10\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2643
+     5/29: $4\pmp_deny$func$rtl/epv32_csr.v:157$2246.found[0:0]$2644
+     6/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2250.$result[0:0]$2629
+     7/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2250.m[31:0]$2630
+     8/29: $4\pmp_deny$func$rtl/epv32_csr.v:157$2246.any_lock[0:0]$2628
+     9/29: $9\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2626
+    10/29: $8\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2625
+    11/29: $7\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2623
+    12/29: $3\pmp_deny$func$rtl/epv32_csr.v:157$2246.found[0:0]$2624
+    13/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2249.$result[0:0]$2609
+    14/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2249.m[31:0]$2610
+    15/29: $3\pmp_deny$func$rtl/epv32_csr.v:157$2246.any_lock[0:0]$2608
+    16/29: $6\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2606
+    17/29: $5\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2605
+    18/29: $4\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2603
+    19/29: $2\pmp_deny$func$rtl/epv32_csr.v:157$2246.found[0:0]$2604
+    20/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2248.$result[0:0]$2589
+    21/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2248.m[31:0]$2590
+    22/29: $2\pmp_deny$func$rtl/epv32_csr.v:157$2246.any_lock[0:0]$2588
+    23/29: $3\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2586
+    24/29: $2\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2585
+    25/29: $1\pmp_deny$func$rtl/epv32_csr.v:157$2246.$result[0:0]$2583
+    26/29: $1\pmp_deny$func$rtl/epv32_csr.v:157$2246.found[0:0]$2584
+    27/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2247.$result[0:0]$2569
+    28/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2247.m[31:0]$2570
+    29/29: $1\pmp_deny$func$rtl/epv32_csr.v:157$2246.any_lock[0:0]$2568
+Creating decoders for process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:155$2431'.
+     1/29: $13\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2540
+     2/29: $12\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2536
+     3/29: $11\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2535
+     4/29: $10\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2533
+     5/29: $4\pmp_deny$func$rtl/epv32_csr.v:155$2241.found[0:0]$2534
+     6/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2245.$result[0:0]$2519
+     7/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2245.m[31:0]$2520
+     8/29: $4\pmp_deny$func$rtl/epv32_csr.v:155$2241.any_lock[0:0]$2518
+     9/29: $9\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2516
+    10/29: $8\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2515
+    11/29: $7\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2513
+    12/29: $3\pmp_deny$func$rtl/epv32_csr.v:155$2241.found[0:0]$2514
+    13/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2244.$result[0:0]$2499
+    14/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2244.m[31:0]$2500
+    15/29: $3\pmp_deny$func$rtl/epv32_csr.v:155$2241.any_lock[0:0]$2498
+    16/29: $6\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2496
+    17/29: $5\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2495
+    18/29: $4\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2493
+    19/29: $2\pmp_deny$func$rtl/epv32_csr.v:155$2241.found[0:0]$2494
+    20/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2243.$result[0:0]$2479
+    21/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2243.m[31:0]$2480
+    22/29: $2\pmp_deny$func$rtl/epv32_csr.v:155$2241.any_lock[0:0]$2478
+    23/29: $3\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2476
+    24/29: $2\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2475
+    25/29: $1\pmp_deny$func$rtl/epv32_csr.v:155$2241.$result[0:0]$2473
+    26/29: $1\pmp_deny$func$rtl/epv32_csr.v:155$2241.found[0:0]$2474
+    27/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2242.$result[0:0]$2459
+    28/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2242.m[31:0]$2460
+    29/29: $1\pmp_deny$func$rtl/epv32_csr.v:155$2241.any_lock[0:0]$2458
+Creating decoders for process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:154$2321'.
+     1/29: $13\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2430
+     2/29: $12\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2426
+     3/29: $11\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2425
+     4/29: $10\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2423
+     5/29: $4\pmp_deny$func$rtl/epv32_csr.v:154$2236.found[0:0]$2424
+     6/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2240.$result[0:0]$2409
+     7/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2240.m[31:0]$2410
+     8/29: $4\pmp_deny$func$rtl/epv32_csr.v:154$2236.any_lock[0:0]$2408
+     9/29: $9\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2406
+    10/29: $8\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2405
+    11/29: $7\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2403
+    12/29: $3\pmp_deny$func$rtl/epv32_csr.v:154$2236.found[0:0]$2404
+    13/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2239.$result[0:0]$2389
+    14/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2239.m[31:0]$2390
+    15/29: $3\pmp_deny$func$rtl/epv32_csr.v:154$2236.any_lock[0:0]$2388
+    16/29: $6\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2386
+    17/29: $5\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2385
+    18/29: $4\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2383
+    19/29: $2\pmp_deny$func$rtl/epv32_csr.v:154$2236.found[0:0]$2384
+    20/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2238.$result[0:0]$2369
+    21/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2238.m[31:0]$2370
+    22/29: $2\pmp_deny$func$rtl/epv32_csr.v:154$2236.any_lock[0:0]$2368
+    23/29: $3\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2366
+    24/29: $2\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2365
+    25/29: $1\pmp_deny$func$rtl/epv32_csr.v:154$2236.$result[0:0]$2363
+    26/29: $1\pmp_deny$func$rtl/epv32_csr.v:154$2236.found[0:0]$2364
+    27/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2237.$result[0:0]$2349
+    28/29: $1\pmp_match$func$rtl/epv32_csr.v:139$2237.m[31:0]$2350
+    29/29: $1\pmp_deny$func$rtl/epv32_csr.v:154$2236.any_lock[0:0]$2348
+Creating decoders for process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+     1/27: $0\minstret[63:0] [63:32]
+     2/27: $0\minstret[63:0] [31:0]
+     3/27: $0\mcycle[63:0] [31:0]
+     4/27: $0\mstatus[31:0] [12:11]
+     5/27: $0\mstatus[31:0] [10:8]
+     6/27: $0\mstatus[31:0] [7]
+     7/27: $0\mstatus[31:0] [6:4]
+     8/27: $0\mstatus[31:0] [3]
+     9/27: $0\mstatus[31:0] [2:0]
+    10/27: $0\pmpaddr[2][31:0]
+    11/27: $0\pmpaddr[1][31:0]
+    12/27: $0\pmpaddr[0][31:0]
+    13/27: $0\pmpcfg[3][7:0]
+    14/27: $0\pmpcfg[2][7:0]
+    15/27: $0\pmpcfg[1][7:0]
+    16/27: $0\pmpcfg[0][7:0]
+    17/27: $0\mcountinhibit[31:0]
+    18/27: $0\mcycle[63:0] [63:32]
+    19/27: $0\mstatus[31:0] [31:13]
+    20/27: $0\mtval[31:0]
+    21/27: $0\mcause[31:0]
+    22/27: $0\mepc[31:0]
+    23/27: $0\mscratch[31:0]
+    24/27: $0\mtvec[31:0]
+    25/27: $0\mie[31:0]
+    26/27: $0\pmpaddr[3][31:0]
+    27/27: $0\o_dbg_mcause[31:0]
+Creating decoders for process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:200$2274'.
+     1/1: $1\cur[31:0]
+Creating decoders for process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+     1/12: $0\running[0:0]
+     2/12: $0\cnt[5:0]
+     3/12: $0\quo[31:0]
+     4/12: $0\rem[32:0]
+     5/12: $0\is_rem_r[0:0]
+     6/12: $0\ovf_r[0:0]
+     7/12: $0\zer_r[0:0]
+     8/12: $0\negq_r[0:0]
+     9/12: $0\rsign_r[0:0]
+    10/12: $0\dvrs_abs[31:0]
+    11/12: $0\dvnd_raw[31:0]
+    12/12: $0\dvnd_abs[31:0]
+Creating decoders for process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+Creating decoders for process `\epv32_rf.$proc$rtl/epv32_rf.v:26$611'.
+     1/3: $1$memwr$\rf$rtl/epv32_rf.v:27$610_EN[31:0]$619
+     2/3: $1$memwr$\rf$rtl/epv32_rf.v:27$610_DATA[31:0]$618
+     3/3: $1$memwr$\rf$rtl/epv32_rf.v:27$610_ADDR[4:0]$617
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:705$3302'.
+     1/1: $1\ld_ext$func$rtl/epv32_core.v:705$2779.$result[31:0]$3309
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:514$3283'.
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:512$3264'.
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:501$3245'.
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:499$3226'.
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:493$3207'.
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+     1/9: $0\memwb_pc[31:0]
+     2/9: $0\memwb_raw[31:0]
+     3/9: $0\memwb_addr[31:0]
+     4/9: $0\memwb_be[3:0]
+     5/9: $0\memwb_mem_write[0:0]
+     6/9: $0\memwb_wdata[31:0]
+     7/9: $0\memwb_rd[4:0]
+     8/9: $0\memwb_reg_write[0:0]
+     9/9: $0\memwb_valid[0:0]
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:708$3195'.
+     1/2: $0\mem_x_lo[31:0]
+     2/2: $0\mem_x_phase[0:0]
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+     1/10: $0\exmem_pc[31:0]
+     2/10: $0\exmem_addr[31:0]
+     3/10: $0\exmem_rs2[31:0]
+     4/10: $0\exmem_result[31:0]
+     5/10: $0\exmem_f3[2:0]
+     6/10: $0\exmem_rd[4:0]
+     7/10: $0\exmem_mem_write[0:0]
+     8/10: $0\exmem_mem_read[0:0]
+     9/10: $0\exmem_reg_write[0:0]
+    10/10: $0\exmem_valid[0:0]
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:609$3138'.
+     1/1: $0\pc_q[31:0]
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:521$3063'.
+     1/14: $7\c_tval[31:0]
+     2/14: $7\c_cause[4:0]
+     3/14: $6\c_tval[31:0]
+     4/14: $6\c_cause[4:0]
+     5/14: $5\c_tval[31:0]
+     6/14: $5\c_cause[4:0]
+     7/14: $4\c_tval[31:0]
+     8/14: $4\c_cause[4:0]
+     9/14: $3\c_tval[31:0]
+    10/14: $3\c_cause[4:0]
+    11/14: $2\c_tval[31:0]
+    12/14: $2\c_cause[4:0]
+    13/14: $1\c_tval[31:0]
+    14/14: $1\c_cause[4:0]
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+     1/33: $0\idex_valid[0:0]
+     2/33: $0\idex_r2d[31:0]
+     3/33: $0\idex_r1d[31:0]
+     4/33: $0\idex_inst[31:0]
+     5/33: $0\idex_imm[31:0]
+     6/33: $0\idex_pc4[31:0]
+     7/33: $0\idex_pc[31:0]
+     8/33: $0\idex_rs2[4:0]
+     9/33: $0\idex_rs1[4:0]
+    10/33: $0\idex_rd[4:0]
+    11/33: $0\idex_opcode[6:0]
+    12/33: $0\idex_f7[6:0]
+    13/33: $0\idex_f3[2:0]
+    14/33: $0\idex_md_op[2:0]
+    15/33: $0\idex_b_imm[0:0]
+    16/33: $0\idex_a_immu[0:0]
+    17/33: $0\idex_a_pc[0:0]
+    18/33: $0\idex_alu_op[3:0]
+    19/33: $0\idex_jal_is[0:0]
+    20/33: $0\idex_do_mret[0:0]
+    21/33: $0\idex_do_ecall[0:0]
+    22/33: $0\idex_do_ebreak[0:0]
+    23/33: $0\idex_illegal[0:0]
+    24/33: $0\idex_wr_pc4[0:0]
+    25/33: $0\idex_is_br[0:0]
+    26/33: $0\idex_is_jmp[0:0]
+    27/33: $0\idex_is_csr[0:0]
+    28/33: $0\idex_is_epv[0:0]
+    29/33: $0\idex_is_md[0:0]
+    30/33: $0\idex_is_ldst[0:0]
+    31/33: $0\idex_mem_write[0:0]
+    32/33: $0\idex_mem_read[0:0]
+    33/33: $0\idex_reg_write[0:0]
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+     1/66: $4\d_reg_write[0:0]
+     2/66: $6\d_do_mret[0:0]
+     3/66: $6\d_do_wfi[0:0]
+     4/66: $5\d_do_ebreak[0:0]
+     5/66: $5\d_do_wfi[0:0]
+     6/66: $5\d_do_mret[0:0]
+     7/66: $4\d_do_ecall[0:0]
+     8/66: $4\d_do_wfi[0:0]
+     9/66: $4\d_do_mret[0:0]
+    10/66: $4\d_do_ebreak[0:0]
+    11/66: $3\d_do_wfi[0:0]
+    12/66: $3\d_do_mret[0:0]
+    13/66: $3\d_do_ecall[0:0]
+    14/66: $3\d_do_ebreak[0:0]
+    15/66: $3\d_imm[31:0]
+    16/66: $6\d_alu_op[3:0]
+    17/66: $3\d_is_csr[0:0]
+    18/66: $3\d_reg_write[0:0]
+    19/66: $5\d_alu_op[3:0]
+    20/66: $3\d_md_op[2:0]
+    21/66: $3\d_is_md[0:0]
+    22/66: $4\d_alu_op[3:0]
+    23/66: $3\d_alu_op[3:0]
+    24/66: $2\d_alu_op[3:0]
+    25/66: $2\d_imm[31:0]
+    26/66: $2\d_a_immu[0:0]
+    27/66: $2\d_reg_write[0:0]
+    28/66: $2\d_md_op[2:0]
+    29/66: $2\d_b_imm[0:0]
+    30/66: $2\d_a_pc[0:0]
+    31/66: $2\d_do_wfi[0:0]
+    32/66: $2\d_do_mret[0:0]
+    33/66: $2\d_do_ecall[0:0]
+    34/66: $2\d_do_ebreak[0:0]
+    35/66: $2\d_jal_is[0:0]
+    36/66: $2\d_wr_pc4[0:0]
+    37/66: $2\d_is_br[0:0]
+    38/66: $2\d_is_jmp[0:0]
+    39/66: $2\d_is_csr[0:0]
+    40/66: $2\d_is_epv[0:0]
+    41/66: $2\d_is_md[0:0]
+    42/66: $2\d_is_ldst[0:0]
+    43/66: $2\d_mem_write[0:0]
+    44/66: $2\d_mem_read[0:0]
+    45/66: $1\d_alu_op[3:0]
+    46/66: $1\d_illegal[0:0]
+    47/66: $1\d_imm[31:0]
+    48/66: $1\d_md_op[2:0]
+    49/66: $1\d_b_imm[0:0]
+    50/66: $1\d_a_immu[0:0]
+    51/66: $1\d_a_pc[0:0]
+    52/66: $1\d_do_wfi[0:0]
+    53/66: $1\d_do_mret[0:0]
+    54/66: $1\d_do_ecall[0:0]
+    55/66: $1\d_do_ebreak[0:0]
+    56/66: $1\d_jal_is[0:0]
+    57/66: $1\d_wr_pc4[0:0]
+    58/66: $1\d_is_br[0:0]
+    59/66: $1\d_is_jmp[0:0]
+    60/66: $1\d_is_csr[0:0]
+    61/66: $1\d_is_epv[0:0]
+    62/66: $1\d_is_md[0:0]
+    63/66: $1\d_is_ldst[0:0]
+    64/66: $1\d_mem_write[0:0]
+    65/66: $1\d_mem_read[0:0]
+    66/66: $1\d_reg_write[0:0]
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:217$2786'.
+     1/4: $0\ifid_inst[31:0]
+     2/4: $0\ifid_pc4[31:0]
+     3/4: $0\ifid_pc[31:0]
+     4/4: $0\ifid_valid[0:0]
+Creating decoders for process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:198$2780'.
+     1/5: $0\o_dbg_trap_cnt[31:0]
+     2/5: $0\o_dbg_last_inst[31:0]
+     3/5: $0\o_dbg_mcause[31:0]
+     4/5: $0\o_dbg_mtval[31:0]
+     5/5: $0\o_dbg_mepc[31:0]
+
+9.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pick$func$rtl/epv32_csr.v:181$2235.$result' from process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:181$2761'.
+No latch inferred for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmp_deny$func$rtl/epv32_csr.v:158$2234.$result' from process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:158$2651'.
+No latch inferred for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmp_deny$func$rtl/epv32_csr.v:157$2233.$result' from process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:157$2541'.
+No latch inferred for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmp_deny$func$rtl/epv32_csr.v:155$2232.$result' from process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:155$2431'.
+No latch inferred for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmp_deny$func$rtl/epv32_csr.v:154$2231.$result' from process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:154$2321'.
+No latch inferred for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\cur' from process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:200$2274'.
+No latch inferred for signal `\epv32_rf.\i' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$578_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$579_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$580_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$581_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$582_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$583_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$584_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$585_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$586_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$587_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$588_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$589_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$590_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$591_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$592_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$593_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$594_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$595_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$596_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$597_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$598_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$599_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$600_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$601_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$602_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$603_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$604_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$605_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$606_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$607_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$608_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:23$609_EN' from process `\epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\ld_ext$func$rtl/epv32_core.v:705$2773.$result' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:705$3302'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\addr_ok$func$rtl/epv32_core.v:514$2772.$result' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:514$3283'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\addr_ok$func$rtl/epv32_core.v:512$2771.$result' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:512$3264'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\addr_ok$func$rtl/epv32_core.v:501$2770.$result' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:501$3245'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\addr_ok$func$rtl/epv32_core.v:499$2769.$result' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:499$3226'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\addr_ok$func$rtl/epv32_core.v:493$2768.$result' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:493$3207'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\c_cause' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:521$3063'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\c_tval' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:521$3063'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_reg_write' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_mem_read' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_mem_write' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_is_ldst' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_is_md' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_is_epv' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_is_csr' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_is_jmp' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_is_br' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_wr_pc4' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_illegal' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_jal_is' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_do_ebreak' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_do_ecall' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_do_mret' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_do_wfi' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_alu_op' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_a_pc' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_a_immu' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_b_imm' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_md_op' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+No latch inferred for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\d_imm' from process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+
+9.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\o_dbg_mcause' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $dff cell `$procdff$5427' with positive edge clock.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\mstatus' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5432' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\mie' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5437' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\mtvec' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5442' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\mscratch' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5447' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\mepc' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5452' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\mcause' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5457' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\mtval' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5462' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\mcycle' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5467' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\minstret' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5472' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\mcountinhibit' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5477' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmpcfg[0]' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5482' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmpcfg[1]' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5487' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmpcfg[2]' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5492' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmpcfg[3]' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5497' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmpaddr[0]' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5502' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmpaddr[1]' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5507' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmpaddr[2]' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5512' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.\pmpaddr[3]' using process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+  created $adff cell `$procdff$5517' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\dvnd_abs' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5522' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\dvnd_raw' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5527' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\dvrs_abs' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5532' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\rsign_r' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5537' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\negq_r' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5542' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\zer_r' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5547' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\ovf_r' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5552' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\is_rem_r' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5557' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\rem' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5562' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\quo' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5567' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\cnt' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5572' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_muldiv.\running' using process `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+  created $adff cell `$procdff$5577' with positive edge clock and positive level reset.
+Creating register for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:27$610_ADDR' using process `\epv32_rf.$proc$rtl/epv32_rf.v:26$611'.
+  created $dff cell `$procdff$5578' with positive edge clock.
+Creating register for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:27$610_DATA' using process `\epv32_rf.$proc$rtl/epv32_rf.v:26$611'.
+  created $dff cell `$procdff$5579' with positive edge clock.
+Creating register for signal `\epv32_rf.$memwr$\rf$rtl/epv32_rf.v:27$610_EN' using process `\epv32_rf.$proc$rtl/epv32_rf.v:26$611'.
+  created $dff cell `$procdff$5580' with positive edge clock.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\memwb_valid' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+  created $adff cell `$procdff$5585' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\memwb_reg_write' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+  created $adff cell `$procdff$5590' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\memwb_mem_write' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+  created $adff cell `$procdff$5595' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\memwb_rd' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+  created $adff cell `$procdff$5600' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\memwb_be' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+  created $adff cell `$procdff$5605' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\memwb_wdata' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+  created $adff cell `$procdff$5610' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\memwb_addr' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+  created $adff cell `$procdff$5615' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\memwb_raw' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+  created $adff cell `$procdff$5620' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\memwb_pc' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+  created $adff cell `$procdff$5625' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\mem_x_phase' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:708$3195'.
+  created $adff cell `$procdff$5630' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\mem_x_lo' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:708$3195'.
+  created $adff cell `$procdff$5635' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\exmem_valid' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+  created $adff cell `$procdff$5640' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\exmem_reg_write' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+  created $adff cell `$procdff$5645' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\exmem_mem_read' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+  created $adff cell `$procdff$5650' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\exmem_mem_write' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+  created $adff cell `$procdff$5655' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\exmem_rd' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+  created $adff cell `$procdff$5660' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\exmem_f3' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+  created $adff cell `$procdff$5665' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\exmem_result' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+  created $adff cell `$procdff$5670' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\exmem_rs2' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+  created $adff cell `$procdff$5675' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\exmem_addr' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+  created $adff cell `$procdff$5680' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\exmem_pc' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+  created $adff cell `$procdff$5685' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\pc_q' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:609$3138'.
+  created $adff cell `$procdff$5690' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_valid' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5695' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_reg_write' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5700' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_mem_read' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5705' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_mem_write' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5710' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_is_ldst' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5715' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_is_md' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5720' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_is_epv' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5725' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_is_csr' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5730' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_is_jmp' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5735' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_is_br' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5740' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_wr_pc4' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5745' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_illegal' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5750' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_do_ebreak' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5755' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_do_ecall' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5760' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_do_mret' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5765' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_jal_is' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5770' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_alu_op' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5775' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_a_pc' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5780' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_a_immu' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5785' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_b_imm' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5790' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_md_op' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5795' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_f3' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5800' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_f7' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5805' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_opcode' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5810' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_rd' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5815' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_rs1' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5820' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_rs2' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5825' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_pc' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5830' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_pc4' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5835' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_imm' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5840' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_inst' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5845' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_r1d' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5850' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\idex_r2d' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+  created $adff cell `$procdff$5855' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\ifid_valid' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:217$2786'.
+  created $adff cell `$procdff$5860' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\ifid_pc' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:217$2786'.
+  created $adff cell `$procdff$5865' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\ifid_pc4' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:217$2786'.
+  created $adff cell `$procdff$5870' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\ifid_inst' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:217$2786'.
+  created $adff cell `$procdff$5875' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\o_dbg_mepc' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:198$2780'.
+  created $adff cell `$procdff$5880' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\o_dbg_mtval' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:198$2780'.
+  created $adff cell `$procdff$5885' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\o_dbg_mcause' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:198$2780'.
+  created $adff cell `$procdff$5890' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\o_dbg_last_inst' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:198$2780'.
+  created $adff cell `$procdff$5895' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.\o_dbg_trap_cnt' using process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:198$2780'.
+  created $adff cell `$procdff$5900' with positive edge clock and positive level reset.
+
+9.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+9.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 3 empty switches in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:181$2761'.
+Removing empty process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:181$2761'.
+Found and cleaned up 17 empty switches in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:158$2651'.
+Removing empty process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:158$2651'.
+Found and cleaned up 17 empty switches in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:157$2541'.
+Removing empty process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:157$2541'.
+Found and cleaned up 17 empty switches in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:155$2431'.
+Removing empty process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:155$2431'.
+Found and cleaned up 17 empty switches in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:154$2321'.
+Removing empty process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:154$2321'.
+Found and cleaned up 14 empty switches in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+Removing empty process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:248$2294'.
+Found and cleaned up 1 empty switch in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:200$2274'.
+Removing empty process `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.$proc$rtl/epv32_csr.v:200$2274'.
+Found and cleaned up 3 empty switches in `\epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+Removing empty process `epv32_muldiv.$proc$rtl/epv32_muldiv.v:100$751'.
+Removing empty process `epv32_rf.$proc$rtl/epv32_rf.v:22$664'.
+Found and cleaned up 1 empty switch in `\epv32_rf.$proc$rtl/epv32_rf.v:26$611'.
+Removing empty process `epv32_rf.$proc$rtl/epv32_rf.v:26$611'.
+Found and cleaned up 1 empty switch in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:705$3302'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:705$3302'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:514$3283'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:512$3264'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:501$3245'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:499$3226'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:493$3207'.
+Found and cleaned up 1 empty switch in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:719$3199'.
+Found and cleaned up 2 empty switches in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:708$3195'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:708$3195'.
+Found and cleaned up 1 empty switch in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:618$3144'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:609$3138'.
+Found and cleaned up 7 empty switches in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:521$3063'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:521$3063'.
+Found and cleaned up 2 empty switches in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:361$2950'.
+Found and cleaned up 10 empty switches in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:284$2922'.
+Found and cleaned up 2 empty switches in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:217$2786'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:217$2786'.
+Found and cleaned up 1 empty switch in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:198$2780'.
+Removing empty process `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.$proc$rtl/epv32_core.v:198$2780'.
+Cleaned up 117 empty switches.
+
+9.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+<suppressed ~118 debug messages>
+Optimizing module epv32_core_noepv.
+Optimizing module epv32_muldiv.
+<suppressed ~26 debug messages>
+Optimizing module epv32_rf.
+<suppressed ~3 debug messages>
+Optimizing module epv32_alu.
+<suppressed ~1 debug messages>
+Optimizing module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+<suppressed ~175 debug messages>
+
+10. Executing OPT pass (performing simple optimizations).
+
+10.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Optimizing module epv32_core_noepv.
+Optimizing module epv32_muldiv.
+Optimizing module epv32_rf.
+Optimizing module epv32_alu.
+Optimizing module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+
+10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 694 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 514 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 494 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 482 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 474 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 466 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+<suppressed ~684 debug messages>
+Finding identical cells in module `\epv32_core_noepv'.
+Computing hashes of 2 cells of `\epv32_core_noepv'.
+Finding duplicate cells in `\epv32_core_noepv'.
+Finding identical cells in module `\epv32_muldiv'.
+Computing hashes of 118 cells of `\epv32_muldiv'.
+Finding duplicate cells in `\epv32_muldiv'.
+Computing hashes of 96 cells of `\epv32_muldiv'.
+Finding duplicate cells in `\epv32_muldiv'.
+Computing hashes of 95 cells of `\epv32_muldiv'.
+Finding duplicate cells in `\epv32_muldiv'.
+<suppressed ~69 debug messages>
+Finding identical cells in module `\epv32_rf'.
+Computing hashes of 53 cells of `\epv32_rf'.
+Finding duplicate cells in `\epv32_rf'.
+Finding identical cells in module `\epv32_alu'.
+Computing hashes of 32 cells of `\epv32_alu'.
+Finding duplicate cells in `\epv32_alu'.
+Finding identical cells in module `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 1016 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 778 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 766 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 765 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+<suppressed ~753 debug messages>
+Removed a total of 502 cells.
+
+10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port B of cell $procmux$4063: \pmpcfg[0] -> { \pmpcfg[0] [7:1] 1'1 }
+      Replacing known input bits on port B of cell $procmux$4047: \pmpcfg[1] -> { \pmpcfg[1] [7:1] 1'1 }
+      Replacing known input bits on port B of cell $procmux$4031: \pmpcfg[2] -> { \pmpcfg[2] [7:1] 1'1 }
+      Replacing known input bits on port B of cell $procmux$4015: \pmpcfg[3] -> { \pmpcfg[3] [7:1] 1'1 }
+  Analyzing evaluation results.
+    dead port 1/4 on $pmux $procmux$3702.
+    dead port 2/4 on $pmux $procmux$3702.
+    dead port 3/4 on $pmux $procmux$3702.
+    dead port 4/4 on $pmux $procmux$3702.
+    dead port 2/2 on $mux $procmux$3688.
+    dead port 2/2 on $mux $procmux$3682.
+    dead port 2/2 on $mux $procmux$3680.
+    dead port 1/4 on $pmux $procmux$3671.
+    dead port 2/4 on $pmux $procmux$3671.
+    dead port 3/4 on $pmux $procmux$3671.
+    dead port 4/4 on $pmux $procmux$3671.
+    dead port 2/2 on $mux $procmux$3657.
+    dead port 2/2 on $mux $procmux$3651.
+    dead port 2/2 on $mux $procmux$3649.
+    dead port 1/4 on $pmux $procmux$3640.
+    dead port 2/4 on $pmux $procmux$3640.
+    dead port 3/4 on $pmux $procmux$3640.
+    dead port 4/4 on $pmux $procmux$3640.
+    dead port 2/2 on $mux $procmux$3626.
+    dead port 2/2 on $mux $procmux$3620.
+    dead port 2/2 on $mux $procmux$3618.
+    dead port 1/4 on $pmux $procmux$3609.
+    dead port 2/4 on $pmux $procmux$3609.
+    dead port 3/4 on $pmux $procmux$3609.
+    dead port 4/4 on $pmux $procmux$3609.
+    dead port 2/2 on $mux $procmux$3595.
+    dead port 2/2 on $mux $procmux$3589.
+    dead port 2/2 on $mux $procmux$3587.
+    dead port 1/4 on $pmux $procmux$3575.
+    dead port 2/4 on $pmux $procmux$3575.
+    dead port 3/4 on $pmux $procmux$3575.
+    dead port 4/4 on $pmux $procmux$3575.
+    dead port 2/2 on $mux $procmux$3561.
+    dead port 2/2 on $mux $procmux$3555.
+    dead port 2/2 on $mux $procmux$3553.
+    dead port 1/4 on $pmux $procmux$3544.
+    dead port 2/4 on $pmux $procmux$3544.
+    dead port 3/4 on $pmux $procmux$3544.
+    dead port 4/4 on $pmux $procmux$3544.
+    dead port 2/2 on $mux $procmux$3530.
+    dead port 2/2 on $mux $procmux$3524.
+    dead port 2/2 on $mux $procmux$3522.
+    dead port 1/4 on $pmux $procmux$3513.
+    dead port 2/4 on $pmux $procmux$3513.
+    dead port 3/4 on $pmux $procmux$3513.
+    dead port 4/4 on $pmux $procmux$3513.
+    dead port 2/2 on $mux $procmux$3499.
+    dead port 2/2 on $mux $procmux$3493.
+    dead port 2/2 on $mux $procmux$3491.
+    dead port 1/4 on $pmux $procmux$3482.
+    dead port 2/4 on $pmux $procmux$3482.
+    dead port 3/4 on $pmux $procmux$3482.
+    dead port 4/4 on $pmux $procmux$3482.
+    dead port 2/2 on $mux $procmux$3468.
+    dead port 2/2 on $mux $procmux$3462.
+    dead port 2/2 on $mux $procmux$3460.
+    dead port 1/4 on $pmux $procmux$3448.
+    dead port 2/4 on $pmux $procmux$3448.
+    dead port 3/4 on $pmux $procmux$3448.
+    dead port 4/4 on $pmux $procmux$3448.
+    dead port 2/2 on $mux $procmux$3434.
+    dead port 2/2 on $mux $procmux$3428.
+    dead port 2/2 on $mux $procmux$3426.
+    dead port 1/4 on $pmux $procmux$3417.
+    dead port 2/4 on $pmux $procmux$3417.
+    dead port 3/4 on $pmux $procmux$3417.
+    dead port 4/4 on $pmux $procmux$3417.
+    dead port 2/2 on $mux $procmux$3403.
+    dead port 2/2 on $mux $procmux$3397.
+    dead port 2/2 on $mux $procmux$3395.
+    dead port 1/4 on $pmux $procmux$3386.
+    dead port 2/4 on $pmux $procmux$3386.
+    dead port 3/4 on $pmux $procmux$3386.
+    dead port 4/4 on $pmux $procmux$3386.
+    dead port 2/2 on $mux $procmux$3372.
+    dead port 2/2 on $mux $procmux$3366.
+    dead port 2/2 on $mux $procmux$3364.
+    dead port 1/4 on $pmux $procmux$3355.
+    dead port 2/4 on $pmux $procmux$3355.
+    dead port 3/4 on $pmux $procmux$3355.
+    dead port 4/4 on $pmux $procmux$3355.
+    dead port 2/2 on $mux $procmux$3341.
+    dead port 2/2 on $mux $procmux$3335.
+    dead port 2/2 on $mux $procmux$3333.
+    dead port 1/2 on $mux $procmux$3323.
+    dead port 1/2 on $mux $procmux$3317.
+    dead port 1/2 on $mux $procmux$3314.
+    dead port 2/2 on $mux $procmux$3807.
+    dead port 1/4 on $pmux $procmux$3798.
+    dead port 2/4 on $pmux $procmux$3798.
+    dead port 3/4 on $pmux $procmux$3798.
+    dead port 4/4 on $pmux $procmux$3798.
+    dead port 2/2 on $mux $procmux$3722.
+    dead port 1/4 on $pmux $procmux$3736.
+    dead port 2/4 on $pmux $procmux$3736.
+    dead port 3/4 on $pmux $procmux$3736.
+    dead port 4/4 on $pmux $procmux$3736.
+    dead port 2/2 on $mux $procmux$3753.
+    dead port 2/2 on $mux $procmux$3716.
+    dead port 2/2 on $mux $procmux$3784.
+    dead port 2/2 on $mux $procmux$3714.
+    dead port 2/2 on $mux $procmux$3747.
+    dead port 2/2 on $mux $procmux$3778.
+    dead port 2/2 on $mux $procmux$3776.
+    dead port 2/2 on $mux $procmux$3745.
+    dead port 1/4 on $pmux $procmux$3767.
+    dead port 2/4 on $pmux $procmux$3767.
+    dead port 3/4 on $pmux $procmux$3767.
+    dead port 4/4 on $pmux $procmux$3767.
+    dead port 1/4 on $pmux $procmux$3829.
+    dead port 2/4 on $pmux $procmux$3829.
+    dead port 3/4 on $pmux $procmux$3829.
+    dead port 4/4 on $pmux $procmux$3829.
+    dead port 2/2 on $mux $procmux$3815.
+    dead port 2/2 on $mux $procmux$3809.
+Running muxtree optimizer on module \epv32_core_noepv..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \epv32_muldiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$4294: \running -> 1'0
+      Replacing known input bits on port A of cell $procmux$4292: \running -> 1'1
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_rf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_alu..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$4386: \mem_x_phase -> 1'0
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$5066.
+    dead port 2/2 on $mux $procmux$5063.
+    dead port 1/2 on $mux $procmux$5054.
+    dead port 2/2 on $mux $procmux$5051.
+    dead port 1/2 on $mux $procmux$5042.
+    dead port 2/2 on $mux $procmux$5039.
+    dead port 1/2 on $mux $procmux$5030.
+    dead port 2/2 on $mux $procmux$5027.
+    dead port 1/2 on $mux $procmux$5025.
+    dead port 1/2 on $mux $procmux$5009.
+    dead port 2/2 on $mux $procmux$5006.
+    dead port 1/2 on $mux $procmux$4999.
+    dead port 2/2 on $mux $procmux$4996.
+    dead port 1/2 on $mux $procmux$4989.
+    dead port 2/2 on $mux $procmux$4986.
+    dead port 1/2 on $mux $procmux$4979.
+    dead port 2/2 on $mux $procmux$4976.
+    dead port 1/2 on $mux $procmux$4969.
+    dead port 2/2 on $mux $procmux$4966.
+    dead port 1/2 on $mux $procmux$4959.
+    dead port 2/2 on $mux $procmux$4956.
+    dead port 1/2 on $mux $procmux$4949.
+    dead port 2/2 on $mux $procmux$4946.
+    dead port 1/2 on $mux $procmux$4939.
+    dead port 2/2 on $mux $procmux$4939.
+    dead port 1/2 on $mux $procmux$4936.
+    dead port 2/2 on $mux $procmux$4936.
+    dead port 1/2 on $mux $procmux$4934.
+    dead port 2/2 on $mux $procmux$4934.
+    dead port 1/2 on $mux $procmux$4929.
+    dead port 2/2 on $mux $procmux$4926.
+    dead port 2/2 on $mux $procmux$4924.
+    dead port 1/2 on $mux $procmux$4916.
+    dead port 2/2 on $mux $procmux$4913.
+    dead port 2/2 on $mux $procmux$4911.
+    dead port 1/2 on $mux $procmux$4903.
+    dead port 2/2 on $mux $procmux$4903.
+    dead port 1/2 on $mux $procmux$4900.
+    dead port 2/2 on $mux $procmux$4900.
+    dead port 1/2 on $mux $procmux$4898.
+    dead port 2/2 on $mux $procmux$4898.
+    dead port 1/2 on $mux $procmux$4896.
+    dead port 2/2 on $mux $procmux$4896.
+    dead port 1/2 on $mux $procmux$4890.
+    dead port 2/2 on $mux $procmux$4887.
+    dead port 2/2 on $mux $procmux$4885.
+    dead port 1/2 on $mux $procmux$4877.
+    dead port 2/2 on $mux $procmux$4874.
+    dead port 2/2 on $mux $procmux$4872.
+    dead port 1/2 on $mux $procmux$4870.
+    dead port 1/2 on $mux $procmux$4861.
+    dead port 2/2 on $mux $procmux$4861.
+    dead port 1/2 on $mux $procmux$4858.
+    dead port 2/2 on $mux $procmux$4858.
+    dead port 1/2 on $mux $procmux$4856.
+    dead port 2/2 on $mux $procmux$4856.
+    dead port 1/2 on $mux $procmux$4854.
+    dead port 2/2 on $mux $procmux$4854.
+    dead port 1/2 on $mux $procmux$4851.
+    dead port 2/2 on $mux $procmux$4851.
+    dead port 1/2 on $mux $procmux$4845.
+    dead port 2/2 on $mux $procmux$4842.
+    dead port 2/2 on $mux $procmux$4840.
+    dead port 1/2 on $mux $procmux$4838.
+    dead port 1/2 on $mux $procmux$4829.
+    dead port 2/2 on $mux $procmux$4829.
+    dead port 1/2 on $mux $procmux$4826.
+    dead port 2/2 on $mux $procmux$4826.
+    dead port 1/2 on $mux $procmux$4824.
+    dead port 2/2 on $mux $procmux$4824.
+    dead port 1/2 on $mux $procmux$4822.
+    dead port 2/2 on $mux $procmux$4822.
+    dead port 1/2 on $mux $procmux$4819.
+    dead port 2/2 on $mux $procmux$4819.
+    dead port 1/2 on $mux $procmux$4816.
+    dead port 2/2 on $mux $procmux$4816.
+    dead port 1/2 on $mux $procmux$4810.
+    dead port 2/2 on $mux $procmux$4807.
+    dead port 2/2 on $mux $procmux$4805.
+    dead port 1/2 on $mux $procmux$4803.
+    dead port 1/2 on $mux $procmux$4800.
+    dead port 1/2 on $mux $procmux$4791.
+    dead port 2/2 on $mux $procmux$4788.
+    dead port 1/2 on $mux $procmux$4580.
+    dead port 1/2 on $mux $procmux$4574.
+    dead port 1/2 on $mux $procmux$4568.
+    dead port 1/2 on $mux $procmux$4565.
+    dead port 1/2 on $mux $procmux$4559.
+    dead port 1/2 on $mux $procmux$4556.
+    dead port 1/2 on $mux $procmux$4550.
+    dead port 1/2 on $mux $procmux$4547.
+    dead port 1/2 on $mux $procmux$4544.
+    dead port 1/2 on $mux $procmux$4538.
+    dead port 1/2 on $mux $procmux$4535.
+    dead port 1/2 on $mux $procmux$4532.
+    dead port 1/2 on $mux $procmux$4526.
+    dead port 1/2 on $mux $procmux$4523.
+    dead port 1/2 on $mux $procmux$4520.
+    dead port 1/2 on $mux $procmux$4517.
+    dead port 1/2 on $mux $procmux$4511.
+    dead port 1/2 on $mux $procmux$4508.
+    dead port 1/2 on $mux $procmux$4505.
+    dead port 1/2 on $mux $procmux$4502.
+    dead port 1/2 on $mux $procmux$4496.
+    dead port 1/2 on $mux $procmux$4493.
+    dead port 1/2 on $mux $procmux$4490.
+    dead port 1/2 on $mux $procmux$4487.
+    dead port 1/2 on $mux $procmux$4484.
+    dead port 1/2 on $mux $procmux$4478.
+    dead port 1/2 on $mux $procmux$4475.
+    dead port 1/2 on $mux $procmux$4472.
+    dead port 1/2 on $mux $procmux$4469.
+    dead port 1/2 on $mux $procmux$4466.
+    dead port 1/2 on $mux $procmux$4460.
+    dead port 1/2 on $mux $procmux$4457.
+    dead port 1/2 on $mux $procmux$4454.
+    dead port 1/2 on $mux $procmux$4451.
+    dead port 1/2 on $mux $procmux$4448.
+    dead port 1/2 on $mux $procmux$4445.
+    dead port 1/2 on $mux $procmux$4439.
+    dead port 1/2 on $mux $procmux$4436.
+    dead port 1/2 on $mux $procmux$4433.
+    dead port 1/2 on $mux $procmux$4430.
+    dead port 1/2 on $mux $procmux$4427.
+    dead port 1/2 on $mux $procmux$4424.
+    dead port 1/2 on $mux $procmux$5347.
+    dead port 2/2 on $mux $procmux$5347.
+    dead port 1/2 on $mux $procmux$5323.
+    dead port 1/2 on $mux $procmux$5311.
+    dead port 1/2 on $mux $procmux$5300.
+    dead port 1/2 on $mux $ternary$rtl/epv32_core.v:528$3064.
+    dead port 2/2 on $mux $ternary$rtl/epv32_core.v:528$3064.
+    dead port 1/2 on $mux $procmux$5288.
+    dead port 1/2 on $mux $procmux$5279.
+    dead port 1/2 on $mux $procmux$5273.
+    dead port 1/2 on $mux $procmux$5266.
+    dead port 1/2 on $mux $procmux$5251.
+    dead port 1/2 on $mux $procmux$5238.
+    dead port 1/2 on $mux $procmux$5223.
+    dead port 1/2 on $mux $procmux$5208.
+    dead port 1/2 on $mux $procmux$5201.
+    dead port 1/2 on $mux $procmux$5194.
+    dead port 1/2 on $mux $procmux$5187.
+    dead port 2/2 on $mux $procmux$5187.
+    dead port 1/2 on $mux $procmux$5184.
+    dead port 2/2 on $mux $procmux$5184.
+    dead port 1/2 on $mux $procmux$5085.
+    dead port 1/2 on $mux $procmux$5180.
+    dead port 1/2 on $mux $procmux$5164.
+    dead port 2/2 on $mux $procmux$5082.
+    dead port 1/2 on $mux $procmux$5152.
+    dead port 1/2 on $mux $procmux$5143.
+    dead port 1/2 on $mux $procmux$5129.
+    dead port 1/2 on $mux $procmux$5112.
+    dead port 1/2 on $mux $procmux$5100.
+Removed 270 multiplexer ports.
+<suppressed ~1384 debug messages>
+
+10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+    New ctrl vector for $pmux cell $procmux$4265: { $procmux$4266_CMP $auto$opt_reduce.cc:137:opt_pmux$5909 $auto$opt_reduce.cc:137:opt_pmux$5907 $auto$opt_reduce.cc:137:opt_pmux$5905 $auto$opt_reduce.cc:137:opt_pmux$5903 $procmux$4275_CMP $procmux$4276_CMP $procmux$4277_CMP $procmux$4278_CMP $procmux$4279_CMP $procmux$4280_CMP $procmux$4281_CMP $procmux$4282_CMP $procmux$4283_CMP $procmux$4284_CMP $procmux$4285_CMP $procmux$4286_CMP $procmux$4287_CMP $procmux$4288_CMP $procmux$4289_CMP $procmux$4290_CMP }
+  Optimizing cells in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+  Optimizing cells in module \epv32_core_noepv.
+  Optimizing cells in module \epv32_muldiv.
+  Optimizing cells in module \epv32_rf.
+    Consolidated identical input bits for $mux cell $procmux$4342:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$procmux$4342_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$4342_Y [0]
+      New connections: $procmux$4342_Y [31:1] = { $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] $procmux$4342_Y [0] }
+  Optimizing cells in module \epv32_rf.
+  Optimizing cells in module \epv32_alu.
+  Optimizing cells in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+    New ctrl vector for $pmux cell $procmux$5296: $auto$opt_reduce.cc:137:opt_pmux$5911
+    New ctrl vector for $pmux cell $procmux$5088: { $auto$opt_reduce.cc:137:opt_pmux$5913 $procmux$5271_CMP $procmux$5286_CMP $procmux$5157_CMP $procmux$5249_CMP }
+    New ctrl vector for $pmux cell $procmux$5262: $auto$opt_reduce.cc:137:opt_pmux$5915
+    New ctrl vector for $pmux cell $procmux$5234: $auto$opt_reduce.cc:137:opt_pmux$5917
+    New ctrl vector for $pmux cell $procmux$5176: $auto$opt_reduce.cc:137:opt_pmux$5919
+    New ctrl vector for $pmux cell $procmux$5155: $auto$opt_reduce.cc:137:opt_pmux$5921
+    New ctrl vector for $pmux cell $procmux$5132: { $procmux$5089_CTRL $procmux$5271_CMP $auto$opt_reduce.cc:137:opt_pmux$5923 }
+    New ctrl vector for $pmux cell $procmux$5104: { $procmux$5271_CMP $procmux$5309_CMP $procmux$5249_CMP $procmux$5264_CMP $auto$opt_reduce.cc:137:opt_pmux$5925 }
+    New input vector for $reduce_or cell $auto$opt_reduce.cc:131:opt_pmux$5912: { $procmux$5321_CMP $procmux$5309_CMP $procmux$5277_CMP $procmux$5264_CMP $procmux$5263_CMP $procmux$5178_CMP }
+    New input vector for $reduce_or cell $auto$opt_reduce.cc:131:opt_pmux$5920: { $procmux$5321_CMP $procmux$5309_CMP $procmux$5277_CMP $procmux$5264_CMP $procmux$5263_CMP $procmux$5178_CMP $procmux$5157_CMP }
+  Optimizing cells in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Performed a total of 13 changes.
+
+10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 403 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 390 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 385 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 380 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 375 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 373 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 371 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 369 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 367 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 365 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 363 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 361 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 359 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 357 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+<suppressed ~138 debug messages>
+Finding identical cells in module `\epv32_core_noepv'.
+Computing hashes of 2 cells of `\epv32_core_noepv'.
+Finding duplicate cells in `\epv32_core_noepv'.
+Finding identical cells in module `\epv32_muldiv'.
+Computing hashes of 95 cells of `\epv32_muldiv'.
+Finding duplicate cells in `\epv32_muldiv'.
+Finding identical cells in module `\epv32_rf'.
+Computing hashes of 53 cells of `\epv32_rf'.
+Finding duplicate cells in `\epv32_rf'.
+Finding identical cells in module `\epv32_alu'.
+Computing hashes of 32 cells of `\epv32_alu'.
+Finding duplicate cells in `\epv32_alu'.
+Finding identical cells in module `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 639 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 636 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 635 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 634 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 633 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+<suppressed ~18 debug messages>
+Removed a total of 52 cells.
+
+10.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$5502 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $and$rtl/epv32_csr.v:304$2313_Y, Q = \pmpaddr[0]).
+Adding EN signal on $procdff$5512 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $and$rtl/epv32_csr.v:306$2317_Y, Q = \pmpaddr[2]).
+Adding EN signal on $procdff$5462 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $procmux$4134_Y, Q = \mtval).
+Adding EN signal on $procdff$5427 ($dff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = { \i_is_irq 26'00000000000000000000000000 \i_cause }, Q = \o_dbg_mcause).
+Adding EN signal on $procdff$5457 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $procmux$4154_Y, Q = \mcause).
+Adding EN signal on $procdff$5497 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $and$rtl/epv32_csr.v:302$2311_Y [7:1], Q = \pmpcfg[3] [7:1]).
+Adding EN signal on $procdff$5497 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $procmux$4015_Y [0], Q = \pmpcfg[3] [0]).
+Adding EN signal on $procdff$5452 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $procmux$4175_Y, Q = \mepc).
+Adding EN signal on $procdff$5517 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $and$rtl/epv32_csr.v:307$2319_Y, Q = \pmpaddr[3]).
+Adding EN signal on $procdff$5482 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $and$rtl/epv32_csr.v:299$2305_Y [7:1], Q = \pmpcfg[0] [7:1]).
+Adding EN signal on $procdff$5482 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $procmux$4063_Y [0], Q = \pmpcfg[0] [0]).
+Adding EN signal on $procdff$5447 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $ternary$rtl/epv32_csr.v:243$2293_Y, Q = \mscratch).
+Adding EN signal on $procdff$5487 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $and$rtl/epv32_csr.v:300$2307_Y [7:1], Q = \pmpcfg[1] [7:1]).
+Adding EN signal on $procdff$5487 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $procmux$4047_Y [0], Q = \pmpcfg[1] [0]).
+Adding EN signal on $procdff$5507 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $and$rtl/epv32_csr.v:305$2315_Y, Q = \pmpaddr[1]).
+Adding EN signal on $procdff$5477 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $and$rtl/epv32_csr.v:285$2303_Y, Q = \mcountinhibit).
+Adding EN signal on $procdff$5492 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $and$rtl/epv32_csr.v:301$2309_Y [7:1], Q = \pmpcfg[2] [7:1]).
+Adding EN signal on $procdff$5492 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $procmux$4031_Y [0], Q = \pmpcfg[2] [0]).
+Adding EN signal on $procdff$5432 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = { \mstatus [31:13] \mstatus [10:8] \mstatus [6:4] \mstatus [2:0] }, Q = { \mstatus [31:13] \mstatus [10:8] \mstatus [6:4] \mstatus [2:0] }).
+Adding EN signal on $procdff$5432 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = { $procmux$3915_Y $procmux$3941_Y $procmux$3967_Y }, Q = { \mstatus [12:11] \mstatus [7] \mstatus [3] }).
+Handling D = Q on $auto$ff.cc:337:slice$6070 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (removing D path).
+Adding EN signal on $procdff$5437 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $ternary$rtl/epv32_csr.v:243$2293_Y, Q = \mie).
+Adding EN signal on $procdff$5442 ($adff) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr (D = $ternary$rtl/epv32_csr.v:243$2293_Y, Q = \mtvec).
+Setting constant 0-bit at position 0 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 1 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 2 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 3 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 4 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 5 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 6 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 7 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 8 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 9 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 10 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 11 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 12 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 13 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 14 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 15 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 16 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 17 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 18 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 19 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 20 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 21 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 22 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 23 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 24 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 25 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 26 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 27 on $auto$ff.cc:337:slice$6070 ($dlatch) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 5 on $auto$ff.cc:337:slice$6054 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 6 on $auto$ff.cc:337:slice$6054 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 5 on $auto$ff.cc:337:slice$6022 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 6 on $auto$ff.cc:337:slice$6022 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 5 on $auto$ff.cc:337:slice$5999 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 6 on $auto$ff.cc:337:slice$5999 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 5 on $auto$ff.cc:337:slice$5965 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 6 on $auto$ff.cc:337:slice$5965 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 1 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 3 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 4 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 5 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 6 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 7 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 8 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 9 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 10 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 11 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 12 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 13 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 14 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 15 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 16 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 17 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 18 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 19 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 20 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 21 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 22 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 23 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 24 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 25 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 26 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 27 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 28 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 29 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 30 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 31 on $auto$ff.cc:337:slice$6047 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 30 on $auto$ff.cc:337:slice$6038 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 31 on $auto$ff.cc:337:slice$6038 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 30 on $auto$ff.cc:337:slice$5990 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 31 on $auto$ff.cc:337:slice$5990 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 5 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 6 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 7 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 8 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 9 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 10 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 11 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 12 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 13 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 14 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 15 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 16 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 17 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 18 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 19 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 20 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 21 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 22 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 23 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 24 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 25 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 26 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 27 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 28 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 29 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 30 on $auto$ff.cc:337:slice$5953 ($dffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 30 on $auto$ff.cc:337:slice$5935 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 31 on $auto$ff.cc:337:slice$5935 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 30 on $auto$ff.cc:337:slice$5926 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Setting constant 0-bit at position 31 on $auto$ff.cc:337:slice$5926 ($adffe) from module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Adding EN signal on $procdff$5522 ($adff) from module epv32_muldiv (D = $ternary$rtl/epv32_muldiv.v:71$728_Y, Q = \dvnd_abs).
+Adding EN signal on $procdff$5572 ($adff) from module epv32_muldiv (D = $procmux$4305_Y, Q = \cnt).
+Adding EN signal on $procdff$5527 ($adff) from module epv32_muldiv (D = \i_a, Q = \dvnd_raw).
+Adding EN signal on $procdff$5567 ($adff) from module epv32_muldiv (D = $procmux$4310_Y, Q = \quo).
+Adding EN signal on $procdff$5562 ($adff) from module epv32_muldiv (D = $procmux$4315_Y, Q = \rem).
+Adding EN signal on $procdff$5542 ($adff) from module epv32_muldiv (D = $logic_and$rtl/epv32_muldiv.v:73$736_Y, Q = \negq_r).
+Adding EN signal on $procdff$5532 ($adff) from module epv32_muldiv (D = $ternary$rtl/epv32_muldiv.v:72$733_Y, Q = \dvrs_abs).
+Adding EN signal on $procdff$5547 ($adff) from module epv32_muldiv (D = $eq$rtl/epv32_muldiv.v:75$742_Y, Q = \zer_r).
+Adding EN signal on $procdff$5537 ($adff) from module epv32_muldiv (D = $logic_and$rtl/epv32_muldiv.v:110$754_Y, Q = \rsign_r).
+Adding EN signal on $procdff$5557 ($adff) from module epv32_muldiv (D = $logic_or$rtl/epv32_muldiv.v:53$706_Y, Q = \is_rem_r).
+Adding EN signal on $procdff$5552 ($adff) from module epv32_muldiv (D = $logic_and$rtl/epv32_muldiv.v:74$741_Y, Q = \ovf_r).
+Adding EN signal on $procdff$5690 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $ternary$rtl/epv32_core.v:604$3137_Y, Q = \pc_q).
+Adding EN signal on $procdff$5805 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \ifid_inst [31:25], Q = \idex_f7).
+Adding EN signal on $procdff$5730 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4743_Y, Q = \idex_is_csr).
+Adding EN signal on $procdff$5750 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4719_Y, Q = \idex_illegal).
+Adding EN signal on $procdff$5695 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4589_Y, Q = \idex_valid).
+Adding EN signal on $procdff$5870 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$5399_Y, Q = \ifid_pc4).
+Adding EN signal on $procdff$5845 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4607_Y, Q = \idex_inst).
+Adding EN signal on $procdff$5810 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \ifid_inst [6:0], Q = \idex_opcode).
+Adding EN signal on $procdff$5900 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $add$rtl/epv32_core.v:207$2782_Y, Q = \o_dbg_trap_cnt).
+Adding EN signal on $procdff$5700 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4779_Y, Q = \idex_reg_write).
+Adding EN signal on $procdff$5635 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \i_dmem_rdata, Q = \mem_x_lo).
+Adding EN signal on $procdff$5735 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4737_Y, Q = \idex_is_jmp).
+Adding EN signal on $procdff$5835 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \ifid_pc4, Q = \idex_pc4).
+Adding EN signal on $procdff$5640 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $logic_and$rtl/epv32_core.v:554$3113_Y, Q = \exmem_valid).
+Adding EN signal on $procdff$5860 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$5409_Y, Q = \ifid_valid).
+Adding EN signal on $procdff$5705 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4773_Y, Q = \idex_mem_read).
+Adding EN signal on $procdff$5815 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \ifid_inst [11:7], Q = \idex_rd).
+Adding EN signal on $procdff$5645 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $logic_and$rtl/epv32_core.v:638$3146_Y, Q = \exmem_reg_write).
+Adding EN signal on $procdff$5800 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \ifid_inst [14:12], Q = \idex_f3).
+Adding EN signal on $procdff$5885 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \c_tval, Q = \o_dbg_mtval).
+Adding EN signal on $procdff$5760 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4707_Y, Q = \idex_do_ecall).
+Adding EN signal on $procdff$5650 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $logic_and$rtl/epv32_core.v:639$3147_Y, Q = \exmem_mem_read).
+Adding EN signal on $procdff$5710 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4767_Y, Q = \idex_mem_write).
+Adding EN signal on $procdff$5775 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \d_alu_op, Q = \idex_alu_op).
+Adding EN signal on $procdff$5740 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4731_Y, Q = \idex_is_br).
+Adding EN signal on $procdff$5655 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $logic_and$rtl/epv32_core.v:640$3148_Y, Q = \exmem_mem_write).
+Adding EN signal on $procdff$5880 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \idex_pc, Q = \o_dbg_mepc).
+Adding EN signal on $procdff$5820 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \ifid_inst [19:15], Q = \idex_rs1).
+Adding EN signal on $procdff$5660 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \idex_rd, Q = \exmem_rd).
+Adding EN signal on $procdff$5715 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4761_Y, Q = \idex_is_ldst).
+Adding EN signal on $procdff$5755 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4713_Y, Q = \idex_do_ebreak).
+Adding EN signal on $procdff$5665 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \idex_f3, Q = \exmem_f3).
+Adding EN signal on $procdff$5840 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \d_imm, Q = \idex_imm).
+Adding EN signal on $procdff$5890 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \csr_dbg_mcause, Q = \o_dbg_mcause).
+Adding EN signal on $procdff$5875 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$5394_Y, Q = \ifid_inst).
+Adding EN signal on $procdff$5685 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \idex_pc, Q = \exmem_pc).
+Adding EN signal on $procdff$5670 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $ternary$rtl/epv32_core.v:547$3107_Y, Q = \exmem_result).
+Adding EN signal on $procdff$5785 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \d_a_immu, Q = \idex_a_immu).
+Adding EN signal on $procdff$5895 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \idex_inst, Q = \o_dbg_last_inst).
+Adding EN signal on $procdff$5865 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$5404_Y, Q = \ifid_pc).
+Adding EN signal on $procdff$5745 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4725_Y, Q = \idex_wr_pc4).
+Adding EN signal on $procdff$5850 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \rf_r1, Q = \idex_r1d).
+Adding EN signal on $procdff$5720 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4755_Y, Q = \idex_is_md).
+Adding EN signal on $procdff$5780 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \d_a_pc, Q = \idex_a_pc).
+Adding EN signal on $procdff$5825 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \ifid_inst [24:20], Q = \idex_rs2).
+Adding EN signal on $procdff$5770 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4695_Y, Q = \idex_jal_is).
+Adding EN signal on $procdff$5790 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \d_b_imm, Q = \idex_b_imm).
+Adding EN signal on $procdff$5680 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \alu_y, Q = \exmem_addr).
+Adding EN signal on $procdff$5830 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \ifid_pc, Q = \idex_pc).
+Adding EN signal on $procdff$5765 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4701_Y, Q = \idex_do_mret).
+Adding EN signal on $procdff$5855 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \rf_r2, Q = \idex_r2d).
+Adding EN signal on $procdff$5725 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $procmux$4749_Y, Q = \idex_is_epv).
+Adding EN signal on $procdff$5675 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = $ternary$rtl/epv32_core.v:411$2975_Y, Q = \exmem_rs2).
+Adding EN signal on $procdff$5795 ($adff) from module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000 (D = \d_md_op, Q = \idex_md_op).
+
+10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr..
+Finding unused cells or wires in module \epv32_core_noepv..
+Finding unused cells or wires in module \epv32_muldiv..
+Finding unused cells or wires in module \epv32_rf..
+Finding unused cells or wires in module \epv32_alu..
+Finding unused cells or wires in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000..
+Removed 166 unused cells and 2239 unused wires.
+<suppressed ~182 debug messages>
+
+10.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+<suppressed ~8 debug messages>
+Optimizing module epv32_core_noepv.
+Optimizing module epv32_muldiv.
+<suppressed ~3 debug messages>
+Optimizing module epv32_rf.
+Optimizing module epv32_alu.
+Optimizing module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+
+10.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_core_noepv..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \epv32_muldiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_rf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_alu..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~602 debug messages>
+
+10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+  Optimizing cells in module \epv32_core_noepv.
+  Optimizing cells in module \epv32_muldiv.
+  Optimizing cells in module \epv32_rf.
+  Optimizing cells in module \epv32_alu.
+  Optimizing cells in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Performed a total of 0 changes.
+
+10.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 373 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 335 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 332 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+<suppressed ~123 debug messages>
+Finding identical cells in module `\epv32_core_noepv'.
+Computing hashes of 2 cells of `\epv32_core_noepv'.
+Finding duplicate cells in `\epv32_core_noepv'.
+Finding identical cells in module `\epv32_muldiv'.
+Computing hashes of 87 cells of `\epv32_muldiv'.
+Finding duplicate cells in `\epv32_muldiv'.
+Computing hashes of 85 cells of `\epv32_muldiv'.
+Finding duplicate cells in `\epv32_muldiv'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\epv32_rf'.
+Computing hashes of 50 cells of `\epv32_rf'.
+Finding duplicate cells in `\epv32_rf'.
+Finding identical cells in module `\epv32_alu'.
+Computing hashes of 32 cells of `\epv32_alu'.
+Finding duplicate cells in `\epv32_alu'.
+Finding identical cells in module `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 589 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 561 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 550 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+<suppressed ~117 debug messages>
+Removed a total of 82 cells.
+
+10.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr..
+Finding unused cells or wires in module \epv32_core_noepv..
+Finding unused cells or wires in module \epv32_muldiv..
+Finding unused cells or wires in module \epv32_rf..
+Finding unused cells or wires in module \epv32_alu..
+Finding unused cells or wires in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000..
+Removed 0 unused cells and 81 unused wires.
+<suppressed ~3 debug messages>
+
+10.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Optimizing module epv32_core_noepv.
+Optimizing module epv32_muldiv.
+Optimizing module epv32_rf.
+Optimizing module epv32_alu.
+Optimizing module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+
+10.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_core_noepv..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \epv32_muldiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_rf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_alu..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~610 debug messages>
+
+10.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+  Optimizing cells in module \epv32_core_noepv.
+  Optimizing cells in module \epv32_muldiv.
+  Optimizing cells in module \epv32_rf.
+  Optimizing cells in module \epv32_alu.
+  Optimizing cells in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Performed a total of 0 changes.
+
+10.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 332 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding identical cells in module `\epv32_core_noepv'.
+Computing hashes of 2 cells of `\epv32_core_noepv'.
+Finding duplicate cells in `\epv32_core_noepv'.
+Finding identical cells in module `\epv32_muldiv'.
+Computing hashes of 85 cells of `\epv32_muldiv'.
+Finding duplicate cells in `\epv32_muldiv'.
+Finding identical cells in module `\epv32_rf'.
+Computing hashes of 50 cells of `\epv32_rf'.
+Finding duplicate cells in `\epv32_rf'.
+Finding identical cells in module `\epv32_alu'.
+Computing hashes of 32 cells of `\epv32_alu'.
+Finding duplicate cells in `\epv32_alu'.
+Finding identical cells in module `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 550 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Removed a total of 0 cells.
+
+10.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr..
+Finding unused cells or wires in module \epv32_core_noepv..
+Finding unused cells or wires in module \epv32_muldiv..
+Finding unused cells or wires in module \epv32_rf..
+Finding unused cells or wires in module \epv32_alu..
+Finding unused cells or wires in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000..
+
+10.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Optimizing module epv32_core_noepv.
+Optimizing module epv32_muldiv.
+Optimizing module epv32_rf.
+Optimizing module epv32_alu.
+Optimizing module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+
+10.23. Finished fast OPT passes. (There is nothing left to do.)
+
+11. Executing MEMORY pass.
+
+11.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+11.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+11.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+  Analyzing epv32_rf.rf write port 0.
+
+11.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+11.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `\rf'[0] in module `\epv32_rf': no output FF found.
+Checking read port `\rf'[1] in module `\epv32_rf': no output FF found.
+Checking read port address `\rf'[0] in module `\epv32_rf': no address FF found.
+Checking read port address `\rf'[1] in module `\epv32_rf': no address FF found.
+
+11.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr..
+Finding unused cells or wires in module \epv32_core_noepv..
+Finding unused cells or wires in module \epv32_muldiv..
+Finding unused cells or wires in module \epv32_rf..
+Finding unused cells or wires in module \epv32_alu..
+Finding unused cells or wires in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000..
+
+11.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+Consolidating read ports of memory epv32_rf.rf by address:
+
+11.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+11.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr..
+Finding unused cells or wires in module \epv32_core_noepv..
+Finding unused cells or wires in module \epv32_muldiv..
+Finding unused cells or wires in module \epv32_rf..
+Finding unused cells or wires in module \epv32_alu..
+Finding unused cells or wires in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000..
+
+11.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+12. Executing OPT pass (performing simple optimizations).
+
+12.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Optimizing module epv32_core_noepv.
+Optimizing module epv32_muldiv.
+Optimizing module epv32_rf.
+Optimizing module epv32_alu.
+Optimizing module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+
+12.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 332 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding identical cells in module `\epv32_core_noepv'.
+Computing hashes of 2 cells of `\epv32_core_noepv'.
+Finding duplicate cells in `\epv32_core_noepv'.
+Finding identical cells in module `\epv32_muldiv'.
+Computing hashes of 85 cells of `\epv32_muldiv'.
+Finding duplicate cells in `\epv32_muldiv'.
+Finding identical cells in module `\epv32_rf'.
+Computing hashes of 16 cells of `\epv32_rf'.
+Finding duplicate cells in `\epv32_rf'.
+Finding identical cells in module `\epv32_alu'.
+Computing hashes of 32 cells of `\epv32_alu'.
+Finding duplicate cells in `\epv32_alu'.
+Finding identical cells in module `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 550 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Removed a total of 0 cells.
+
+12.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_core_noepv..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \epv32_muldiv..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_rf..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \epv32_alu..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~610 debug messages>
+
+12.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+  Optimizing cells in module \epv32_core_noepv.
+  Optimizing cells in module \epv32_muldiv.
+  Optimizing cells in module \epv32_rf.
+  Optimizing cells in module \epv32_alu.
+  Optimizing cells in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+Performed a total of 0 changes.
+
+12.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Computing hashes of 332 cells of `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding duplicate cells in `$paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr'.
+Finding identical cells in module `\epv32_core_noepv'.
+Computing hashes of 2 cells of `\epv32_core_noepv'.
+Finding duplicate cells in `\epv32_core_noepv'.
+Finding identical cells in module `\epv32_muldiv'.
+Computing hashes of 85 cells of `\epv32_muldiv'.
+Finding duplicate cells in `\epv32_muldiv'.
+Finding identical cells in module `\epv32_rf'.
+Computing hashes of 16 cells of `\epv32_rf'.
+Finding duplicate cells in `\epv32_rf'.
+Finding identical cells in module `\epv32_alu'.
+Computing hashes of 32 cells of `\epv32_alu'.
+Finding duplicate cells in `\epv32_alu'.
+Finding identical cells in module `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Computing hashes of 550 cells of `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Finding duplicate cells in `$paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000'.
+Removed a total of 0 cells.
+
+12.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+12.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr..
+Finding unused cells or wires in module \epv32_core_noepv..
+Finding unused cells or wires in module \epv32_muldiv..
+Finding unused cells or wires in module \epv32_rf..
+Finding unused cells or wires in module \epv32_alu..
+Finding unused cells or wires in module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000..
+
+12.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Optimizing module epv32_core_noepv.
+Optimizing module epv32_muldiv.
+Optimizing module epv32_rf.
+Optimizing module epv32_alu.
+Optimizing module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+
+12.9. Finished fast OPT passes. (There is nothing left to do.)
+
+13. Executing FLATTEN pass (flatten design).
+Deleting now unused module $paramod$fec0b1c0ac84279e36f631b2ba55d7d75a0a4a3b\epv32_csr.
+Deleting now unused module epv32_muldiv.
+Deleting now unused module epv32_rf.
+Deleting now unused module epv32_alu.
+Deleting now unused module $paramod\epv32_core\EPV_ENABLE=s32'00000000000000000000000000000000.
+<suppressed ~5 debug messages>
+
+14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \epv32_core_noepv..
+Removed 7 unused cells and 264 unused wires.
+<suppressed ~265 debug messages>
+
+15. Printing statistics.
+
+=== epv32_core_noepv ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     1009 wires
+     9301 wire bits
+      249 public wires
+     3553 public wire bits
+       31 ports
+      537 port bits
+     1010 cells
+        1   $add_30
+       15   $add_32
+        2   $add_4
+        1   $add_6
+        2   $add_64
+        5   $adff_1
+        4   $adff_32
+        1   $adff_4
+        1   $adff_5
+        2   $adff_64
+       31   $adffe_1
+        1   $adffe_2
+        3   $adffe_3
+        4   $adffe_30
+       29   $adffe_32
+        1   $adffe_33
+        2   $adffe_4
+        8   $adffe_5
+        1   $adffe_6
+        4   $and_1
+        8   $and_30
+        3   $and_32
+        1   $and_4
+        1   $dffe_6
+       31   $eq_12
+       12   $eq_2
+       24   $eq_3
+        8   $eq_30
+        2   $eq_32
+       10   $eq_4
+        8   $eq_5
+        1   $eq_6
+       14   $eq_7
+        8   $ge_30
+       20   $ge_32
+        1   $ge_33
+        1   $gt_3
+        2   $gt_4
+       20   $le_32
+      132   $logic_and_1
+       30   $logic_not_1
+        1   $logic_not_12
+        4   $logic_not_2
+        4   $logic_not_3
+        8   $logic_not_30
+        3   $logic_not_32
+        1   $logic_not_4
+        2   $logic_not_5
+       60   $logic_or_1
+        8   $lt_30
+        2   $lt_32
+        1   $mem_v2
+        1   $mul_64
+      127   $mux_1
+        4   $mux_2
+        7   $mux_3
+      118   $mux_32
+        3   $mux_33
+       13   $mux_4
+       12   $mux_5
+        3   $mux_6
+        4   $mux_64
+        4   $mux_8
+        3   $ne_12
+        2   $ne_2
+        6   $ne_3
+        2   $ne_7
+       18   $not_1
+        4   $not_30
+        5   $not_32
+       25   $or_1
+        4   $or_32
+        1   $or_4
+        9   $pmux_1_3
+        1   $pmux_32_21
+        1   $pmux_32_4
+        1   $pmux_32_5
+        1   $pmux_4_5
+        2   $pmux_4_8
+        3   $reduce_and_2
+        3   $reduce_and_3
+        5   $reduce_and_4
+        8   $reduce_and_5
+        1   $reduce_bool_12
+        5   $reduce_bool_2
+        3   $reduce_bool_3
+        1   $reduce_bool_32
+        4   $reduce_bool_5
+        1   $reduce_bool_7
+        8   $reduce_or_2
+        2   $reduce_or_7
+        9   $reduce_or_8
+        1   $reduce_xor_467
+        1   $shl_32
+        2   $shl_64
+        1   $shr_33
+        2   $shr_64
+        1   $sshr_33
+        3   $sub_32
+        1   $sub_33
+        1   $sub_7
+        1   $xor_1
+        8   $xor_30
+        5   $xor_32
+
+Warnings: 3 unique messages, 5 total
+End of script. Logfile hash: 960d1c52c7
+Yosys 0.69 (git sha1 9f75ca1f9-dirty, Release, GNU E:/msys64/ucrt64/bin/g++.exe 16.2.0)
+Time spent: 3% 8x read_verilog (0 sec), 3% 7x opt_expr (0 sec), ...

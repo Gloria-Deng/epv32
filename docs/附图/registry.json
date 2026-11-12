@@ -1,0 +1,49 @@
+{
+ "figure_legends": {
+  "fig_a_operator_bars.png": "单个算子 (3x3x16 到 4 的 int8 卷积) 的两臂对比: 周期数、退休指令数、每 MAC 周期与 CPI。出处 results/bench/nn_bench.json。",
+  "fig_b_layer_stack.png": "端到端网络逐层周期数 (未训练权重, 逐层 int8 输出逐字节相同)。出处 results/bench/nn_net.json。",
+  "fig_c_device_resources.png": "国产器件 (安逻辑 EG4S20) 综合与布线后资源两档对比, 绑定约束是 DSP。出处 results/pnr/summary2.json。",
+  "fig_d_speedup_waterfall.png": "周期加速比如何被布线后 Fmax 折损成净墙钟加速。出处 results/bench/nn_bench.json 与 results/pnr/summary2.json。",
+  "fig_e_compliance.png": "官方 riscv-tests 三套件通过数与黄金 ISS 轨迹逐条一致数。出处 results/compliance/*.json 与 results/isco/*.json。",
+  "fig_f_yosys_area.png": "Yosys 通用单元口径的核面积: 开扩展/关扩展/扩展单元单独, 以及净开销对单独单元的残差。出处 results/synth/summary.json。",
+  "fig_g_cifar10_accuracy.png": "真实 CIFAR-10 测试集上的 top-1: 左格是部署口径 int8 与**同一个网络**的浮点读数 (纵轴用归档自己的小数格式, 0.4548 即 45.48%; 归档里没有 45.48 这个串, 所以图面不换算), 右格是同一套 int8 权重在核内周期精确仿真下的整网加速比 (基线标量 C 对 EPV 两臂周期)。两份归档的 top-1 先要求互等再上图。出处 results/bench/cifar10_int8.json 与 results/bench/cifar10_net.json。",
+  "fig_h_mem_penalty_curve.png": "访存代价折损曲线: 横轴 W 是每个整字总线访问多付的拍数 (0/1/2/4/8/16), 纵轴取 EPV 侧字数**上界**对应的加速比 (悲观界, 即「再怎么罚也还剩多少」)。实线只罚数据内存, 虚线同时罚取指; 两条臂在 W=0 重合于归档加速比, 只罚数据那条 随 W 单调塌到最坏角, 同时罚取指那条在 W>=4 之后基本走平 (基线臂字数远多于 EPV 臂, 加罚反而拉大比值)。单周期理想存储 只是曲线左端点, 不是一条结论。出处 results/bench/mem_sensitivity.json。"
+ },
+ "figures": [
+  {
+   "file": "fig_a_operator_bars.png",
+   "sha256": "aea6c29dd5b74496227d586b35ed73178f67ed95ca17c67c6f4e9be41f601ce1"
+  },
+  {
+   "file": "fig_b_layer_stack.png",
+   "sha256": "ae0a700d69eb528a2557d54d42ab2e1c77995f58bb3e64cef10d606f15ce7eb2"
+  },
+  {
+   "file": "fig_c_device_resources.png",
+   "sha256": "bcf34d4ac3d1dd5b2b0c0b6f765002e54ea2beb5ecead7a16e2b5127f67ec717"
+  },
+  {
+   "file": "fig_d_speedup_waterfall.png",
+   "sha256": "d928d2f77fd71abd12c785a5a17a08e0bca2b2ec7cc93b4aaf2adbf4249c1324"
+  },
+  {
+   "file": "fig_e_compliance.png",
+   "sha256": "ca981db00b5eba9632f6a9320a8b26c12c647a910ce771a5dd71f2dfafe0e114"
+  },
+  {
+   "file": "fig_f_yosys_area.png",
+   "sha256": "44b9544af41105b7de8e92650868c7c0ad125437709b5d60486bca4f7daa28e9"
+  },
+  {
+   "file": "fig_g_cifar10_accuracy.png",
+   "sha256": "d0de4a5d17054387e20508e84d66377a26052f520cd967cf3e9d42babf3a7a81"
+  },
+  {
+   "file": "fig_h_mem_penalty_curve.png",
+   "sha256": "0213a64dc59fbfa2d40fb19201e0d5ed1562af218de3593382d7e9d69a5f45bb"
+  }
+ ],
+ "generator": "flow/make_figures.py",
+ "numbers_on_figures": 82,
+ "provenance_rule": "each printed value is either verbatim in the named archive or equals a recomputed doc-gate anchor; fig_g and fig_h additionally tie every printed token to the archive key it was sliced out of (avals/ashorts)"
+}

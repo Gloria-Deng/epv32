@@ -1,0 +1,81 @@
+{
+  "suite": "rv32um",
+  "n_tests": 8,
+  "n_pass": 8,
+  "all_pass": true,
+  "march": "rv32im_zicsr_zifencei",
+  "rows": [
+    {
+      "test": "div",
+      "suite": "rv32um",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 445,
+      "retired": 138,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "divu",
+      "suite": "rv32um",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 446,
+      "retired": 139,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "mul",
+      "suite": "rv32um",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 550,
+      "retired": 501,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "mulh",
+      "suite": "rv32um",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 550,
+      "retired": 501,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "mulhsu",
+      "suite": "rv32um",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 550,
+      "retired": 501,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "mulhu",
+      "suite": "rv32um",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 550,
+      "retired": 501,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "rem",
+      "suite": "rv32um",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 445,
+      "retired": 138,
+      "stop": "TOHOST"
+    },
+    {
+      "test": "remu",
+      "suite": "rv32um",
+      "verdict": "PASS",
+      "tohost": 1,
+      "cycles": 445,
+      "retired": 138,
+      "stop": "TOHOST"
+    }
+  ]
+}
